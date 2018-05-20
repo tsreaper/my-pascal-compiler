@@ -1,13 +1,15 @@
 #ifndef MY_PASCAL_AST_LABEL_H
 #define MY_PASCAL_AST_LABEL_H
 
+#include <vector>
+
 #include "ast/ast_node.h"
 
-class ast_label_dec_part : public ast_node {
+class ast_label_dec : public ast_node {
 public:
-    ast_label_dec_part(int label, ast_node *next_dec);
+    explicit ast_label_dec(int label);
 
-    ~ast_label_dec_part() override;
+    ~ast_label_dec() override = default;
 
     bool analyse() override;
 
@@ -15,7 +17,20 @@ public:
 
 private:
     int label;
-    ast_node *next_dec;
+};
+
+class ast_label_dec_seq : public ast_node {
+public:
+    ~ast_label_dec_seq() override;
+
+    void add_label_dec(ast_label_dec* dec);
+
+    bool analyse() override;
+
+    void explain_impl(std::string &res, int indent) const override;
+
+private:
+    std::vector<ast_label_dec*> label_dec_vec;
 };
 
 #endif //MY_PASCAL_AST_LABEL_H

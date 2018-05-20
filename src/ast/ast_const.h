@@ -1,6 +1,8 @@
 #ifndef MY_PASCAL_AST_CONST_H
 #define MY_PASCAL_AST_CONST_H
 
+#include <vector>
+
 #include "ast/ast_node.h"
 #include "ast/ast_id.h"
 
@@ -19,19 +21,18 @@ private:
     ast_value_node *value;
 };
 
-class ast_const_def_part : public ast_node {
+class ast_const_def_seq : public ast_node {
 public:
-    ast_const_def_part(ast_const_def *current_def, ast_node *next_def);
+    ~ast_const_def_seq() override;
 
-    ~ast_const_def_part() override;
+    void add_const_def(ast_const_def *def);
 
     bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 
 private:
-    ast_const_def *current_def;
-    ast_node *next_def;
+    std::vector<ast_const_def*> const_def_vec;
 };
 
 #endif //MY_PASCAL_AST_CONST_H

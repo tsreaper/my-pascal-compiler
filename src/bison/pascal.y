@@ -26,6 +26,9 @@ void yyerror(const char *s);
 
     ast_literal* literal_node;
 
+    ast_label_dec_seq* label_dec_seq_node;
+
+    ast_const_def_seq* const_def_seq_node;
     ast_const_def* const_def_node;
 }
 
@@ -64,9 +67,11 @@ void yyerror(const char *s);
 
 %type <node> pascal
 
-%type <node> label_dec_part label_dec_body
+%type <node> label_dec_part
+%type <label_dec_seq_node> label_dec_body;
 
-%type <node> const_def_part const_def_body
+%type <node> const_def_part
+%type <const_def_seq_node> const_def_body
 %type <const_def_node> const_def
 %type <value_node> const
 
@@ -133,11 +138,17 @@ label_dec_part:
 
 label_dec_body:
     INT SYM_SEMICOLON {
-        $$ = new ast_label_dec_part($1, new ast_empty());
+        ast_label_dec* child = new ast_label_dec($1);
+        YY_SET_LOCATION(child);
+        $$ = new ast_label_dec_seq();
+        $$->add_label_dec(child);
         YY_SET_LOCATION($$);
     }
     | INT SYM_COMMA label_dec_body {
-        $$ = new ast_label_dec_part($1, $3);
+        ast_label_dec* child = new ast_label_dec($1);
+        YY_SET_LOCATION(child);
+        $$ = $3;
+        $$->add_label_dec(child);
         YY_SET_LOCATION($$);
     }
 ;
@@ -155,11 +166,13 @@ const_def_part:
 
 const_def_body:
     const_def SYM_SEMICOLON {
-        $$ = new ast_const_def_part($1, new ast_empty());
+        $$ = new ast_const_def_seq();
+        $$->add_const_def($1);
         YY_SET_LOCATION($$);
     }
     | const_def SYM_SEMICOLON const_def_body {
-        $$ = new ast_const_def_part($1, $3);
+        $$ = $3;
+        $$->add_const_def($1);
         YY_SET_LOCATION($$);
     }
 ;

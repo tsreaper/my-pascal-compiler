@@ -33,20 +33,27 @@ void ast_const_def::explain_impl(std::string &res, int indent) const {
     res += ")\n";
 }
 
-ast_const_def_part::ast_const_def_part(
-        ast_const_def *current_def, ast_node *next_def
-) : current_def(current_def), next_def(next_def) {}
-
-ast_const_def_part::~ast_const_def_part() {
-    delete current_def;
-    delete next_def;
+ast_const_def_seq::~ast_const_def_seq() {
+    for (auto child : const_def_vec) {
+        delete child;
+    }
 }
 
-bool ast_const_def_part::analyse() {
-    return current_def->analyse() && next_def->analyse();
+void ast_const_def_seq::add_const_def(ast_const_def *def) {
+    const_def_vec.emplace_back(def);
 }
 
-void ast_const_def_part::explain_impl(std::string &res, int indent) const {
-    current_def->explain_impl(res, indent);
-    next_def->explain_impl(res, indent);
+bool ast_const_def_seq::analyse() {
+    for (auto it = const_def_vec.rbegin(); it != const_def_vec.rend(); it++) {
+        if (!(*it)->analyse()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void ast_const_def_seq::explain_impl(std::string &res, int indent) const {
+    for (auto it = const_def_vec.rbegin(); it != const_def_vec.rend(); it++) {
+        (*it)->explain_impl(res, indent);
+    }
 }

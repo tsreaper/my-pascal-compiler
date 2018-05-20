@@ -3,7 +3,7 @@
 #include "env/env.h"
 #include "env/env_label.h"
 
-bool register_label(int label) {
+bool declare_label(int label) {
     if (label_table.find(label) != label_table.end()) {
         fprintf(stderr, "semantics error, duplicated label %d ", label);
         return false;
