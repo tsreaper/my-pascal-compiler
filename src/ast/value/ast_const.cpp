@@ -1,6 +1,6 @@
-#include "env/id/env_id.h"
+#include "env/value/env_const.h"
 #include "ast/id/ast_id.h"
-#include "ast/const/ast_const.h"
+#include "ast/value/ast_const.h"
 
 ast_const_def::ast_const_def(ast_id *id, ast_value_node *value) : id(id), value(value) {}
 

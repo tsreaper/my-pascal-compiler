@@ -33,6 +33,7 @@ void yyerror(const char *s);
     ast_const_def* const_def_node;
 
     ast_builtin_type* builtin_type_node;
+    ast_enum_type* enum_type_node;
 
     ast_type_def_seq* type_def_seq_node;
     ast_type_def* type_def_node;
@@ -82,6 +83,7 @@ void yyerror(const char *s);
 %type <value_node> const
 
 %type <builtin_type_node> builtin_type
+%type <enum_type_node> enum_type enum_type_body
 
 %type <node> type_def_part
 %type <type_def_seq_node> type_def_body
@@ -234,6 +236,29 @@ builtin_type:
     }
 ;
 
+// ======= enum type =======
+enum_type:
+    SYM_LPAREN enum_type_body SYM_RPAREN {
+        $$ = $2;
+    }
+;
+
+enum_type_body:
+    ID {
+        ast_id* child = new ast_id($1);
+        YY_SET_LOCATION(child);
+        $$ = new ast_enum_type();
+        $$->add_id(child);
+        YY_SET_LOCATION($$);
+    }
+    | ID SYM_COMMA enum_type_body {
+        ast_id* child = new ast_id($1);
+        YY_SET_LOCATION(child);
+        $$ = $3;
+        $$->add_id(child);
+        YY_SET_LOCATION($$);
+    }
+
 // ======= type definition =======
 
 type_def_part:
@@ -273,7 +298,13 @@ type_def:
         $$ = new ast_type_def(child, $3);
         YY_SET_LOCATION($$);
     }
-    // TODO ordinal type, structured type and pointer type
+    | ID SYM_EQ enum_type {
+        ast_id *child = new ast_id($1);
+        YY_SET_LOCATION(child);
+        $$ = new ast_type_def(child, $3);
+        YY_SET_LOCATION($$);
+    }
+    // TODO subrange type, structured type and pointer type
 ;
 
 // ======= variable definition =======
