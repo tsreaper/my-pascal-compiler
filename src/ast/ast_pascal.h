@@ -12,9 +12,9 @@ public:
 
     ~ast_pascal() override;
 
-    bool check() override;
+    bool analyse() override;
 
-    void explain_impl(std::string &res, int indent) override;
+    void explain_impl(std::string &res, int indent) const override;
 
 private:
     ast_node *label_dec_part;

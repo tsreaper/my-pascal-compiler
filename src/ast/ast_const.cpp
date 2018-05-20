@@ -1,4 +1,6 @@
-#include "ast_const.h"
+#include "env/env_id.h"
+#include "ast/ast_id.h"
+#include "ast/ast_const.h"
 
 ast_const_def::ast_const_def(ast_id *id, ast_value_node *value) : id(id), value(value) {}
 
@@ -7,11 +9,15 @@ ast_const_def::~ast_const_def() {
     delete value;
 }
 
-bool ast_const_def::check() {
-    return true;
+bool ast_const_def::analyse() {
+    if (id->analyse() && value->analyse()) {
+        return register_const_id(id->get_id(), value->get_type(), value->get_value());
+    } else {
+        return false;
+    }
 }
 
-void ast_const_def::explain_impl(std::string &res, int indent) {
+void ast_const_def::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "constant_definition(\n";
 
@@ -31,11 +37,11 @@ ast_const_def_part::~ast_const_def_part() {
     delete next_def;
 }
 
-bool ast_const_def_part::check() {
-    return current_def->check() && next_def->check();
+bool ast_const_def_part::analyse() {
+    return current_def->analyse() && next_def->analyse();
 }
 
-void ast_const_def_part::explain_impl(std::string &res, int indent) {
+void ast_const_def_part::explain_impl(std::string &res, int indent) const {
     current_def->explain_impl(res, indent);
     next_def->explain_impl(res, indent);
 }

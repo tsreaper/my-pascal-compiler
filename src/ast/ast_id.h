@@ -1,17 +1,21 @@
 #ifndef MY_PASCAL_AST_ID_H
 #define MY_PASCAL_AST_ID_H
 
-#include "ast_node.h"
+#include "ast/ast_node.h"
 
 class ast_id : public ast_value_node {
 public:
     explicit ast_id(const char *id);
 
-    type value_type() override;
+    env_type get_type() const override;
 
-    bool check() override;
+    env_value get_value() const override;
 
-    void explain_impl(std::string &res, int indent) override;
+    const std::string &get_id() const;
+
+    bool analyse() override;
+
+    void explain_impl(std::string &res, int indent) const override;
 
 private:
     std::string id;

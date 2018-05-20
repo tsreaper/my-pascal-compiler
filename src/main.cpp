@@ -9,6 +9,7 @@ int main() {
         std::string plan;
         ast_root->explain(plan);
         std::cout << plan << std::endl;
+        ast_root->analyse();
     }
     return 0;
 }

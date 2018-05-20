@@ -1,7 +1,7 @@
 #ifndef MY_PASCAL_AST_LABEL_H
 #define MY_PASCAL_AST_LABEL_H
 
-#include "ast_node.h"
+#include "ast/ast_node.h"
 
 class ast_label_dec_part : public ast_node {
 public:
@@ -9,9 +9,9 @@ public:
 
     ~ast_label_dec_part() override;
 
-    bool check() override;
+    bool analyse() override;
 
-    void explain_impl(std::string &res, int indent) override;
+    void explain_impl(std::string &res, int indent) const override;
 
 private:
     int label;

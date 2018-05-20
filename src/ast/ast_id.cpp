@@ -1,21 +1,27 @@
-#include "ast_id.h"
-#include "env/env.h"
+#include <cassert>
+
+#include "env/env_id.h"
+#include "ast/ast_id.h"
 
 ast_id::ast_id(const char *id) : id(id) {}
 
-type ast_id::value_type() {
-    if (env_hash.find(id) == env_hash.end()) {
-        return type::UNKNOWN;
-    } else {
-        return env_hash.at(id);
-    }
+env_type ast_id::get_type() const {
+    return get_id_type(id);
 }
 
-bool ast_id::check() {
+env_value ast_id::get_value() const {
+    return get_id_value(id);
+}
+
+const std::string &ast_id::get_id() const {
+    return id;
+}
+
+bool ast_id::analyse() {
     return true;
 }
 
-void ast_id::explain_impl(std::string &res, int indent) {
+void ast_id::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "id(" + id + ")\n";
 }

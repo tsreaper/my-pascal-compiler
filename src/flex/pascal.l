@@ -75,12 +75,21 @@ SYM_GE ">="
 SYM_ASSIGN ":="
 SYM_RANGE ".."
 
+TYPE_INT integer
+TYPE_REAL real
+TYPE_CHAR character
+TYPE_BOOL boolean
+
+BOOL_TRUE true
+BOOL_FALSE false
+
 ID [a-zA-Z][a-zA-Z0-9]*
 
 SIGN "+"|"-"
 INT {SIGN}?[0-9]+
 REAL {SIGN}?([0-9]+\.[0-9]+|[0-9]+e{SIGN}?[0-9]+)
 
+CHAR \'[^\n]\'
 STR \'[^\n]*\'
 
 COMMENT_BEGIN "{"|"(*"
@@ -258,6 +267,26 @@ COMMENT_END "}"|"*)"
     return SYM_RANGE;
 }
 
+{TYPE_INT} {
+    return TYPE_INT;
+}
+{TYPE_REAL} {
+    return TYPE_REAL;
+}
+{TYPE_CHAR} {
+    return TYPE_CHAR;
+}
+{TYPE_BOOL} {
+    return TYPE_BOOL;
+}
+
+{BOOL_TRUE} {
+    return BOOL_TRUE;
+}
+{BOOL_FALSE} {
+    return BOOL_FALSE;
+}
+
 {ID} {
     copy_str(yytext, yyleng);
     return ID;
@@ -272,6 +301,10 @@ COMMENT_END "}"|"*)"
     return REAL;
 }
 
+{CHAR} {
+    yylval.chr = yytext[1];
+    return CHAR;
+}
 {STR} {
     copy_str(yytext + 1, yyleng - 2);
     return STR;
@@ -284,7 +317,10 @@ COMMENT_END "}"|"*)"
     return COMMENT_END;
 }
 
-" "|\n|\t {}
+\n {
+    yycolumn = 1;
+}
+" "|\t {}
 
 . {
     return yytext[0];

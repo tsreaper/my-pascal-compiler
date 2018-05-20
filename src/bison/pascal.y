@@ -4,7 +4,7 @@
 %code requires {
 #include "ast/ast.h"
 
-#define MAX_STR_LEN 128
+#define MAX_STR_LEN 1024
 }
 
 %{
@@ -16,12 +16,15 @@ void yyerror(const char *s);
     int tok;
     int num;
     double real;
+    char chr;
     char str[MAX_STR_LEN];
 
     ast_node* node;
     ast_value_node* value_node;
+
+    ast_literal* literal_node;
+
     ast_const_def* const_def_node;
-    ast_id* id_node;
 }
 
 %token PAS_AND PAS_ARRAY PAS_BEGIN PAS_CASE PAS_CONST PAS_DIV PAS_DO PAS_DOWNTO PAS_ELSE PAS_END
@@ -32,7 +35,11 @@ void yyerror(const char *s);
 %token SYM_ADD SYM_SUB SYM_MUL SYM_DIV SYM_EQ SYM_LT SYM_GT SYM_LBRAC SYM_RBRAC SYM_PERIOD SYM_COMMA SYM_COLON
 %token SYM_SEMICOLON SYM_CARET SYM_LPAREN SYM_RPAREN SYM_NE SYM_LE SYM_GE SYM_ASSIGN SYM_RANGE
 
-%token ID INT REAL STR COMMENT_BEGIN COMMENT_END
+%token TYPE_INT TYPE_REAL TYPE_CHAR TYPE_BOOL
+
+%token BOOL_TRUE BOOL_FALSE
+
+%token ID INT REAL CHAR STR COMMENT_BEGIN COMMENT_END
 
 %type <tok> PAS_AND PAS_ARRAY PAS_BEGIN PAS_CASE PAS_CONST PAS_DIV PAS_DO PAS_DOWNTO PAS_ELSE PAS_END
 %type <tok> PAS_FILE PAS_FOR PAS_FUNCTION PAS_GOTO PAS_IF PAS_IN PAS_LABEL PAS_MOD PAS_NIL PAS_NOT PAS_OF PAS_OR
@@ -42,10 +49,16 @@ void yyerror(const char *s);
 %type <tok> SYM_ADD SYM_SUB SYM_MUL SYM_DIV SYM_EQ SYM_LT SYM_GT SYM_LBRAC SYM_RBRAC SYM_PERIOD SYM_COMMA SYM_COLON
 %type <tok> SYM_SEMICOLON SYM_CARET SYM_LPAREN SYM_RPAREN SYM_NE SYM_LE SYM_GE SYM_ASSIGN SYM_RANGE
 
+%type <tok> TYPE_INT TYPE_REAL TYPE_CHAR TYPE_BOOL
+%type <tok> BOOL_TRUE BOOL_FALSE
+
 %type <str> ID STR
 %type <num> INT
 %type <real> REAL
+%type <chr> CHAR
 %type <tok> COMMENT_BEGIN COMMENT_END
+
+%type <literal_node> literal
 
 %type <node> pascal
 
@@ -55,7 +68,7 @@ void yyerror(const char *s);
 %type <const_def_node> const_def
 %type <value_node> const
 
-%type <node> type_def_part
+%type <node> type_def_part type_def_body
 
 %type <node> var_dec_part var_dec_body
 
@@ -68,6 +81,28 @@ void yyerror(const char *s);
 %start pascal
 
 %%
+
+// ======= literal =======
+literal:
+    INT {
+        $$ = new ast_lit_int($1);
+    }
+    | REAL {
+        $$ = new ast_lit_real($1);
+    }
+    | CHAR {
+        $$ = new ast_lit_char($1);
+    }
+    | BOOL_TRUE {
+        $$ = new ast_lit_bool(true);
+    }
+    | BOOL_FALSE {
+        $$ = new ast_lit_bool(false);
+    }
+    | STR {
+        $$ = new ast_lit_str($1);
+    }
+;
 
 // ======= pascal =======
 
@@ -124,14 +159,8 @@ const_def:
 ;
 
 const:
-    INT {
-        $$ = new ast_int($1);
-    }
-    | REAL {
-        $$ = new ast_real($1);
-    }
-    | STR {
-        $$ = new ast_str($1);
+    literal {
+        $$ = $1;
     }
     | ID {
         $$ = new ast_id($1);
@@ -148,12 +177,43 @@ const:
 
 // ======= type definition =======
 
-// TODO add type definition part
 type_def_part:
+    PAS_TYPE type_def_body {
+        $$ = $2;
+    }
+    | {
+        $$ = new ast_empty();
+    }
+;
+
+type_def_body:
     {
         $$ = new ast_empty();
     }
 ;
+
+/*
+type_def_body:
+    type_def SYM_SEMICOLON {
+        $$ = new ast_type_def_part($1, new ast_empty());
+    }
+    | type_def SYM_SEMICOLON type_def_body {
+        $$ = new ast_type_def_part($1, $3);
+    }
+;
+
+type_def:
+    ID SYM_EQ ID {
+        $$ = new ast_type_def($1, $3);
+    }
+    | ID SYM_EQ ord_type_def {
+        $$ = new ast_type_def($1, $3);
+    }
+    // TODO structured type and pointer type
+;
+
+ord_type_def:
+*/
 
 // ======= variable definition =======
 

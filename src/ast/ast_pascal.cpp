@@ -1,4 +1,4 @@
-#include "ast_pascal.h"
+#include "ast/ast_pascal.h"
 
 ast_pascal::ast_pascal(
         ast_node *label_dec_part, ast_node *const_def_part, ast_node *type_def_part,
@@ -16,14 +16,14 @@ ast_pascal::~ast_pascal() {
     delete compound_stm;
 }
 
-bool ast_pascal::check() {
+bool ast_pascal::analyse() {
     return (
-            label_dec_part->check() && const_def_part->check() && type_def_part->check() &&
-            var_dec_part->check() && proc_func_dec_part->check() && compound_stm->check()
+            label_dec_part->analyse() && const_def_part->analyse() && type_def_part->analyse() &&
+            var_dec_part->analyse() && proc_func_dec_part->analyse() && compound_stm->analyse()
     );
 }
 
-void ast_pascal::explain_impl(std::string &res, int indent) {
+void ast_pascal::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "pascal(\n";
 
