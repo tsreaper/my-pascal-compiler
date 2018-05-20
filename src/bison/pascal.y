@@ -8,6 +8,8 @@
 }
 
 %{
+#define YY_SET_LOCATION(dest) (dest)->set_location(yylloc.first_line, yylloc.first_column)
+
 int yylex(void);
 void yyerror(const char *s);
 %}
@@ -86,21 +88,27 @@ void yyerror(const char *s);
 literal:
     INT {
         $$ = new ast_lit_int($1);
+        YY_SET_LOCATION($$);
     }
     | REAL {
         $$ = new ast_lit_real($1);
+        YY_SET_LOCATION($$);
     }
     | CHAR {
         $$ = new ast_lit_char($1);
+        YY_SET_LOCATION($$);
     }
     | BOOL_TRUE {
         $$ = new ast_lit_bool(true);
+        YY_SET_LOCATION($$);
     }
     | BOOL_FALSE {
         $$ = new ast_lit_bool(false);
+        YY_SET_LOCATION($$);
     }
     | STR {
         $$ = new ast_lit_str($1);
+        YY_SET_LOCATION($$);
     }
 ;
 
@@ -126,9 +134,11 @@ label_dec_part:
 label_dec_body:
     INT SYM_SEMICOLON {
         $$ = new ast_label_dec_part($1, new ast_empty());
+        YY_SET_LOCATION($$);
     }
     | INT SYM_COMMA label_dec_body {
         $$ = new ast_label_dec_part($1, $3);
+        YY_SET_LOCATION($$);
     }
 ;
 
@@ -146,15 +156,18 @@ const_def_part:
 const_def_body:
     const_def SYM_SEMICOLON {
         $$ = new ast_const_def_part($1, new ast_empty());
+        YY_SET_LOCATION($$);
     }
     | const_def SYM_SEMICOLON const_def_body {
         $$ = new ast_const_def_part($1, $3);
+        YY_SET_LOCATION($$);
     }
 ;
 
 const_def:
     ID SYM_EQ const {
         $$ = new ast_const_def(new ast_id($1), $3);
+        YY_SET_LOCATION($$);
     }
 ;
 
@@ -164,13 +177,16 @@ const:
     }
     | ID {
         $$ = new ast_id($1);
+        YY_SET_LOCATION($$);
     }
     | SYM_ADD ID {
         $$ = new ast_id($2);
+        YY_SET_LOCATION($$);
     }
     | SYM_SUB ID {
         // TODO
         $$ = new ast_id($2);
+        YY_SET_LOCATION($$);
         // $$ = new ast_sub(new ast_int(0), $2);
     }
 ;
@@ -196,18 +212,22 @@ type_def_body:
 type_def_body:
     type_def SYM_SEMICOLON {
         $$ = new ast_type_def_part($1, new ast_empty());
+        YY_SET_LOCATION($$);
     }
     | type_def SYM_SEMICOLON type_def_body {
         $$ = new ast_type_def_part($1, $3);
+        YY_SET_LOCATION($$);
     }
 ;
 
 type_def:
     ID SYM_EQ ID {
         $$ = new ast_type_def($1, $3);
+        YY_SET_LOCATION($$);
     }
     | ID SYM_EQ ord_type_def {
         $$ = new ast_type_def($1, $3);
+        YY_SET_LOCATION($$);
     }
     // TODO structured type and pointer type
 ;

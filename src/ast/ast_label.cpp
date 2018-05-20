@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "env/env_label.h"
 #include "ast/ast_label.h"
 
@@ -11,6 +13,7 @@ bool ast_label_dec_part::analyse() {
     if (register_label(label)) {
         return next_dec->analyse();
     } else {
+        PRINT_ERROR_LINENO;
         return false;
     }
 }

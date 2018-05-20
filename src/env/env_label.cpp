@@ -5,7 +5,7 @@
 
 bool register_label(int label) {
     if (label_table.find(label) != label_table.end()) {
-        fprintf(stderr, "semantics error, duplicated label %d\n", label);
+        fprintf(stderr, "semantics error, duplicated label %d ", label);
         return false;
     }
     label_table[label] = -1;

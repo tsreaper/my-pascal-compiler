@@ -6,17 +6,23 @@
 
 #include "ast/ast_interface.h"
 
+#define PRINT_ERROR_LINENO fprintf(stderr, "(at %d:%d)\n", lineno, colno)
+
 class ast_node {
 public:
     virtual ~ast_node() = default;
 
     virtual bool analyse() = 0;
 
+    void set_location(int lineno, int colno);
+
     void explain(std::string &res) const;
 
     virtual void explain_impl(std::string &res, int indent) const = 0;
 
 protected:
+    int lineno, colno;
+
     void explain_indent(std::string &res, int indent) const;
 };
 

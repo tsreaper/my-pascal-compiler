@@ -1,5 +1,10 @@
 #include "ast/ast_node.h"
 
+void ast_node::set_location(int lineno, int colno) {
+    this->lineno = lineno;
+    this->colno = colno;
+}
+
 void ast_node::explain(std::string &res) const {
     explain_impl(res, 0);
 }

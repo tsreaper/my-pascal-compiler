@@ -1,5 +1,3 @@
-#include <cassert>
-
 #include "env/env_id.h"
 #include "ast/ast_id.h"
 

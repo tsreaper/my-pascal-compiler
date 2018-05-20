@@ -329,5 +329,5 @@ COMMENT_END "}"|"*)"
 %%
 
 void yyerror(const char *s) {
-    fprintf(stderr, "(at %d:%d) %s\n", yylineno, yylloc.first_column, s);
+    fprintf(stderr, "%s (at %d:%d)\n", s, yylloc.first_line, yylloc.first_column);
 }
