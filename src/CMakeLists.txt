@@ -2,7 +2,17 @@ include_directories(.)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 aux_source_directory(ast AST_SOURCE)
+aux_source_directory(ast/const AST_SOURCE)
+aux_source_directory(ast/id AST_SOURCE)
+aux_source_directory(ast/label AST_SOURCE)
+aux_source_directory(ast/program AST_SOURCE)
+aux_source_directory(ast/type AST_SOURCE)
+
 aux_source_directory(env ENV_SOURCE)
+aux_source_directory(env/id ENV_SOURCE)
+aux_source_directory(env/label ENV_SOURCE)
+aux_source_directory(env/type ENV_SOURCE)
+aux_source_directory(env/value ENV_SOURCE)
 
 add_custom_command(
         OUTPUT pascal.l.cpp

@@ -1,5 +1,5 @@
-#include "env/env_id.h"
-#include "ast/ast_id.h"
+#include "env/id/env_id.h"
+#include "ast/id/ast_id.h"
 
 ast_id::ast_id(const char *id) : id(id) {}
 

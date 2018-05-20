@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "env/env_type.h"
-#include "env/env_value.h"
+#include "env/type/env_type.h"
+#include "env/value/env_value.h"
 
 env_type get_id_type(const std::string &id);
 

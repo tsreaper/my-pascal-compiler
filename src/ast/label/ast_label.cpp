@@ -1,7 +1,7 @@
 #include <cstdio>
 
-#include "env/env_label.h"
-#include "ast/ast_label.h"
+#include "env/label/env_label.h"
+#include "ast/label/ast_label.h"
 
 ast_label_dec::ast_label_dec(int label) : label(label) {}
 

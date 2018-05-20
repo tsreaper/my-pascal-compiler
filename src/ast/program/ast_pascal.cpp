@@ -1,4 +1,4 @@
-#include "ast/ast_pascal.h"
+#include "ast/program/ast_pascal.h"
 
 ast_pascal::ast_pascal(
         ast_node *label_dec_part, ast_node *const_def_part, ast_node *type_def_part,

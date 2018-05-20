@@ -2,7 +2,7 @@
 #define MY_PASCAL_AST_NODE_H
 
 #include <string>
-#include <env/env_type.h>
+#include <env/type/env_type.h>
 
 #include "ast/ast_interface.h"
 

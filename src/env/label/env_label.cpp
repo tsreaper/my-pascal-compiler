@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <map>
 
-#include "env/env_label.h"
+#include "env/label/env_label.h"
 
 std::map<int, int> label_table;
 
