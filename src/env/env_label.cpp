@@ -1,7 +1,9 @@
 #include <cstdio>
+#include <map>
 
-#include "env/env.h"
 #include "env/env_label.h"
+
+std::map<int, int> label_table;
 
 bool declare_label(int label) {
     if (label_table.find(label) != label_table.end()) {

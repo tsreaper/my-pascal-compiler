@@ -11,7 +11,7 @@ ast_const_def::~ast_const_def() {
 
 bool ast_const_def::analyse() {
     if (id->analyse() && value->analyse()) {
-        if (register_const_id(id->get_id(), value->get_type(), value->get_value())) {
+        if (define_const_id(id->get_id(), value->get_type(), value->get_value())) {
             return true;
         } else {
             PRINT_ERROR_LINENO;

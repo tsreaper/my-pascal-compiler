@@ -1,3 +1,4 @@
+#include "env/env_type.h"
 #include "ast/ast_type.h"
 
 ast_type_def::ast_type_def(ast_id *id, ast_type_node *type) : id(id), type(type) {}
@@ -8,7 +9,16 @@ ast_type_def::~ast_type_def() {
 }
 
 bool ast_type_def::analyse() {
-    return true;
+    if (id->analyse() && type->analyse()) {
+        if (define_type_id(id->get_id(), type->get_type())) {
+            return true;
+        } else {
+            PRINT_ERROR_LINENO;
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 void ast_type_def::explain_impl(std::string &res, int indent) const {

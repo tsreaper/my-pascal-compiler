@@ -1,6 +1,9 @@
 #ifndef MY_PASCAL_ENV_TYPE_H
 #define MY_PASCAL_ENV_TYPE_H
 
+#include <string>
+#include <map>
+
 enum class meta_group {
     CONST, VAR, TYPE
 };
@@ -23,5 +26,9 @@ struct env_type {
     type_group tg;
     int id;
 };
+
+bool define_type_id(const std::string &id, env_type type);
+
+extern std::map<std::string, env_type> id_type;
 
 #endif //MY_PASCAL_ENV_TYPE_H
