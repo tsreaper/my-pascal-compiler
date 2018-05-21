@@ -1,15 +1,18 @@
 #include "ast/value/ast_literal.h"
 
-// ======= int =======
-
-ast_lit_int::ast_lit_int(int value) : value(value) {}
-
-sem_type ast_lit_int::get_type() const {
-    return {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::INT};
+const sem_type &ast_literal::get_type() const {
+    return s_type;
 }
 
-sem_value ast_lit_int::get_value() const {
-    return {true, {.num = value}};
+const sem_value &ast_literal::get_value() const {
+    return s_value;
+}
+
+// ======= int =======
+
+ast_lit_int::ast_lit_int(int value) : value(value) {
+    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::INT};
+    s_value = {true, {.num = value}};
 }
 
 bool ast_lit_int::analyse() {
@@ -23,14 +26,9 @@ void ast_lit_int::explain_impl(std::string &res, int indent) const {
 
 // ======= real =======
 
-ast_lit_real::ast_lit_real(double value) : value(value) {}
-
-sem_type ast_lit_real::get_type() const {
-    return {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::REAL};
-}
-
-sem_value ast_lit_real::get_value() const {
-    return {true, {.real = value}};
+ast_lit_real::ast_lit_real(double value) : value(value) {
+    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::REAL};
+    s_value = {true, {.real = value}};
 }
 
 bool ast_lit_real::analyse() {
@@ -44,14 +42,9 @@ void ast_lit_real::explain_impl(std::string &res, int indent) const {
 
 // ======= char =======
 
-ast_lit_char::ast_lit_char(char value) : value(value) {}
-
-sem_type ast_lit_char::get_type() const {
-    return {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::CHAR};
-}
-
-sem_value ast_lit_char::get_value() const {
-    return {true, {.chr = value}};
+ast_lit_char::ast_lit_char(char value) : value(value) {
+    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::CHAR};
+    s_value = {true, {.chr = value}};
 }
 
 bool ast_lit_char::analyse() {
@@ -65,14 +58,9 @@ void ast_lit_char::explain_impl(std::string &res, int indent) const {
 
 // ======= bool =======
 
-ast_lit_bool::ast_lit_bool(bool value) : value(value) {}
-
-sem_type ast_lit_bool::get_type() const {
-    return {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::BOOL};
-}
-
-sem_value ast_lit_bool::get_value() const {
-    return {true, {.boo = value}};
+ast_lit_bool::ast_lit_bool(bool value) : value(value) {
+    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::BOOL};
+    s_value = {true, {.boo = value}};
 }
 
 bool ast_lit_bool::analyse() {
@@ -86,17 +74,10 @@ void ast_lit_bool::explain_impl(std::string &res, int indent) const {
 
 // ======= string =======
 
-ast_lit_str::ast_lit_str(const char *value) : value(value) {}
-
-sem_type ast_lit_str::get_type() const {
-    return {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::STR};
-}
-
-sem_value ast_lit_str::get_value() const {
-    // Can't write {true, {.str = &value}}. Don't know why.
-    sem_value res = {true, {}};
-    res.value.str = &value;
-    return res;
+ast_lit_str::ast_lit_str(const char *value) : value(value) {
+    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::STR};
+    s_value = {true, {}};
+    s_value.value.str = &this->value;
 }
 
 bool ast_lit_str::analyse() {

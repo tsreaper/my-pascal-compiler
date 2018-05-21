@@ -1,19 +1,11 @@
-#include <cstdio>
-
+#include "sem/sem.h"
+#include "sem/exception/sem_exception.h"
 #include "sem/id/sem_id.h"
 
-sem_type get_id_type(const std::string &id) {
-    if (id_type.find(id) == id_type.end()) {
-        return {false};
-    } else {
-        return id_type.at(id);
-    }
+const sem_type &get_id_type(const std::string &id) {
+    return sem_env.get_type_env().get_type(id);
 }
 
-sem_value get_id_value(const std::string &id) {
-    if (const_table.find(id) == const_table.end()) {
-        return {false};
-    } else {
-        return const_table.at(id);
-    }
+const sem_value &get_id_value(const std::string &id) {
+    return sem_env.get_const_env().get_const(id);
 }

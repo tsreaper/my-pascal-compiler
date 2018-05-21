@@ -1,10 +1,23 @@
 #ifndef MY_PASCAL_SEM_LABEL_H
 #define MY_PASCAL_SEM_LABEL_H
 
+#include <vector>
 #include <map>
 
-void declare_label(int label);
+class sem_label_context {
+public:
+    void push();
 
-extern std::map<int, int> label_table;
+    void pop();
+
+    int get_loc(int label) const;
+
+    void set_loc(int label, int loc);
+
+private:
+    std::vector<std::map<int, int>> layers;
+};
+
+void declare_label(int label);
 
 #endif //MY_PASCAL_SEM_LABEL_H

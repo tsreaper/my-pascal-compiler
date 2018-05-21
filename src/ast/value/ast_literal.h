@@ -5,15 +5,20 @@
 #include "sem/type/sem_type.h"
 #include "sem/value/sem_value.h"
 
-class ast_literal : public ast_value_node {};
+class ast_literal : public ast_value_node {
+public:
+    const sem_type &get_type() const override;
+
+    const sem_value &get_value() const override;
+
+protected:
+    sem_type s_type;
+    sem_value s_value;
+};
 
 class ast_lit_int : public ast_literal {
 public:
     explicit ast_lit_int(int value);
-
-    sem_type get_type() const override;
-
-    sem_value get_value() const override;
 
     bool analyse() override;
 
@@ -27,10 +32,6 @@ class ast_lit_real : public ast_literal {
 public:
     explicit ast_lit_real(double value);
 
-    sem_type get_type() const override;
-
-    sem_value get_value() const override;
-
     bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
@@ -42,10 +43,6 @@ private:
 class ast_lit_char : public ast_literal {
 public:
     explicit ast_lit_char(char value);
-
-    sem_type get_type() const override;
-
-    sem_value get_value() const override;
 
     bool analyse() override;
 
@@ -59,10 +56,6 @@ class ast_lit_bool : public ast_literal {
 public:
     explicit ast_lit_bool(bool value);
 
-    sem_type get_type() const override;
-
-    sem_value get_value() const override;
-
     bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
@@ -74,10 +67,6 @@ private:
 class ast_lit_str : public ast_literal {
 public:
     explicit ast_lit_str(const char *value);
-
-    sem_type get_type() const override;
-
-    sem_value get_value() const override;
 
     bool analyse() override;
 

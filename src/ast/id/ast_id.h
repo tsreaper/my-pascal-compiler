@@ -7,9 +7,9 @@ class ast_id : public ast_value_node {
 public:
     explicit ast_id(const char *id);
 
-    sem_type get_type() const override;
+    const sem_type &get_type() const override;
 
-    sem_value get_value() const override;
+    const sem_value &get_value() const override;
 
     const std::string &get_id() const;
 

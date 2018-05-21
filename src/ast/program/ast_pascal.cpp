@@ -1,3 +1,4 @@
+#include "sem/sem.h"
 #include "ast/program/ast_pascal.h"
 
 ast_pascal::ast_pascal(
@@ -17,10 +18,13 @@ ast_pascal::~ast_pascal() {
 }
 
 bool ast_pascal::analyse() {
-    return (
+    sem_env.push();
+    bool res = (
             label_dec_part->analyse() && const_def_part->analyse() && type_def_part->analyse() &&
             var_dec_part->analyse() && proc_func_dec_part->analyse() && compound_stm->analyse()
     );
+    sem_env.pop();
+    return res;
 }
 
 void ast_pascal::explain_impl(std::string &res, int indent) const {

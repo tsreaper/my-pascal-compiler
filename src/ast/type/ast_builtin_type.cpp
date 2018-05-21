@@ -1,9 +1,13 @@
 #include "ast/type/ast_builtin_type.h"
 
+const sem_type &ast_builtin_type::get_type() const {
+    return s_type;
+}
+
 // ======= int =======
 
-sem_type ast_bti_int::get_type() const {
-    return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::INT};
+ast_bti_int::ast_bti_int() {
+    s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::INT};
 }
 
 bool ast_bti_int::analyse() {
@@ -17,8 +21,8 @@ void ast_bti_int::explain_impl(std::string &res, int indent) const {
 
 // ======= real =======
 
-sem_type ast_bti_real::get_type() const {
-    return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::REAL};
+ast_bti_real::ast_bti_real() {
+    s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::REAL};
 }
 
 bool ast_bti_real::analyse() {
@@ -32,8 +36,8 @@ void ast_bti_real::explain_impl(std::string &res, int indent) const {
 
 // ======= char =======
 
-sem_type ast_bti_char::get_type() const {
-    return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::CHAR};
+ast_bti_char::ast_bti_char() {
+    s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::CHAR};
 }
 
 bool ast_bti_char::analyse() {
@@ -47,8 +51,8 @@ void ast_bti_char::explain_impl(std::string &res, int indent) const {
 
 // ======= bool =======
 
-sem_type ast_bti_bool::get_type() const {
-    return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::BOOL};
+ast_bti_bool::ast_bti_bool() {
+    s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::BOOL};
 }
 
 bool ast_bti_bool::analyse() {
@@ -62,8 +66,8 @@ void ast_bti_bool::explain_impl(std::string &res, int indent) const {
 
 // ======= string =======
 
-sem_type ast_bti_str::get_type() const {
-    return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::STR};
+ast_bti_str::ast_bti_str() {
+    s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::STR};
 }
 
 bool ast_bti_str::analyse() {

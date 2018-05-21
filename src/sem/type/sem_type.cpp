@@ -1,17 +1,44 @@
 #include <cstdio>
 
+#include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/type/sem_type.h"
 
-std::map<std::string, sem_type> id_type;
+void sem_type_context::push() {
+    layers.emplace_back();
+}
 
-void define_type_id(const std::string &id, sem_type type) {
-    if (id_type.find(id) != id_type.end()) {
+void sem_type_context::pop() {
+    layers.pop_back();
+}
+
+const sem_type &sem_type_context::get_type(const std::string &id) const {
+    for (auto it = layers.rbegin(); it != layers.rend(); it++) {
+        if ((*it).find(id) != (*it).end()) {
+            return (*it).at(id);
+        }
+    }
+    throw sem_exception("semantics error, unknown identifier " + id);
+}
+
+bool sem_type_context::is_varname_used(const std::string &id) const {
+    auto &table = *layers.rbegin();
+    return table.find(id) != table.end();
+}
+
+void sem_type_context::set_type(const std::string &id, const sem_type &type) {
+    auto &table = *layers.rbegin();
+    if (table.find(id) != table.end()) {
         throw sem_exception("semantics error, duplicated identifier " + id);
-    } else if (!type.known) {
-        throw sem_exception("semantics error, rhs is an unknown identifier");
+    }
+    table[id] = type;
+}
+
+void define_type_id(const std::string &id, const sem_type &type) {
+    if (!type.known) {
+        throw sem_exception("semantics error, rhs is an unknown type");
     } else if (type.mg != meta_group::TYPE) {
         throw sem_exception("semantics error, rhs is not a type");
     }
-    id_type[id] = type;
+    sem_env.get_type_env().set_type(id, type);
 }

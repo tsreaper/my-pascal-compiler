@@ -7,6 +7,7 @@ aux_source_directory(ast/id AST_SOURCE)
 aux_source_directory(ast/label AST_SOURCE)
 aux_source_directory(ast/program AST_SOURCE)
 aux_source_directory(ast/type AST_SOURCE)
+aux_source_directory(ast/value AST_SOURCE)
 
 aux_source_directory(sem SEM_SOURCE)
 aux_source_directory(sem/exception SEM_SOURCE)

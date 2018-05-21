@@ -5,6 +5,6 @@
 
 #include "sem/value/sem_const.h"
 
-void declare_var_id(const std::string &id, sem_type type);
+void declare_var_id(const std::string &id, const sem_type &type);
 
 #endif //MY_PASCAL_SEM_VAR_H

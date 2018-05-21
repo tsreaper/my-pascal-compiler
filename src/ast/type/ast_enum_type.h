@@ -7,9 +7,11 @@
 
 class ast_enum_type : public ast_type_node {
 public:
+    ast_enum_type();
+
     ~ast_enum_type() override;
 
-    sem_type get_type() const override;
+    const sem_type &get_type() const override;
 
     void add_id(ast_id *id);
 
@@ -19,6 +21,7 @@ public:
 
 private:
     int enum_id = -1;
+    sem_type s_type;
     std::vector<ast_id*> id_vec;
 };
 

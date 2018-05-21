@@ -15,6 +15,4 @@ struct sem_value {
     } value;
 };
 
-extern std::map<std::string, sem_value> const_table;
-
 #endif //MY_PASCAL_SEM_VALUE_H

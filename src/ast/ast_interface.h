@@ -6,12 +6,12 @@
 
 class ast_has_type {
 public:
-    virtual sem_type get_type() const = 0;
+    virtual const sem_type &get_type() const = 0;
 };
 
 class ast_has_value {
 public:
-    virtual sem_value get_value() const = 0;
+    virtual const sem_value &get_value() const = 0;
 };
 
 #endif //MY_PASCAL_AST_INTERFACE_H

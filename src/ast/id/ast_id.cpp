@@ -3,11 +3,11 @@
 
 ast_id::ast_id(const char *id) : id(id) {}
 
-sem_type ast_id::get_type() const {
+const sem_type &ast_id::get_type() const {
     return get_id_type(id);
 }
 
-sem_value ast_id::get_value() const {
+const sem_value &ast_id::get_value() const {
     return get_id_value(id);
 }
 

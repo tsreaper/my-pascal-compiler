@@ -2,6 +2,7 @@
 #define MY_PASCAL_SEM_TYPE_H
 
 #include <string>
+#include <vector>
 #include <map>
 
 enum class meta_group {
@@ -13,6 +14,7 @@ enum class type_group {
 };
 
 namespace built_in_type {
+    const int VOID = -1;
     const int INT = 0;
     const int REAL = 1;
     const int CHAR = 2;
@@ -27,8 +29,22 @@ struct sem_type {
     int id;
 };
 
-void define_type_id(const std::string &id, sem_type type);
+class sem_type_context {
+public:
+    void push();
 
-extern std::map<std::string, sem_type> id_type;
+    void pop();
+
+    const sem_type &get_type(const std::string &id) const;
+
+    bool is_varname_used(const std::string &id) const;
+
+    void set_type(const std::string &id, const sem_type &type);
+
+private:
+    std::vector<std::map<std::string, sem_type>> layers;
+};
+
+void define_type_id(const std::string &id, const sem_type &type);
 
 #endif //MY_PASCAL_SEM_TYPE_H

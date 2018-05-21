@@ -1,14 +1,38 @@
+#include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/value/sem_const.h"
 
-void define_const_id(const std::string &id, sem_type type, sem_value value) {
-    if (id_type.find(id) != id_type.end()) {
-        throw sem_exception("semantics error, duplicated identifier " + id);
-    } else if (!type.known) {
-        throw sem_exception("semantics error, rhs is an unknown identifier " + id);
-    } else if (!value.known) {
-        throw sem_exception("semantics error, rhs is not determined " + id);
+void sem_const_context::push() {
+    layers.emplace_back();
+}
+
+void sem_const_context::pop() {
+    layers.pop_back();
+}
+
+const sem_value &sem_const_context::get_const(const std::string &id) const {
+    for (auto it = layers.rbegin(); it != layers.rend(); it++) {
+        if ((*it).find(id) != (*it).end()) {
+            return (*it).at(id);
+        }
     }
-    id_type[id] = type;
-    const_table[id] = value;
+    throw sem_exception("semantics error, unknown const identifier " + id);
+}
+
+void sem_const_context::set_const(const std::string &id, const sem_value &value) {
+    auto &table = *layers.rbegin();
+    if (table.find(id) != table.end() || sem_env.get_type_env().is_varname_used(id)) {
+        throw sem_exception("semantics error, duplicated const identifier " + id);
+    }
+    table[id] = value;
+}
+
+void define_const_id(const std::string &id, const sem_type &type, const sem_value &value) {
+    if (!type.known) {
+        throw sem_exception("semantics error, rhs is an unknown type");
+    } else if (!value.known) {
+        throw sem_exception("semantics error, rhs is not determined");
+    }
+    sem_env.get_const_env().set_const(id, value);
+    sem_env.get_type_env().set_type(id, type);
 }
