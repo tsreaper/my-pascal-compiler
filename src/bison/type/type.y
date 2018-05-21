@@ -6,6 +6,7 @@ ast_type_def* type_def_node;
 %type <node> type_def_part
 %type <type_def_seq_node> type_def_body
 %type <type_def_node> type_def
+%type <type_node> type
 
 %%
 
@@ -32,25 +33,24 @@ type_def_body:
 ;
 
 type_def:
-    ID SYM_EQ ID {
-        ast_id *child1 = new ast_id($1);
-        YY_SET_LOCATION(child1);
-        ast_id *child2 = new ast_id($3);
-        YY_SET_LOCATION(child2);
-        $$ = new ast_type_def(child1, child2);
-        YY_SET_LOCATION($$);
-    }
-    | ID SYM_EQ builtin_type {
+    ID SYM_EQ type {
         ast_id *child = new ast_id($1);
         YY_SET_LOCATION(child);
         $$ = new ast_type_def(child, $3);
         YY_SET_LOCATION($$);
     }
-    | ID SYM_EQ enum_type {
-        ast_id *child = new ast_id($1);
-        YY_SET_LOCATION(child);
-        $$ = new ast_type_def(child, $3);
+;
+
+type:
+    ID {
+        $$ = new ast_id($1);
         YY_SET_LOCATION($$);
+    }
+    | builtin_type {
+        $$ = $1;
+    }
+    | enum_type {
+        $$ = $1;
     }
     // TODO subrange type, structured type and pointer type
 ;

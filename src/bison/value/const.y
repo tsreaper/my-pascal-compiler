@@ -43,18 +43,15 @@ const:
     literal {
         $$ = $1;
     }
-    | ID {
-        $$ = new ast_id($1);
-        YY_SET_LOCATION($$);
+    | id {
+        $$ = $1;
     }
-    | SYM_ADD ID {
-        $$ = new ast_id($2);
-        YY_SET_LOCATION($$);
+    | SYM_ADD id {
+        $$ = $2;
     }
-    | SYM_SUB ID {
+    | SYM_SUB id {
         // TODO
-        $$ = new ast_id($2);
-        YY_SET_LOCATION($$);
+        $$ = $2;
         // $$ = new ast_sub(new ast_int(0), $2);
     }
 ;

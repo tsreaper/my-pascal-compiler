@@ -3,6 +3,7 @@
 
 #include "ast/value/ast_const.h"
 #include "ast/value/ast_literal.h"
+#include "ast/value/ast_var.h"
 #include "ast/id/ast_id.h"
 #include "ast/label/ast_label.h"
 #include "ast/ast_node.h"

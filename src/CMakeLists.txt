@@ -17,6 +17,7 @@ aux_source_directory(env/value ENV_SOURCE)
 file(
         GLOB BISON_SOURCE
         bison/*.y
+        bison/id/*.y
         bison/label/*.y
         bison/program/*.y
         bison/type/*.y

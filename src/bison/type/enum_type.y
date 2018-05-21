@@ -13,18 +13,14 @@ enum_type:
 ;
 
 enum_type_body:
-    ID {
-        ast_id* child = new ast_id($1);
-        YY_SET_LOCATION(child);
+    id {
         $$ = new ast_enum_type();
-        $$->add_id(child);
+        $$->add_id($1);
         YY_SET_LOCATION($$);
     }
-    | enum_type_body SYM_COMMA ID {
-        ast_id* child = new ast_id($3);
-        YY_SET_LOCATION(child);
+    | enum_type_body SYM_COMMA id {
         $$ = $1;
-        $$->add_id(child);
+        $$->add_id($3);
         YY_SET_LOCATION($$);
     }
 ;
