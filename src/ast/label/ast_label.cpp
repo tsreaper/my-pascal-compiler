@@ -30,8 +30,8 @@ void ast_label_dec_seq::add_label_dec(ast_label_dec *dec) {
 }
 
 bool ast_label_dec_seq::analyse() {
-    for (auto it = label_dec_vec.rbegin(); it != label_dec_vec.rend(); it++) {
-        if (!(*it)->analyse()) {
+    for (auto child : label_dec_vec) {
+        if (!child->analyse()) {
             return false;
         }
     }
@@ -39,7 +39,7 @@ bool ast_label_dec_seq::analyse() {
 }
 
 void ast_label_dec_seq::explain_impl(std::string &res, int indent) const {
-    for (auto it = label_dec_vec.rbegin(); it != label_dec_vec.rend(); it++) {
-        (*it)->explain_impl(res, indent);
+    for (auto child : label_dec_vec) {
+        child->explain_impl(res, indent);
     }
 }

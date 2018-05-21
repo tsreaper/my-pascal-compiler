@@ -20,8 +20,8 @@ void ast_enum_type::add_id(ast_id *id) {
 }
 
 bool ast_enum_type::analyse() {
-    for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        if (!(*it)->analyse()) {
+    for (auto child : id_vec) {
+        if (!child->analyse()) {
             return false;
         }
     }
@@ -40,8 +40,8 @@ void ast_enum_type::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "enum_type(\n";
 
-    for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        (*it)->explain_impl(res, indent + 1);
+    for (auto child : id_vec) {
+        child->explain_impl(res, indent + 1);
     }
 
     explain_indent(res, indent);

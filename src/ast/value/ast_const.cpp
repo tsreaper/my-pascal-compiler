@@ -44,8 +44,8 @@ void ast_const_def_seq::add_const_def(ast_const_def *def) {
 }
 
 bool ast_const_def_seq::analyse() {
-    for (auto it = const_def_vec.rbegin(); it != const_def_vec.rend(); it++) {
-        if (!(*it)->analyse()) {
+    for (auto child : const_def_vec) {
+        if (!child->analyse()) {
             return false;
         }
     }
@@ -53,7 +53,7 @@ bool ast_const_def_seq::analyse() {
 }
 
 void ast_const_def_seq::explain_impl(std::string &res, int indent) const {
-    for (auto it = const_def_vec.rbegin(); it != const_def_vec.rend(); it++) {
-        (*it)->explain_impl(res, indent);
+    for (auto child : const_def_vec) {
+        child->explain_impl(res, indent);
     }
 }

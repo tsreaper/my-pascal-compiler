@@ -11,13 +11,13 @@ int define_enum_type(const std::vector<ast_id *> &id_vec) {
     enum_table.emplace_back(env_enum_type());
 
     int count = 0;
-    for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
+    for (auto child : id_vec) {
         if (!define_const_id(
-                (*it)->get_id(), {true, meta_group::CONST, type_group::ENUM, enum_id}, {true, {.num = count++}}
+                child->get_id(), {true, meta_group::CONST, type_group::ENUM, enum_id}, {true, {.num = count++}}
         )) {
             return -1;
         }
-        enum_table[enum_id].id_vec.emplace_back((*it)->get_id());
+        enum_table[enum_id].id_vec.emplace_back(child->get_id());
     }
 
     return enum_id;

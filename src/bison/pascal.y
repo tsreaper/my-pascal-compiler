@@ -112,7 +112,7 @@ pascal:
 // ======= label declaration =======
 
 label_dec_part:
-    PAS_LABEL label_dec_body {
+    PAS_LABEL label_dec_body SYM_SEMICOLON {
         $$ = $2;
     }
     | {
@@ -121,17 +121,17 @@ label_dec_part:
 ;
 
 label_dec_body:
-    INT SYM_SEMICOLON {
+    INT {
         ast_label_dec* child = new ast_label_dec($1);
         YY_SET_LOCATION(child);
         $$ = new ast_label_dec_seq();
         $$->add_label_dec(child);
         YY_SET_LOCATION($$);
     }
-    | INT SYM_COMMA label_dec_body {
-        ast_label_dec* child = new ast_label_dec($1);
+    | label_dec_body SYM_COMMA INT {
+        ast_label_dec* child = new ast_label_dec($3);
         YY_SET_LOCATION(child);
-        $$ = $3;
+        $$ = $1;
         $$->add_label_dec(child);
         YY_SET_LOCATION($$);
     }
@@ -182,9 +182,9 @@ const_def_body:
         $$->add_const_def($1);
         YY_SET_LOCATION($$);
     }
-    | const_def SYM_SEMICOLON const_def_body {
-        $$ = $3;
-        $$->add_const_def($1);
+    | const_def_body const_def SYM_SEMICOLON {
+        $$ = $1;
+        $$->add_const_def($2);
         YY_SET_LOCATION($$);
     }
 ;
@@ -251,10 +251,10 @@ enum_type_body:
         $$->add_id(child);
         YY_SET_LOCATION($$);
     }
-    | ID SYM_COMMA enum_type_body {
-        ast_id* child = new ast_id($1);
+    | enum_type_body SYM_COMMA ID {
+        ast_id* child = new ast_id($3);
         YY_SET_LOCATION(child);
-        $$ = $3;
+        $$ = $1;
         $$->add_id(child);
         YY_SET_LOCATION($$);
     }
@@ -276,9 +276,9 @@ type_def_body:
         $$->add_type_def($1);
         YY_SET_LOCATION($$);
     }
-    | type_def SYM_SEMICOLON type_def_body {
-        $$ = $3;
-        $$->add_type_def($1);
+    | type_def_body type_def SYM_SEMICOLON {
+        $$ = $1;
+        $$->add_type_def($2);
         YY_SET_LOCATION($$);
     }
 ;
