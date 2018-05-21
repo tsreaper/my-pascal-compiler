@@ -14,19 +14,30 @@ aux_source_directory(env/label ENV_SOURCE)
 aux_source_directory(env/type ENV_SOURCE)
 aux_source_directory(env/value ENV_SOURCE)
 
+file(
+        GLOB BISON_SOURCE
+        bison/*.y
+        bison/label/*.y
+        bison/program/*.y
+        bison/type/*.y
+        bison/value/*.y
+)
+list(REMOVE_ITEM BISON_SOURCE ${CMAKE_CURRENT_LIST_DIR}/bison/head.y)
+
 add_custom_command(
         OUTPUT pascal.l.cpp
-        COMMAND echo ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND pwd
         COMMAND flex -o pascal.l.cpp ${CMAKE_CURRENT_LIST_DIR}/flex/pascal.l
         DEPENDS ${CMAKE_CURRENT_LIST_DIR}/flex/pascal.l pascal.y.hpp
 )
 add_custom_command(
         OUTPUT pascal.y.cpp pascal.y.hpp
-        COMMAND echo ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND pwd
-        COMMAND bison -d -o pascal.y.cpp ${CMAKE_CURRENT_LIST_DIR}/bison/pascal.y
-        DEPENDS ${CMAKE_CURRENT_LIST_DIR}/bison/pascal.y
+        COMMAND bison -d -o pascal.y.cpp pascal.build.y
+        DEPENDS pascal.build.y
+)
+add_custom_command(
+        OUTPUT pascal.build.y
+        COMMAND bash ${CMAKE_CURRENT_LIST_DIR}/bison/build.sh pascal.build.y ${CMAKE_CURRENT_LIST_DIR}/bison/head.y ${BISON_SOURCE}
+        DEPENDS ${CMAKE_CURRENT_LIST_DIR}/bison/head.y ${BISON_SOURCE} ${CMAKE_CURRENT_LIST_DIR}/bison/build.sh
 )
 
 add_executable(
