@@ -29,6 +29,7 @@ PAS_ELSE else
 PAS_END end
 PAS_FILE file
 PAS_FOR for
+PAS_FORWARD forward
 PAS_FUNCTION function
 PAS_GOTO goto
 PAS_IF if
@@ -132,6 +133,9 @@ COMMENT_END "}"|"*)"
 }
 {PAS_FOR} {
     return PAS_FOR;
+}
+{PAS_FORWARD} {
+    return PAS_FORWARD;
 }
 {PAS_FUNCTION} {
     return PAS_FUNCTION;

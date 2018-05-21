@@ -1,8 +1,14 @@
-#include <cstdio>
-
 #include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/type/sem_type.h"
+
+bool sem_type::operator==(const sem_type &rhs) const {
+    return tg == rhs.tg && id == rhs.id;
+}
+
+bool sem_type::operator!=(const sem_type &rhs) const {
+    return !(*this == rhs);
+}
 
 void sem_type_context::push() {
     layers.emplace_back();
@@ -41,4 +47,10 @@ void define_type_id(const std::string &id, const sem_type &type) {
         throw sem_exception("semantics error, rhs is not a type");
     }
     sem_env.get_type_env().set_type(id, type);
+}
+
+void assert_is_type(const sem_type &type) {
+    if (type.mg != meta_group::TYPE) {
+        throw sem_exception("semantics error, not a type");
+    }
 }

@@ -13,9 +13,6 @@ var_dec_part:
     PAS_VAR var_dec_body {
         $$ = $2;
     }
-    | {
-        $$ = new ast_empty();
-    }
 ;
 
 var_dec_body:

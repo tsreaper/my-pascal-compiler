@@ -14,9 +14,6 @@ type_def_part:
     PAS_TYPE type_def_body {
         $$ = $2;
     }
-    | {
-        $$ = new ast_empty();
-    }
 ;
 
 type_def_body:

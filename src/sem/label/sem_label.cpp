@@ -1,5 +1,3 @@
-#include <map>
-
 #include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/label/sem_label.h"

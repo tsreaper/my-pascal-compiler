@@ -27,6 +27,10 @@ struct sem_type {
     meta_group mg;
     type_group tg;
     int id;
+
+    bool operator==(const sem_type &rhs) const;
+
+    bool operator!=(const sem_type &rhs) const;
 };
 
 class sem_type_context {
@@ -46,5 +50,7 @@ private:
 };
 
 void define_type_id(const std::string &id, const sem_type &type);
+
+void assert_is_type(const sem_type &type);
 
 #endif //MY_PASCAL_SEM_TYPE_H

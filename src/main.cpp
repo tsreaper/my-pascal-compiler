@@ -9,7 +9,7 @@ int main() {
         std::string plan;
         ast_root->explain(plan);
         std::cout << plan << std::endl;
-        ast_root->analyse();
+        std::cout << ast_root->analyse() << std::endl;
     }
     return 0;
 }

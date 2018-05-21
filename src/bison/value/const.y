@@ -14,9 +14,6 @@ const_def_part:
     PAS_CONST const_def_body {
         $$ = $2;
     }
-    | {
-        $$ = new ast_empty();
-    }
 ;
 
 const_def_body:

@@ -11,9 +11,6 @@ label_dec_part:
     PAS_LABEL label_dec_body SYM_SEMICOLON {
         $$ = $2;
     }
-    | {
-        $$ = new ast_empty();
-    }
 ;
 
 label_dec_body:

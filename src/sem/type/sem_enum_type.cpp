@@ -1,5 +1,3 @@
-#include <cstdio>
-
 #include "sem/sem.h"
 #include "sem/value/sem_const.h"
 #include "sem/type/sem_type.h"

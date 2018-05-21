@@ -8,6 +8,7 @@ ast_var_dec::~ast_var_dec() {
     for (auto child : id_vec) {
         delete child;
     }
+    delete type;
 }
 
 void ast_var_dec::add_id(ast_id *id) {
@@ -16,10 +17,14 @@ void ast_var_dec::add_id(ast_id *id) {
 
 bool ast_var_dec::analyse() {
     for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        if ((*it)->analyse()) {
+        if (!(*it)->analyse()) {
             return false;
         }
     }
+    if (!type->analyse()) {
+        return false;
+    }
+
     for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
         try {
             declare_var_id((*it)->get_id(), type->get_type());
