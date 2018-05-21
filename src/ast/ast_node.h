@@ -2,11 +2,11 @@
 #define MY_PASCAL_AST_NODE_H
 
 #include <string>
-#include <env/type/env_type.h>
+#include <sem/type/sem_type.h>
 
 #include "ast/ast_interface.h"
 
-#define PRINT_ERROR_LINENO fprintf(stderr, "(at %d:%d)\n", lineno, colno)
+#define PRINT_ERROR_MSG(e) fprintf(stderr, "%s (at %d:%d)\n", (e).msg.c_str(), lineno, colno)
 
 class ast_node {
 public:

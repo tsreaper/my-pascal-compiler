@@ -1,13 +1,13 @@
-#include "env/id/env_id.h"
+#include "sem/id/sem_id.h"
 #include "ast/id/ast_id.h"
 
 ast_id::ast_id(const char *id) : id(id) {}
 
-env_type ast_id::get_type() const {
+sem_type ast_id::get_type() const {
     return get_id_type(id);
 }
 
-env_value ast_id::get_value() const {
+sem_value ast_id::get_value() const {
     return get_id_value(id);
 }
 

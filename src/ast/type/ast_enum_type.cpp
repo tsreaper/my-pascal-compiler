@@ -1,4 +1,5 @@
-#include "env/type/env_enum_type.h"
+#include "sem/exception/sem_exception.h"
+#include "sem/type/sem_enum_type.h"
 #include "ast/type/ast_enum_type.h"
 
 ast_enum_type::~ast_enum_type() {
@@ -7,7 +8,7 @@ ast_enum_type::~ast_enum_type() {
     }
 }
 
-env_type ast_enum_type::get_type() const {
+sem_type ast_enum_type::get_type() const {
     if (enum_id >= 0) {
         return {true, meta_group::TYPE, type_group::ENUM, enum_id};
     } else {
@@ -26,12 +27,11 @@ bool ast_enum_type::analyse() {
         }
     }
 
-    int enum_id = define_enum_type(id_vec);
-    if (enum_id >= 0) {
-        this->enum_id = enum_id;
+    try {
+        enum_id = define_enum_type(id_vec);
         return true;
-    } else {
-        PRINT_ERROR_LINENO;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }

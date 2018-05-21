@@ -2,7 +2,7 @@
 
 // ======= int =======
 
-env_type ast_bti_int::get_type() const {
+sem_type ast_bti_int::get_type() const {
     return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::INT};
 }
 
@@ -17,7 +17,7 @@ void ast_bti_int::explain_impl(std::string &res, int indent) const {
 
 // ======= real =======
 
-env_type ast_bti_real::get_type() const {
+sem_type ast_bti_real::get_type() const {
     return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::REAL};
 }
 
@@ -32,7 +32,7 @@ void ast_bti_real::explain_impl(std::string &res, int indent) const {
 
 // ======= char =======
 
-env_type ast_bti_char::get_type() const {
+sem_type ast_bti_char::get_type() const {
     return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::CHAR};
 }
 
@@ -47,7 +47,7 @@ void ast_bti_char::explain_impl(std::string &res, int indent) const {
 
 // ======= bool =======
 
-env_type ast_bti_bool::get_type() const {
+sem_type ast_bti_bool::get_type() const {
     return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::BOOL};
 }
 
@@ -62,7 +62,7 @@ void ast_bti_bool::explain_impl(std::string &res, int indent) const {
 
 // ======= string =======
 
-env_type ast_bti_str::get_type() const {
+sem_type ast_bti_str::get_type() const {
     return {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::STR};
 }
 

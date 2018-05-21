@@ -1,4 +1,5 @@
-#include "env/type/env_type.h"
+#include "sem/exception/sem_exception.h"
+#include "sem/type/sem_type.h"
 #include "ast/type/ast_type.h"
 
 ast_type_def::ast_type_def(ast_id *id, ast_type_node *type) : id(id), type(type) {}
@@ -10,10 +11,11 @@ ast_type_def::~ast_type_def() {
 
 bool ast_type_def::analyse() {
     if (id->analyse() && type->analyse()) {
-        if (define_type_id(id->get_id(), type->get_type())) {
+        try {
+            define_type_id(id->get_id(), type->get_type());
             return true;
-        } else {
-            PRINT_ERROR_LINENO;
+        } catch (const sem_exception &e) {
+            PRINT_ERROR_MSG(e);
             return false;
         }
     } else {

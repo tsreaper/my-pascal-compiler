@@ -9,7 +9,7 @@ class ast_enum_type : public ast_type_node {
 public:
     ~ast_enum_type() override;
 
-    env_type get_type() const override;
+    sem_type get_type() const override;
 
     void add_id(ast_id *id);
 

@@ -1,15 +1,17 @@
 #include <cstdio>
 
-#include "env/label/env_label.h"
+#include "sem/exception/sem_exception.h"
+#include "sem/label/sem_label.h"
 #include "ast/label/ast_label.h"
 
 ast_label_dec::ast_label_dec(int label) : label(label) {}
 
 bool ast_label_dec::analyse() {
-    if (declare_label(label)) {
+    try {
+        declare_label(label);
         return true;
-    } else {
-        PRINT_ERROR_LINENO;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }

@@ -1,4 +1,5 @@
-#include "env/value/env_const.h"
+#include "sem/exception/sem_exception.h"
+#include "sem/value/sem_const.h"
 #include "ast/id/ast_id.h"
 #include "ast/value/ast_const.h"
 
@@ -11,10 +12,11 @@ ast_const_def::~ast_const_def() {
 
 bool ast_const_def::analyse() {
     if (id->analyse() && value->analyse()) {
-        if (define_const_id(id->get_id(), value->get_type(), value->get_value())) {
+        try {
+            define_const_id(id->get_id(), value->get_type(), value->get_value());
             return true;
-        } else {
-            PRINT_ERROR_LINENO;
+        } catch (const sem_exception &e) {
+            PRINT_ERROR_MSG(e);
             return false;
         }
     } else {

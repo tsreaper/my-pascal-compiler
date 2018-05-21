@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_ENV_TYPE_H
-#define MY_PASCAL_ENV_TYPE_H
+#ifndef MY_PASCAL_SEM_TYPE_H
+#define MY_PASCAL_SEM_TYPE_H
 
 #include <string>
 #include <map>
@@ -20,15 +20,15 @@ namespace built_in_type {
     const int STR = 4;
 }
 
-struct env_type {
+struct sem_type {
     bool known;
     meta_group mg;
     type_group tg;
     int id;
 };
 
-bool define_type_id(const std::string &id, env_type type);
+void define_type_id(const std::string &id, sem_type type);
 
-extern std::map<std::string, env_type> id_type;
+extern std::map<std::string, sem_type> id_type;
 
-#endif //MY_PASCAL_ENV_TYPE_H
+#endif //MY_PASCAL_SEM_TYPE_H

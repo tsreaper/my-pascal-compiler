@@ -1,10 +1,10 @@
-#ifndef MY_PASCAL_ENV_VALUE_H
-#define MY_PASCAL_ENV_VALUE_H
+#ifndef MY_PASCAL_SEM_VALUE_H
+#define MY_PASCAL_SEM_VALUE_H
 
 #include <string>
 #include <map>
 
-struct env_value {
+struct sem_value {
     bool known;
     union {
         int num;
@@ -15,6 +15,6 @@ struct env_value {
     } value;
 };
 
-extern std::map<std::string, env_value> const_table;
+extern std::map<std::string, sem_value> const_table;
 
-#endif //MY_PASCAL_ENV_VALUE_H
+#endif //MY_PASCAL_SEM_VALUE_H

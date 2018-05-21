@@ -8,11 +8,12 @@ aux_source_directory(ast/label AST_SOURCE)
 aux_source_directory(ast/program AST_SOURCE)
 aux_source_directory(ast/type AST_SOURCE)
 
-aux_source_directory(env ENV_SOURCE)
-aux_source_directory(env/id ENV_SOURCE)
-aux_source_directory(env/label ENV_SOURCE)
-aux_source_directory(env/type ENV_SOURCE)
-aux_source_directory(env/value ENV_SOURCE)
+aux_source_directory(sem SEM_SOURCE)
+aux_source_directory(sem/exception SEM_SOURCE)
+aux_source_directory(sem/id SEM_SOURCE)
+aux_source_directory(sem/label SEM_SOURCE)
+aux_source_directory(sem/type SEM_SOURCE)
+aux_source_directory(sem/value SEM_SOURCE)
 
 file(
         GLOB BISON_SOURCE
@@ -43,7 +44,7 @@ add_custom_command(
 
 add_executable(
         my_pascal
-        main.cpp ${AST_SOURCE} ${ENV_SOURCE}
+        main.cpp ${AST_SOURCE} ${SEM_SOURCE}
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.l.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.cpp ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.hpp
 )

@@ -1,4 +1,5 @@
-#include "env/value/env_var.h"
+#include "sem/exception/sem_exception.h"
+#include "sem/value/sem_var.h"
 #include "ast/value/ast_var.h"
 
 ast_var_dec::ast_var_dec(ast_type_node *type) : type(type) {}
@@ -20,8 +21,10 @@ bool ast_var_dec::analyse() {
         }
     }
     for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        if (!declare_var_id((*it)->get_id(), type->get_type())) {
-            PRINT_ERROR_LINENO;
+        try {
+            declare_var_id((*it)->get_id(), type->get_type());
+        } catch (const sem_exception &e) {
+            PRINT_ERROR_MSG(e);
             return false;
         }
     }
