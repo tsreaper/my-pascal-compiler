@@ -22,16 +22,28 @@ bool func_sign::operator!=(const func_sign &rhs) const {
 }
 
 void sem_func_context::push() {
-    layers.emplace_back();
+    type_layers.emplace_back();
+    defined_layers.emplace_back();
 }
 
 void sem_func_context::pop() {
-    layers.pop_back();
+    type_layers.pop_back();
+    defined_layers.pop_back();
+}
+
+#define FIND_SIGNATURE(sign, layer, res) { \
+    for (int i = 0; i < (layer).size(); i++) { \
+        if ((sign) == (layer)[i].first) { \
+            (res) = i; \
+            break; \
+        } \
+    } \
 }
 
 const sem_type &sem_func_context::get_ret_type(const func_sign &sign) const {
-    for (auto it = layers.rbegin(); it != layers.rend(); it++) {
-        int pos = find_signature(sign, *it);
+    for (auto it = type_layers.rbegin(); it != type_layers.rend(); it++) {
+        int pos = -1;
+        FIND_SIGNATURE(sign, *it, pos);
         if (pos >= 0) {
             return (*it)[pos].second;
         }
@@ -40,28 +52,37 @@ const sem_type &sem_func_context::get_ret_type(const func_sign &sign) const {
 }
 
 void sem_func_context::set_ret_type(const func_sign &sign, const sem_type &ret_type) {
-    auto &layer = *layers.rbegin();
-    int pos = find_signature(sign, layer);
+    auto &layer = *type_layers.rbegin();
+    int pos = -1;
+    FIND_SIGNATURE(sign, layer, pos);
     if (pos >= 0) {
         throw sem_exception("semantics error, duplicated procedure/function " + sign.id);
     }
     layer.emplace_back(func_sign_ret{sign, ret_type});
 }
 
-int sem_func_context::find_signature(const func_sign &sign, const std::vector<func_sign_ret> &layer) const {
-    for (int i = 0; i < layer.size(); i++) {
-        if (sign == layer[i].first) {
-            return i;
-        }
+void sem_func_context::set_defined(const func_sign &sign) {
+    auto &layer = *defined_layers.rbegin();
+    int pos = -1;
+    FIND_SIGNATURE(sign, layer, pos);
+    if (pos >= 0) {
+        throw sem_exception("semantics error, procedure/function " + sign.id + " already defined");
     }
-    return -1;
+    layer.emplace_back(func_sign_defined{sign, true});
 }
 
-void declare_func(const std::string &id, const std::vector<ast_type_node*> &param_type_vec, const sem_type &ret_type) {
-    std::vector<sem_type> vec;
-    for (auto child : param_type_vec) {
-        vec.emplace_back(child->get_type());
-    }
-    func_sign sign{id, vec};
+void declare_func(const func_sign& sign, const sem_type &ret_type) {
     sem_env.get_func_env().set_ret_type(sign, ret_type);
+}
+
+void define_func(const func_sign &sign, const sem_type &ret_type) {
+    try {
+        declare_func(sign, ret_type);
+    } catch (const sem_exception &e) {}
+
+    if (sem_env.get_func_env().get_ret_type(sign) != ret_type) {
+        throw sem_exception("semantics error, duplicated procedure/function " + sign.id);
+    }
+
+    sem_env.get_func_env().set_defined(sign);
 }

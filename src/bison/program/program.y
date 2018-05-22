@@ -11,7 +11,7 @@ ast_program* program_node;
 %%
 
 program:
-    program_head block {
+    program_head block SYM_PERIOD {
         ast_root = new ast_program($1, $2);
         YY_SET_LOCATION(ast_root);
     }

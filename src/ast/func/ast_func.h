@@ -5,18 +5,30 @@
 
 #include "ast/ast_node.h"
 #include "ast/id/ast_id.h"
+#include "ast/program/ast_block.h"
+#include "sem/func/sem_func.h"
 
-class ast_func_dec : public ast_node {
+class ast_func_head : public ast_node {
 public:
-    explicit ast_func_dec(ast_id *name);
+    explicit ast_func_head(ast_id *name);
 
-    ~ast_func_dec() override;
+    ~ast_func_head() override;
+
+    const std::string &get_name() const;
 
     int get_param_num() const;
 
-    void add_param(ast_id* param_name, ast_type_node* param_type);
+    const std::vector<ast_id *> &get_param_name_node() const;
 
-    void set_ret_type(ast_type_node *type);
+    const std::vector<ast_type_node *> &get_param_type_node() const;
+
+    const sem_type &get_ret_type() const;
+
+    const func_sign &get_func_sign() const;
+
+    void add_param(ast_id *param_name, ast_type_node *param_type);
+
+    void set_ret_type_node(ast_type_node *type);
 
     bool analyse() override;
 
@@ -25,8 +37,40 @@ public:
 private:
     ast_id *name;
     ast_type_node *type;
-    std::vector<ast_id*> param_name_vec;
-    std::vector<ast_type_node*> param_type_vec;
+    std::vector<ast_id *> param_name_vec;
+    std::vector<ast_type_node *> param_type_vec;
+
+    func_sign sign;
+    sem_type ret_type;
+};
+
+class ast_func_dec : public ast_node {
+public:
+    explicit ast_func_dec(ast_func_head *head);
+
+    ~ast_func_dec() override;
+
+    bool analyse() override;
+
+    void explain_impl(std::string &res, int indent) const override;
+
+private:
+    ast_func_head *head;
+};
+
+class ast_func_def : public ast_node {
+public:
+    ast_func_def(ast_func_head *head, ast_block *block);
+
+    ~ast_func_def() override;
+
+    bool analyse() override;
+
+    void explain_impl(std::string &res, int indent) const override;
+
+private:
+    ast_func_head *head;
+    ast_block *block;
 };
 
 #endif //MY_PASCAL_AST_FUNC_H

@@ -26,14 +26,18 @@ public:
 
     void set_ret_type(const func_sign &sign, const sem_type &ret_type);
 
+    void set_defined(const func_sign &sign);
+
 private:
     typedef std::pair<func_sign, sem_type> func_sign_ret;
+    std::vector<std::vector<func_sign_ret>> type_layers;
 
-    std::vector<std::vector<func_sign_ret>> layers;
-
-    int find_signature(const func_sign &sign, const std::vector<func_sign_ret> &layer) const;
+    typedef std::pair<func_sign, bool> func_sign_defined;
+    std::vector<std::vector<func_sign_defined>> defined_layers;
 };
 
-void declare_func(const std::string &id, const std::vector<ast_type_node*> &param_type_vec, const sem_type &ret_type);
+void declare_func(const func_sign &sign, const sem_type &ret_type);
+
+void define_func(const func_sign &sign, const sem_type &ret_type);
 
 #endif //MY_PASCAL_SEM_FUNC_H

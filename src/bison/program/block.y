@@ -42,11 +42,10 @@ block_head_component:
     | var_dec_part {
         $$ = $1;
     }
-    | proc_dec {
+    | proc_func_dec {
         $$ = $1;
     }
-    | func_dec {
+    | proc_func_def {
         $$ = $1;
     }
-    // TODO procedure definition and function definition
 ;
