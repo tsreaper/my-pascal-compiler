@@ -86,3 +86,7 @@ void define_func(const func_sign &sign, const sem_type &ret_type) {
 
     sem_env.get_func_env().set_defined(sign);
 }
+
+const sem_type &get_ret_type(const func_sign &sign) {
+    return sem_env.get_func_env().get_ret_type(sign);
+}

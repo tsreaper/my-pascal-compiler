@@ -40,4 +40,6 @@ void declare_func(const func_sign &sign, const sem_type &ret_type);
 
 void define_func(const func_sign &sign, const sem_type &ret_type);
 
+const sem_type &get_ret_type(const func_sign &sign);
+
 #endif //MY_PASCAL_SEM_FUNC_H

@@ -4,7 +4,6 @@
 #include "ast/func/ast_func.h"
 
 ast_func_head::ast_func_head(ast_id *name) : name(name) {
-    sign.id = name->get_id();
     ret_type = {false};
 }
 
@@ -79,6 +78,7 @@ bool ast_func_head::analyse() {
         }
 
         // Set function signature and return type
+        sign.id = name->get_id();
         for (auto child : param_type_vec) {
             sign.param_type_vec.emplace_back(child->get_type());
         }
