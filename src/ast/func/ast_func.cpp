@@ -83,7 +83,7 @@ bool ast_func_head::analyse() {
             sign.param_type_vec.emplace_back(child->get_type());
         }
         if (type == nullptr) {
-            ret_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::VOID};
+            ret_type = built_in_type::VOID_TYPE;
         } else {
             ret_type = type->get_type();
         }
@@ -168,7 +168,7 @@ bool ast_func_def::analyse() {
         for (int i = 0; i < param_num; i++) {
             declare_var_id(names[i]->get_id(), types[i]->get_type());
         }
-        if (head->get_ret_type() != sem_type{true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::VOID}) {
+        if (head->get_ret_type() != built_in_type::VOID_TYPE) {
             // In pascal, function return value is stored in a variable with the same name as the function name
             declare_var_id(head->get_name(), head->get_ret_type());
         }

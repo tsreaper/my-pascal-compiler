@@ -11,7 +11,7 @@ const sem_value &ast_literal::get_value() const {
 // ======= int =======
 
 ast_lit_int::ast_lit_int(int value) : value(value) {
-    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::INT};
+    s_type = built_in_type::INT_TYPE;
     s_value = {true, {.num = value}};
 }
 
@@ -27,7 +27,7 @@ void ast_lit_int::explain_impl(std::string &res, int indent) const {
 // ======= real =======
 
 ast_lit_real::ast_lit_real(double value) : value(value) {
-    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::REAL};
+    s_type = built_in_type::REAL_TYPE;
     s_value = {true, {.real = value}};
 }
 
@@ -43,7 +43,7 @@ void ast_lit_real::explain_impl(std::string &res, int indent) const {
 // ======= char =======
 
 ast_lit_char::ast_lit_char(char value) : value(value) {
-    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::CHAR};
+    s_type = built_in_type::CHAR_TYPE;
     s_value = {true, {.chr = value}};
 }
 
@@ -59,7 +59,7 @@ void ast_lit_char::explain_impl(std::string &res, int indent) const {
 // ======= bool =======
 
 ast_lit_bool::ast_lit_bool(bool value) : value(value) {
-    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::BOOL};
+    s_type = built_in_type::BOOL_TYPE;
     s_value = {true, {.boo = value}};
 }
 
@@ -75,7 +75,7 @@ void ast_lit_bool::explain_impl(std::string &res, int indent) const {
 // ======= string =======
 
 ast_lit_str::ast_lit_str(const char *value) : value(value) {
-    s_type = {true, meta_group::CONST, type_group::BUILT_IN, built_in_type::STR};
+    s_type = built_in_type::STR_TYPE;
     s_value = {true, {}};
     s_value.value.str = &this->value;
 }

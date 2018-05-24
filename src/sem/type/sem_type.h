@@ -6,7 +6,7 @@
 #include <map>
 
 enum class meta_group {
-    CONST, VAR, TYPE
+    CONST, VAR, TYPE, EXP
 };
 
 enum class type_group {
@@ -33,6 +33,19 @@ struct sem_type {
     bool operator!=(const sem_type &rhs) const;
 };
 
+namespace built_in_type {
+    const sem_type VOID_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, VOID};
+    const sem_type INT_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, INT};
+    const sem_type REAL_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, REAL};
+    const sem_type CHAR_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, CHAR};
+    const sem_type BOOL_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, BOOL};
+    const sem_type STR_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, STR};
+
+    const sem_type EXP_INT_TYPE = {true, meta_group::EXP, type_group::BUILT_IN, INT};
+    const sem_type EXP_REAL_TYPE = {true, meta_group::EXP, type_group::BUILT_IN, REAL};
+    const sem_type EXP_BOOL_TYPE = {true, meta_group::EXP, type_group::BUILT_IN, BOOL};
+}
+
 class sem_type_context {
 public:
     void push();
@@ -52,5 +65,13 @@ private:
 void define_type_id(const std::string &id, const sem_type &type);
 
 void assert_is_type(const sem_type &type);
+
+const sem_type &assert_can_do_arith(const sem_type &type_l, const sem_type &type_r);
+
+const sem_type &assert_can_do_logic(const sem_type &type_l, const sem_type &type_r);
+
+const sem_type &assert_can_equal(const sem_type &type_l, const sem_type &type_r);
+
+const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_r);
 
 #endif //MY_PASCAL_SEM_TYPE_H

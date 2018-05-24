@@ -2,6 +2,9 @@
 #define MY_PASCAL_AST_H
 
 #include "ast/ast_node.h"
+#include "ast/exp/ast_arith.h"
+#include "ast/exp/ast_cmp.h"
+#include "ast/exp/ast_logic.h"
 #include "ast/func/ast_func.h"
 #include "ast/id/ast_id.h"
 #include "ast/label/ast_label.h"

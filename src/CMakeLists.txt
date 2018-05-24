@@ -2,6 +2,7 @@ include_directories(.)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 aux_source_directory(ast AST_SOURCE)
+aux_source_directory(ast/exp AST_SOURCE)
 aux_source_directory(ast/func AST_SOURCE)
 aux_source_directory(ast/id AST_SOURCE)
 aux_source_directory(ast/label AST_SOURCE)
@@ -11,6 +12,7 @@ aux_source_directory(ast/value AST_SOURCE)
 
 aux_source_directory(sem SEM_SOURCE)
 aux_source_directory(sem/exception SEM_SOURCE)
+aux_source_directory(sem/exp SEM_SOURCE)
 aux_source_directory(sem/func SEM_SOURCE)
 aux_source_directory(sem/id SEM_SOURCE)
 aux_source_directory(sem/label SEM_SOURCE)
@@ -20,6 +22,7 @@ aux_source_directory(sem/value SEM_SOURCE)
 file(
         GLOB BISON_SOURCE
         bison/*.y
+        bison/exp/*.y
         bison/func/*.y
         bison/id/*.y
         bison/label/*.y
