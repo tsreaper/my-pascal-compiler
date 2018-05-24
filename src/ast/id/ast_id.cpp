@@ -1,7 +1,13 @@
 #include "sem/id/sem_id.h"
 #include "ast/id/ast_id.h"
 
-ast_id::ast_id(const char *id) : id(id) {}
+ast_id::ast_id(const char *id) : id(id) {
+    for (char &c : this->id) {
+        if (c >= 'A' && c <= 'Z') {
+            c += 'a' - 'A';
+        }
+    }
+}
 
 const sem_type &ast_id::get_type() const {
     return get_id_type(id);

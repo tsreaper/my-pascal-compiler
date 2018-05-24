@@ -41,6 +41,12 @@ namespace built_in_type {
     const sem_type BOOL_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, BOOL};
     const sem_type STR_TYPE = {true, meta_group::TYPE, type_group::BUILT_IN, STR};
 
+    const sem_type CONST_INT_TYPE = {true, meta_group::CONST, type_group::BUILT_IN, INT};
+    const sem_type CONST_REAL_TYPE = {true, meta_group::CONST, type_group::BUILT_IN, REAL};
+    const sem_type CONST_CHAR_TYPE = {true, meta_group::CONST, type_group::BUILT_IN, CHAR};
+    const sem_type CONST_BOOL_TYPE = {true, meta_group::CONST, type_group::BUILT_IN, BOOL};
+    const sem_type CONST_STR_TYPE = {true, meta_group::CONST, type_group::BUILT_IN, STR};
+
     const sem_type EXP_INT_TYPE = {true, meta_group::EXP, type_group::BUILT_IN, INT};
     const sem_type EXP_REAL_TYPE = {true, meta_group::EXP, type_group::BUILT_IN, REAL};
     const sem_type EXP_BOOL_TYPE = {true, meta_group::EXP, type_group::BUILT_IN, BOOL};
@@ -73,5 +79,7 @@ const sem_type &assert_can_do_logic(const sem_type &type_l, const sem_type &type
 const sem_type &assert_can_equal(const sem_type &type_l, const sem_type &type_r);
 
 const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_r);
+
+void assert_can_assign(const sem_type &type_l, const sem_type &type_r);
 
 #endif //MY_PASCAL_SEM_TYPE_H

@@ -14,9 +14,3 @@ void ast_node::explain_indent(std::string &res, int indent) const {
         res += ' ';
     }
 }
-
-bool ast_empty::analyse() {
-    return true;
-}
-
-void ast_empty::explain_impl(std::string &, int) const {}

@@ -25,7 +25,7 @@ void ast_block_head::explain_impl(std::string &res, int indent) const {
     }
 }
 
-ast_block::ast_block(ast_block_head *head, ast_node *body) : head(head), body(body) {}
+ast_block::ast_block(ast_block_head *head, ast_stmt_seq *body) : head(head), body(body) {}
 
 ast_block::~ast_block() {
     delete head;

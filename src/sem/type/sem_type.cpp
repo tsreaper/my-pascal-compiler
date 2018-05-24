@@ -90,12 +90,14 @@ const sem_type &assert_can_equal(const sem_type &type_l, const sem_type &type_r)
         ) {
             return built_in_type::EXP_BOOL_TYPE;
         }
-        if (type_l == type_r) {
+        if (type_l != built_in_type::VOID_TYPE && type_l == type_r) {
             return built_in_type::EXP_BOOL_TYPE;
         }
     }
 
-    throw sem_exception("semantics error, cannot check the equality of these two values");
+    throw sem_exception(
+            "semantics error, cannot check the equality of these two values because their types are inconsistent"
+    );
 }
 
 const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_r) {
@@ -109,10 +111,24 @@ const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_
                 ) {
             return built_in_type::EXP_BOOL_TYPE;
         }
-        if (type_l == type_r) {
+        if (type_l != built_in_type::VOID_TYPE && type_l == type_r) {
             return built_in_type::EXP_BOOL_TYPE;
         }
     }
 
-    throw sem_exception("semantics error, cannot compare these two values");
+    throw sem_exception("semantics error, cannot compare these two values because their types are inconsistent");
+}
+
+void assert_can_assign(const sem_type &type_l, const sem_type &type_r) {
+    if (type_l.mg != meta_group::VAR) {
+        throw sem_exception("semantics error, only variables can be assigned");
+    }
+    if (type_r.mg != meta_group::TYPE) {
+        if (type_l == type_r) {
+            return;
+        } else if (type_l == built_in_type::REAL_TYPE && type_r == built_in_type::INT_TYPE) {
+            return;
+        }
+    }
+    throw sem_exception("semantics error, cannot assign rhs to variable because their types are inconsistent");
 }

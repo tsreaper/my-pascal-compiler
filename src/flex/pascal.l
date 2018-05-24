@@ -53,6 +53,7 @@ PAS_UNTIL until
 PAS_VAR var
 PAS_WHILE while
 PAS_WITH with
+PAS_XOR xor
 
 SYM_ADD "+"
 SYM_SUB "-"
@@ -205,6 +206,9 @@ COMMENT_END "}"|"*)"
 }
 {PAS_WITH} {
     return PAS_WITH;
+}
+{PAS_XOR} {
+    return PAS_XOR;
 }
 
 {SYM_ADD} {

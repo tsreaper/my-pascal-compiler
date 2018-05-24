@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "ast/ast_node.h"
+#include "ast/stmt/ast_stmt.h"
 
 class ast_block_head : public ast_node {
 public:
@@ -21,7 +22,7 @@ private:
 
 class ast_block : public ast_node {
 public:
-    ast_block(ast_block_head *head, ast_node *body);
+    ast_block(ast_block_head *head, ast_stmt_seq *body);
 
     ~ast_block() override;
 
@@ -31,7 +32,7 @@ public:
 
 private:
     ast_block_head *head;
-    ast_node *body;
+    ast_stmt_seq *body;
 };
 
 #endif //MY_PASCAL_AST_BLOCK_H

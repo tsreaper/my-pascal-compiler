@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo $@
-
 union_part="%union {"$'\n'
 first_part=""
 second_part="%%"$'\n'

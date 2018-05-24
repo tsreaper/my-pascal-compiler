@@ -41,6 +41,7 @@ bool ast_call::analyse() {
         }
 
         type = get_ret_type(sign);
+        type.mg = meta_group::EXP;
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
@@ -54,7 +55,7 @@ void ast_call::explain_impl(std::string &res, int indent) const {
 
     id->explain_impl(res, indent + 1);
     explain_indent(res, indent + 1);
-    res += "--- param ---";
+    res += "--- param ---\n";
     for (auto child : param_vec) {
         child->explain_impl(res, indent + 1);
     }

@@ -30,11 +30,4 @@ class ast_type_node : public ast_node, public ast_has_type {};
 
 class ast_value_node : public ast_type_node, public ast_has_value {};
 
-class ast_empty : public ast_node {
-public:
-    bool analyse() override;
-
-    void explain_impl(std::string &, int) const override;
-};
-
 #endif //MY_PASCAL_AST_NODE_H

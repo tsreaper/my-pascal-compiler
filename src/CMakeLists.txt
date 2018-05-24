@@ -7,6 +7,7 @@ aux_source_directory(ast/func AST_SOURCE)
 aux_source_directory(ast/id AST_SOURCE)
 aux_source_directory(ast/label AST_SOURCE)
 aux_source_directory(ast/program AST_SOURCE)
+aux_source_directory(ast/stmt AST_SOURCE)
 aux_source_directory(ast/type AST_SOURCE)
 aux_source_directory(ast/value AST_SOURCE)
 
@@ -27,6 +28,7 @@ file(
         bison/id/*.y
         bison/label/*.y
         bison/program/*.y
+        bison/stmt/*.y
         bison/type/*.y
         bison/value/*.y
 )

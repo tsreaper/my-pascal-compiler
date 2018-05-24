@@ -17,9 +17,8 @@ block:
 ;
 
 block_head:
-    block_head_component {
+    {
         $$ = new ast_block_head();
-        $$->add_node($1);
         YY_SET_LOCATION($$);
     }
     | block_head block_head_component {
