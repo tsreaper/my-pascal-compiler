@@ -9,16 +9,16 @@ ast_type_def::~ast_type_def() {
     delete type;
 }
 
-bool ast_type_def::analyse() {
-    if (id->analyse() && type->analyse()) {
-        try {
-            define_type_id(id->get_id(), type->get_type());
-            return true;
-        } catch (const sem_exception &e) {
-            PRINT_ERROR_MSG(e);
-            return false;
-        }
-    } else {
+bool ast_type_def::semantics_child() {
+    return id->analyse() != nullptr && type->analyse() != nullptr;
+}
+
+bool ast_type_def::semantics_self() {
+    try {
+        define_type_id(id->get_id(), type->get_type());
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }
@@ -44,9 +44,9 @@ void ast_type_def_seq::add_type_def(ast_type_def *def) {
     type_def_vec.emplace_back(def);
 }
 
-bool ast_type_def_seq::analyse() {
+bool ast_type_def_seq::semantics_child() {
     for (auto child : type_def_vec) {
-        if (!child->analyse()) {
+        if (child->analyse() == nullptr) {
             return false;
         }
     }

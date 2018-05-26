@@ -21,7 +21,7 @@ const std::string &ast_id::get_id() const {
     return id;
 }
 
-bool ast_id::analyse() {
+bool ast_id::semantics_self() {
     return true;
 }
 

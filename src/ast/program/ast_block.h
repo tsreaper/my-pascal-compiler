@@ -10,14 +10,17 @@ class ast_block_head : public ast_node {
 public:
     ~ast_block_head() override;
 
-    void add_node(ast_node* node);
-
-    bool analyse() override;
+    void add_node(ast_node *node);
 
     void explain_impl(std::string &res, int indent) const override;
 
+protected:
+    bool semantics_child() override;
+
 private:
-    std::vector<ast_node*> node_vec;
+    std::vector<ast_node *> node_vec;
+
+    std::vector<llvm::Value *> code_node_vec;
 };
 
 class ast_block : public ast_node {
@@ -26,13 +29,17 @@ public:
 
     ~ast_block() override;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
 
 private:
     ast_block_head *head;
     ast_stmt_seq *body;
+
+    llvm::Value *code_head;
+    llvm::Value *code_body;
 };
 
 #endif //MY_PASCAL_AST_BLOCK_H

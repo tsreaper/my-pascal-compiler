@@ -20,8 +20,6 @@ class ast_lit_int : public ast_literal {
 public:
     explicit ast_lit_int(int value);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 private:
@@ -31,8 +29,6 @@ private:
 class ast_lit_real : public ast_literal {
 public:
     explicit ast_lit_real(double value);
-
-    bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 
@@ -44,8 +40,6 @@ class ast_lit_char : public ast_literal {
 public:
     explicit ast_lit_char(char value);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 private:
@@ -56,8 +50,6 @@ class ast_lit_bool : public ast_literal {
 public:
     explicit ast_lit_bool(bool value);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 private:
@@ -67,8 +59,6 @@ private:
 class ast_lit_str : public ast_literal {
 public:
     explicit ast_lit_str(const char *value);
-
-    bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 

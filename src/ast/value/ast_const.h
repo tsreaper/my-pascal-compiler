@@ -12,9 +12,12 @@ public:
 
     ~ast_const_def() override;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 
 private:
     ast_id *id;
@@ -27,9 +30,10 @@ public:
 
     void add_const_def(ast_const_def *def);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
 
 private:
     std::vector<ast_const_def*> const_def_vec;

@@ -15,14 +15,17 @@ public:
 
     void add_id(ast_id *id);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
+protected:
+    bool semantics_child() override;
+
+    bool semantics_self() override;
+
 private:
+    std::vector<ast_id*> id_vec;
     int enum_id = -1;
     sem_type s_type;
-    std::vector<ast_id*> id_vec;
 };
 
 #endif //MY_PASCAL_AST_ENUM_TYPE_H

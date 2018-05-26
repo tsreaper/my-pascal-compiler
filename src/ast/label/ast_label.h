@@ -11,9 +11,10 @@ public:
 
     ~ast_label_dec() override = default;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_self() override;
 
 private:
     int label;
@@ -25,9 +26,10 @@ public:
 
     void add_label_dec(ast_label_dec* dec);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
 
 private:
     std::vector<ast_label_dec*> label_dec_vec;

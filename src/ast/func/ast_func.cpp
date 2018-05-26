@@ -3,7 +3,7 @@
 #include "sem/exception/sem_exception.h"
 #include "ast/func/ast_func.h"
 
-ast_func_head::ast_func_head(ast_id *name) : name(name) {
+ast_func_head::ast_func_head(ast_id *name) : name(name), type(nullptr) {
     ret_type = {false};
 }
 
@@ -51,24 +51,28 @@ void ast_func_head::set_ret_type_node(ast_type_node *type) {
     this->type = type;
 }
 
-bool ast_func_head::analyse() {
-    if (!name->analyse()) {
+bool ast_func_head::semantics_child() {
+    if ((code_name = name->analyse()) == nullptr) {
         return false;
     }
     for (auto child : param_name_vec) {
-        if (!child->analyse()) {
+        llvm::Value *code = child->analyse();
+        if (code == nullptr) {
             return false;
         }
+        code_param_name_vec.emplace_back(code);
     }
     for (auto child : param_type_vec) {
-        if (!child->analyse()) {
+        llvm::Value *code = child->analyse();
+        if (code == nullptr) {
             return false;
         }
+        code_param_type_vec.emplace_back(code);
     }
-    if (type != nullptr && !type->analyse()) {
-        return false;
-    }
+    return type == nullptr || (code_type = type->analyse()) != nullptr;
+}
 
+bool ast_func_head::semantics_self() {
     try {
         for (auto child : param_type_vec) {
             assert_is_type(child->get_type());
@@ -121,10 +125,11 @@ ast_func_dec::~ast_func_dec() {
     delete head;
 }
 
-bool ast_func_dec::analyse() {
-    if (!head->analyse()) {
-        return false;
-    }
+bool ast_func_dec::semantics_child() {
+    return (code_head = head->analyse()) != nullptr;
+}
+
+bool ast_func_dec::semantics_self() {
     try {
         declare_func(head->get_func_sign(), head->get_ret_type());
         return true;
@@ -149,18 +154,36 @@ ast_func_def::~ast_func_def() {
     delete block;
 }
 
-bool ast_func_def::analyse() {
-    if (!head->analyse()) {
+llvm::Value *ast_func_def::analyse() {
+    if (!semantics_child()) {
+        return nullptr;
+    }
+
+    sem_env.push();
+    if (!semantics_self()) {
+        sem_env.pop();
+        return nullptr;
+    }
+
+    llvm::Value *code = codegen();
+    sem_env.pop();
+    return code;
+}
+
+bool ast_func_def::semantics_child() {
+    if ((code_head = head->analyse()) == nullptr) {
         return false;
     }
     try {
         define_func(head->get_func_sign(), head->get_ret_type());
+        return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
         return false;
     }
+}
 
-    sem_env.push();
+bool ast_func_def::semantics_self() {
     int param_num = head->get_param_num();
     std::vector<ast_id *> names = head->get_param_name_node();
     std::vector<ast_type_node *> types = head->get_param_type_node();
@@ -174,13 +197,10 @@ bool ast_func_def::analyse() {
         }
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
-        sem_env.pop();
         return false;
     }
 
-    bool res = block->analyse();
-    sem_env.pop();
-    return res;
+    return (code_block = block->analyse()) != nullptr;
 }
 
 void ast_func_def::explain_impl(std::string &res, int indent) const {

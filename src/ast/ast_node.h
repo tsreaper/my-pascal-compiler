@@ -2,9 +2,11 @@
 #define MY_PASCAL_AST_NODE_H
 
 #include <string>
-#include <sem/type/sem_type.h>
+
+#include <llvm/IR/Value.h>
 
 #include "ast/ast_interface.h"
+#include "sem/type/sem_type.h"
 
 #define PRINT_ERROR_MSG(e) fprintf(stderr, "%s (at %d:%d)\n", (e).msg.c_str(), lineno, colno)
 
@@ -12,9 +14,9 @@ class ast_node {
 public:
     virtual ~ast_node() = default;
 
-    virtual bool analyse() = 0;
-
     void set_location(int lineno, int colno);
+
+    virtual llvm::Value *analyse();
 
     void explain(std::string &res) const;
 
@@ -22,6 +24,12 @@ public:
 
 protected:
     int lineno, colno;
+
+    virtual bool semantics_child();
+
+    virtual bool semantics_self();
+
+    virtual llvm::Value *codegen();
 
     void explain_indent(std::string &res, int indent) const;
 };

@@ -6,7 +6,7 @@
 
 ast_label_dec::ast_label_dec(int label) : label(label) {}
 
-bool ast_label_dec::analyse() {
+bool ast_label_dec::semantics_self() {
     try {
         declare_label(label);
         return true;
@@ -31,9 +31,9 @@ void ast_label_dec_seq::add_label_dec(ast_label_dec *dec) {
     label_dec_vec.emplace_back(dec);
 }
 
-bool ast_label_dec_seq::analyse() {
+bool ast_label_dec_seq::semantics_child() {
     for (auto child : label_dec_vec) {
-        if (!child->analyse()) {
+        if (child->analyse() == nullptr) {
             return false;
         }
     }

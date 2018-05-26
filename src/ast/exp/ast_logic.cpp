@@ -14,16 +14,16 @@ const sem_type &ast_logic::get_type() const {
     return type;
 }
 
-bool ast_logic::analyse() {
-    if (child_l->analyse() && child_r->analyse()) {
-        try {
-            type = assert_can_do_logic(child_l->get_type(), child_r->get_type());
-            return true;
-        } catch (const sem_exception &e) {
-            PRINT_ERROR_MSG(e);
-            return false;
-        }
-    } else {
+bool ast_logic::semantics_child() {
+    return (code_l = child_l->analyse()) != nullptr && (code_r = child_r->analyse()) != nullptr;
+}
+
+bool ast_logic::semantics_self() {
+    try {
+        type = assert_can_do_logic(child_l->get_type(), child_r->get_type());
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }
@@ -67,19 +67,19 @@ const sem_type &ast_logic_not::get_type() const {
     return type;
 }
 
-bool ast_logic_not::analyse() {
-    if (child->analyse()) {
-        try {
-            const sem_type &t = child->get_type();
-            if (t.mg != meta_group::TYPE && t == built_in_type::BOOL_TYPE) {
-                return true;
-            }
-            throw sem_exception("semantics error, must be a boolean type value");
-        } catch (const sem_exception &e) {
-            PRINT_ERROR_MSG(e);
-            return false;
+bool ast_logic_not::semantics_child() {
+    return (code_ch = child->analyse()) != nullptr;
+}
+
+bool ast_logic_not::semantics_self() {
+    try {
+        const sem_type &t = child->get_type();
+        if (t.mg != meta_group::TYPE && t == built_in_type::BOOL_TYPE) {
+            return true;
         }
-    } else {
+        throw sem_exception("semantics error, must be a boolean type value");
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }

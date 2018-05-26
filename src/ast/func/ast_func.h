@@ -30,18 +30,25 @@ public:
 
     void set_ret_type_node(ast_type_node *type);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 
 private:
     ast_id *name;
     ast_type_node *type;
     std::vector<ast_id *> param_name_vec;
     std::vector<ast_type_node *> param_type_vec;
-
     func_sign sign;
     sem_type ret_type;
+
+    llvm::Value *code_name;
+    llvm::Value *code_type;
+    std::vector<llvm::Value *> code_param_name_vec;
+    std::vector<llvm::Value *> code_param_type_vec;
 };
 
 class ast_func_dec : public ast_node {
@@ -50,12 +57,17 @@ public:
 
     ~ast_func_dec() override;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 
 private:
     ast_func_head *head;
+
+    llvm::Value *code_head;
 };
 
 class ast_func_def : public ast_node {
@@ -64,13 +76,21 @@ public:
 
     ~ast_func_def() override;
 
-    bool analyse() override;
+    llvm::Value *analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 
 private:
     ast_func_head *head;
     ast_block *block;
+
+    llvm::Value *code_head;
+    llvm::Value *code_block;
 };
 
 #endif //MY_PASCAL_AST_FUNC_H

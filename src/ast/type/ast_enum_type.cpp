@@ -20,13 +20,16 @@ void ast_enum_type::add_id(ast_id *id) {
     id_vec.emplace_back(id);
 }
 
-bool ast_enum_type::analyse() {
+bool ast_enum_type::semantics_child() {
     for (auto child : id_vec) {
-        if (!child->analyse()) {
+        if (child->analyse() == nullptr) {
             return false;
         }
     }
+    return true;
+}
 
+bool ast_enum_type::semantics_self() {
     try {
         enum_id = define_enum_type(id_vec);
         s_type = {true, meta_group::TYPE, type_group::ENUM, enum_id};

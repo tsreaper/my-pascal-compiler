@@ -17,16 +17,12 @@ class ast_bti_int : public ast_builtin_type {
 public:
     ast_bti_int();
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 };
 
 class ast_bti_real : public ast_builtin_type {
 public:
     ast_bti_real();
-
-    bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 };
@@ -35,8 +31,6 @@ class ast_bti_char : public ast_builtin_type {
 public:
     ast_bti_char();
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 };
 
@@ -44,16 +38,12 @@ class ast_bti_bool : public ast_builtin_type {
 public:
     ast_bti_bool();
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 };
 
 class ast_bti_str : public ast_builtin_type {
 public:
     ast_bti_str();
-
-    bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 };

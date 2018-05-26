@@ -9,7 +9,9 @@ int main() {
         std::string plan;
         ast_root->explain(plan);
         std::cout << plan << std::endl;
-        std::cout << ast_root->analyse() << std::endl;
+        if (ast_root->analyse() != nullptr) {
+            std::cout << "OK" << std::endl;
+        }
     }
     return 0;
 }

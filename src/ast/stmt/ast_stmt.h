@@ -13,12 +13,15 @@ public:
 
     void add_stmt(ast_stmt *stmt);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
 
 private:
     std::vector<ast_stmt *> stmt_vec;
+
+    std::vector<llvm::Value *> code_stmt_vec;
 };
 
 #endif //MY_PASCAL_AST_STMT_H

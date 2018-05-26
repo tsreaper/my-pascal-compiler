@@ -11,13 +11,17 @@ public:
 
     const sem_type &get_type() const override;
 
-    bool analyse() override;
-
 protected:
-    void logic_explain_impl(const std::string &op_name, std::string &res, int indent) const;
-
     ast_type_node *child_l, *child_r;
     sem_type type;
+
+    llvm::Value *code_l, *code_r;
+
+    bool semantics_child() override;
+
+    bool semantics_self() override;
+
+    void logic_explain_impl(const std::string &op_name, std::string &res, int indent) const;
 };
 
 class ast_logic_and : public ast_logic {
@@ -55,13 +59,17 @@ public:
 
     const sem_type &get_type() const override;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 private:
     ast_type_node *child;
     sem_type type;
+
+    llvm::Value *code_ch;
+
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 };
 
 #endif //MY_PASCAL_AST_LOGIC_H

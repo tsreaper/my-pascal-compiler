@@ -10,13 +10,19 @@ public:
 
     ~ast_assign() override;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 
 private:
     ast_id *id;
     ast_type_node *rhs;
+
+    llvm::Value *code_id;
+    llvm::Value *code_rhs;
 };
 
 #endif //MY_PASCAL_AST_ASSIGN_H

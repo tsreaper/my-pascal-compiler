@@ -10,16 +10,16 @@ ast_const_def::~ast_const_def() {
     delete value;
 }
 
-bool ast_const_def::analyse() {
-    if (id->analyse() && value->analyse()) {
-        try {
-            define_const_id(id->get_id(), value->get_type(), value->get_value());
-            return true;
-        } catch (const sem_exception &e) {
-            PRINT_ERROR_MSG(e);
-            return false;
-        }
-    } else {
+bool ast_const_def::semantics_child() {
+    return id->analyse() != nullptr && value->analyse() != nullptr;
+}
+
+bool ast_const_def::semantics_self() {
+    try {
+        define_const_id(id->get_id(), value->get_type(), value->get_value());
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }
@@ -45,9 +45,9 @@ void ast_const_def_seq::add_const_def(ast_const_def *def) {
     const_def_vec.emplace_back(def);
 }
 
-bool ast_const_def_seq::analyse() {
+bool ast_const_def_seq::semantics_child() {
     for (auto child : const_def_vec) {
-        if (!child->analyse()) {
+        if (child->analyse() == nullptr) {
             return false;
         }
     }

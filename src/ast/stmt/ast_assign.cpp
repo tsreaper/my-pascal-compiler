@@ -9,16 +9,16 @@ ast_assign::~ast_assign() {
     delete rhs;
 }
 
-bool ast_assign::analyse() {
-    if (id->analyse() && rhs->analyse()) {
-        try {
-            assert_can_assign(id->get_type(), rhs->get_type());
-            return true;
-        } catch (const sem_exception &e) {
-            PRINT_ERROR_MSG(e);
-            return false;
-        }
-    } else {
+bool ast_assign::semantics_child() {
+    return (code_id = id->analyse()) != nullptr && (code_rhs = rhs->analyse()) != nullptr;
+}
+
+bool ast_assign::semantics_self() {
+    try {
+        assert_can_assign(id->get_type(), rhs->get_type());
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }

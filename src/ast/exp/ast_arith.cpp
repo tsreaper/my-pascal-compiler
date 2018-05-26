@@ -16,16 +16,16 @@ const sem_type &ast_arith::get_type() const {
     return type;
 }
 
-bool ast_arith::analyse(){
-    if (child_l->analyse() && child_r->analyse()) {
-        try {
-            type = assert_can_do_arith(child_l->get_type(), child_r->get_type());
-            return true;
-        } catch (const sem_exception &e) {
-            PRINT_ERROR_MSG(e);
-            return false;
-        }
-    } else {
+bool ast_arith::semantics_child() {
+    return (code_l = child_l->analyse()) != nullptr && (code_r = child_r->analyse()) != nullptr;
+}
+
+bool ast_arith::semantics_self(){
+    try {
+        type = assert_can_do_arith(child_l->get_type(), child_r->get_type());
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
         return false;
     }
 }
@@ -59,8 +59,8 @@ void ast_arith_mul::explain_impl(std::string &res, int indent) const {
 
 ast_arith_div::ast_arith_div(ast_type_node *child_l, ast_type_node *child_r) : ast_arith(child_l, child_r) {}
 
-bool ast_arith_div::analyse() {
-    if (!ast_arith::analyse()) {
+bool ast_arith_div::semantics_self() {
+    if (!ast_arith::semantics_self()) {
         return false;
     }
     type = built_in_type::REAL_TYPE;
@@ -75,8 +75,8 @@ ast_arith_int_only::ast_arith_int_only(
         ast_type_node *child_l, ast_type_node *child_r
 ) : ast_arith(child_l, child_r) {}
 
-bool ast_arith_int_only::analyse() {
-    if (!ast_arith::analyse()) {
+bool ast_arith_int_only::semantics_self() {
+    if (!ast_arith::semantics_self()) {
         return false;
     }
     try {

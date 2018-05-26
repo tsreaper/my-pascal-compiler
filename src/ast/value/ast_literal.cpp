@@ -15,10 +15,6 @@ ast_lit_int::ast_lit_int(int value) : value(value) {
     s_value = {true, {.num = value}};
 }
 
-bool ast_lit_int::analyse() {
-    return true;
-}
-
 void ast_lit_int::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "int(" + std::to_string(value) + ")\n";
@@ -29,10 +25,6 @@ void ast_lit_int::explain_impl(std::string &res, int indent) const {
 ast_lit_real::ast_lit_real(double value) : value(value) {
     s_type = built_in_type::CONST_REAL_TYPE;
     s_value = {true, {.real = value}};
-}
-
-bool ast_lit_real::analyse() {
-    return true;
 }
 
 void ast_lit_real::explain_impl(std::string &res, int indent) const {
@@ -47,10 +39,6 @@ ast_lit_char::ast_lit_char(char value) : value(value) {
     s_value = {true, {.chr = value}};
 }
 
-bool ast_lit_char::analyse() {
-    return true;
-}
-
 void ast_lit_char::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "char(" + std::to_string(value) + ")\n";
@@ -61,10 +49,6 @@ void ast_lit_char::explain_impl(std::string &res, int indent) const {
 ast_lit_bool::ast_lit_bool(bool value) : value(value) {
     s_type = built_in_type::CONST_BOOL_TYPE;
     s_value = {true, {.boo = value}};
-}
-
-bool ast_lit_bool::analyse() {
-    return true;
 }
 
 void ast_lit_bool::explain_impl(std::string &res, int indent) const {
@@ -78,10 +62,6 @@ ast_lit_str::ast_lit_str(const char *value) : value(value) {
     s_type = built_in_type::CONST_STR_TYPE;
     s_value = {true, {}};
     s_value.value.str = &this->value;
-}
-
-bool ast_lit_str::analyse() {
-    return true;
 }
 
 void ast_lit_str::explain_impl(std::string &res, int indent) const {

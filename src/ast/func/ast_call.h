@@ -17,8 +17,6 @@ public:
 
     void add_param(ast_type_node *param);
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 private:
@@ -26,6 +24,13 @@ private:
     std::vector<ast_type_node *> param_vec;
     sem_type type;
     func_sign sign;
+
+    llvm::Value *code_id;
+    std::vector<llvm::Value *> code_param_vec;
+
+    bool semantics_child() override;
+
+    bool semantics_self() override;
 };
 
 #endif //MY_PASCAL_AST_CALL_H

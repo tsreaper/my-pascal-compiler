@@ -17,16 +17,21 @@ void ast_call::add_param(ast_type_node *param) {
     param_vec.emplace_back(param);
 }
 
-bool ast_call::analyse() {
-    if (!id->analyse()) {
+bool ast_call::semantics_child() {
+    if ((code_id = id->analyse()) == nullptr) {
         return false;
     }
     for (auto child : param_vec) {
-        if (!child->analyse()) {
+        llvm::Value *code = child->analyse();
+        if (code == nullptr) {
             return false;
         }
+        code_param_vec.emplace_back(code);
     }
+    return true;
+}
 
+bool ast_call::semantics_self() {
     try {
         for (auto child : param_vec) {
             if (child->get_type().mg == meta_group::TYPE) {

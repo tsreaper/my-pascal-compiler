@@ -12,8 +12,6 @@ public:
 
     ~ast_program_head() override = default;
 
-    bool analyse() override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 private:
@@ -26,13 +24,18 @@ public:
 
     ~ast_program() override;
 
-    bool analyse() override;
+    llvm::Value *analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
+
+protected:
+    bool semantics_child() override;
 
 private:
     ast_program_head *head;
     ast_block *block;
+
+    llvm::Value *code_block;
 };
 
 #endif //MY_PASCAL_AST_PROGRAM_H

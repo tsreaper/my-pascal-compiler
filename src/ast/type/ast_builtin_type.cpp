@@ -10,10 +10,6 @@ ast_bti_int::ast_bti_int() {
     s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::INT};
 }
 
-bool ast_bti_int::analyse() {
-    return true;
-}
-
 void ast_bti_int::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "int_type()\n";
@@ -23,10 +19,6 @@ void ast_bti_int::explain_impl(std::string &res, int indent) const {
 
 ast_bti_real::ast_bti_real() {
     s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::REAL};
-}
-
-bool ast_bti_real::analyse() {
-    return true;
 }
 
 void ast_bti_real::explain_impl(std::string &res, int indent) const {
@@ -40,10 +32,6 @@ ast_bti_char::ast_bti_char() {
     s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::CHAR};
 }
 
-bool ast_bti_char::analyse() {
-    return true;
-}
-
 void ast_bti_char::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "char_type()\n";
@@ -55,10 +43,6 @@ ast_bti_bool::ast_bti_bool() {
     s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::BOOL};
 }
 
-bool ast_bti_bool::analyse() {
-    return true;
-}
-
 void ast_bti_bool::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "bool_type()\n";
@@ -68,10 +52,6 @@ void ast_bti_bool::explain_impl(std::string &res, int indent) const {
 
 ast_bti_str::ast_bti_str() {
     s_type = {true, meta_group::TYPE, type_group::BUILT_IN, built_in_type::STR};
-}
-
-bool ast_bti_str::analyse() {
-    return true;
 }
 
 void ast_bti_str::explain_impl(std::string &res, int indent) const {
