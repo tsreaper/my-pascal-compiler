@@ -6,7 +6,6 @@ ast_const_def* const_def_node;
 %type <node> const_def_part
 %type <const_def_seq_node> const_def_body
 %type <const_def_node> const_def
-%type <value_node> const
 
 %%
 
@@ -30,25 +29,8 @@ const_def_body:
 ;
 
 const_def:
-    ID SYM_EQ const {
+    ID SYM_EQ exp {
         $$ = new ast_const_def(new ast_id($1), $3);
         YY_SET_LOCATION($$);
-    }
-;
-
-const:
-    literal {
-        $$ = $1;
-    }
-    | id {
-        $$ = $1;
-    }
-    | SYM_ADD id {
-        $$ = $2;
-    }
-    | SYM_SUB id {
-        // TODO
-        $$ = $2;
-        // $$ = new ast_sub(new ast_int(0), $2);
     }
 ;

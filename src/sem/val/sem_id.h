@@ -13,7 +13,7 @@ namespace sem {
 
     bool is_const_id(const std::string &id);
 
-    bool is_used_id(const std::string &id);
+    bool is_declared_val(const std::string &id);
 }
 
 #endif //MY_PASCAL_SEM_ID_H

@@ -1,8 +1,9 @@
 #include "sem/type/sem_type.h"
 #include "sem/exception/sem_exception.h"
+#include "gen/gen.h"
 #include "ast/stmt/ast_assign.h"
 
-ast_assign::ast_assign(ast_id *id, ast_type_node *rhs) : id(id), rhs(rhs) {}
+ast_assign::ast_assign(ast_id *id, ast_value_node *rhs) : id(id), rhs(rhs) {}
 
 ast_assign::~ast_assign() {
     delete id;
@@ -21,6 +22,10 @@ bool ast_assign::semantics_self() {
         PRINT_ERROR_MSG(e);
         return false;
     }
+}
+
+void ast_assign::codegen() {
+    ir_builder.CreateStore(rhs->get_llvm_value(), gen::get_alloca(id->get_id()));
 }
 
 void ast_assign::explain_impl(std::string &res, int indent) const {

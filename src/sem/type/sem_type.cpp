@@ -69,6 +69,8 @@ const sem_type &sem::assert_can_do_arith(const sem_type &type_l, const sem_type 
             return built_in_type::REAL_VAL;
         } else if (type_l == built_in_type::REAL_TYPE && type_r == built_in_type::INT_TYPE) {
             return built_in_type::REAL_VAL;
+        } else if (type_l == built_in_type::REAL_TYPE && type_r == built_in_type::REAL_TYPE) {
+            return built_in_type::REAL_VAL;
         }
     }
 

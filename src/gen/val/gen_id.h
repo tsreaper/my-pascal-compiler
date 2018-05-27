@@ -7,6 +7,8 @@
 
 #include <llvm/IR/Instructions.h>
 
+#include "sem/type/sem_type.h"
+
 class gen_id_context {
 public:
     void push();
@@ -22,7 +24,7 @@ private:
 };
 
 namespace gen {
-    void declare_id(const std::string &id, llvm::AllocaInst *alloca);
+    void declare_id(const std::string &id, const sem_type &type);
 
     llvm::AllocaInst *get_alloca(const std::string &id);
 }

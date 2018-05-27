@@ -34,6 +34,8 @@ protected:
 private:
     ast_program_head *head;
     ast_block *block;
+
+    void pre_codegen();
 };
 
 #endif //MY_PASCAL_AST_PROGRAM_H

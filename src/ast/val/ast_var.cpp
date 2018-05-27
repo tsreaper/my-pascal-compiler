@@ -1,5 +1,6 @@
 #include "sem/type/sem_type.h"
 #include "sem/exception/sem_exception.h"
+#include "gen/val/gen_id.h"
 #include "ast/val/ast_var.h"
 
 ast_var_dec::ast_var_dec(ast_type_node *type) : type(type) {}
@@ -34,6 +35,12 @@ bool ast_var_dec::semantics_self() {
         }
     }
     return true;
+}
+
+void ast_var_dec::codegen() {
+    for (auto child : id_vec) {
+        gen::declare_id(child->get_id(), type->get_type());
+    }
 }
 
 void ast_var_dec::explain_impl(std::string &res, int indent) const {

@@ -1,4 +1,6 @@
 #include "sem/sem.h"
+#include "gen/gen.h"
+#include "gen/program/gen_program.h"
 #include "ast/program/ast_program.h"
 
 ast_program_head::ast_program_head(const std::string &name) : name(name) {}
@@ -17,7 +19,10 @@ ast_program::~ast_program() {
 
 bool ast_program::analyse() {
     sem_env.push();
+    gen_env.push();
+    pre_codegen();
     bool res = semantics_child();
+    gen_env.pop();
     sem_env.pop();
     return res;
 }
@@ -35,4 +40,8 @@ void ast_program::explain_impl(std::string &res, int indent) const {
 
     explain_indent(res, indent);
     res += ")\n";
+}
+
+void ast_program::pre_codegen() {
+    gen::gen_main();
 }

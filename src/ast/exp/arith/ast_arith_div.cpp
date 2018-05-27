@@ -9,7 +9,7 @@ bool ast_arith_div::semantics_self() {
     if (!ast_arith::semantics_self()) {
         return false;
     }
-    s_type = built_in_type::REAL_TYPE;
+    s_type = built_in_type::REAL_VAL;
     return true;
 }
 

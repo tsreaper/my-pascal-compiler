@@ -6,7 +6,7 @@
 
 class ast_assign : public ast_stmt {
 public:
-    ast_assign(ast_id *id, ast_type_node *rhs);
+    ast_assign(ast_id *id, ast_value_node *rhs);
 
     ~ast_assign() override;
 
@@ -17,9 +17,11 @@ protected:
 
     bool semantics_self() override;
 
+    void codegen() override;
+
 private:
     ast_id *id;
-    ast_type_node *rhs;
+    ast_value_node *rhs;
 };
 
 #endif //MY_PASCAL_AST_ASSIGN_H

@@ -1,5 +1,6 @@
 #include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
+#include "gen/gen.h"
 #include "ast/func/ast_func.h"
 
 ast_func_head::ast_func_head(ast_id *name) : name(name), type(nullptr) {
@@ -155,7 +156,9 @@ bool ast_func_def::analyse() {
     }
 
     sem_env.push();
+    gen_env.push();
     bool res = semantics_self();
+    gen_env.pop();
     sem_env.pop();
     return res;
 }
@@ -183,6 +186,7 @@ bool ast_func_def::semantics_self() {
         }
         if (head->get_ret_type() != built_in_type::VOID_TYPE) {
             // In pascal, function return val is stored in a variable with the same name as the function name
+            // TODO dont forget to create alloca for return value!!!
             sem::set_id_type(head->get_name(), head->get_ret_type());
         }
     } catch (const sem_exception &e) {

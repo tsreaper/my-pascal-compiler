@@ -23,6 +23,11 @@ bool sem::is_const_id(const std::string &id) {
     }
 }
 
-bool sem::is_used_id(const std::string &id) {
-    return sem_env.get_type_env().is_valname_used(id);
+bool sem::is_declared_val(const std::string &id) {
+    try {
+        sem_env.get_type_env().get_type(id);
+        return true;
+    } catch (const sem_exception &e) {
+        return false;
+    }
 }

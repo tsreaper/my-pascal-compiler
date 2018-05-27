@@ -31,10 +31,8 @@ bool ast_id::semantics_self() {
 void ast_id::codegen() {
     if (sem::is_const_id(id)) {
         llvm_value = gen::get_llvm_const(get_type(), get_value());
-    } else if (sem::is_used_id(id)) {
-        // TODO remove place holder
-        llvm_value = gen::get_llvm_int(sem_value{true, {.num = 0}});
-        // llvm_value = ir_builder.CreateLoad(gen::get_alloca(id), id);
+    } else if (sem::is_declared_val(id)) {
+        llvm_value = ir_builder.CreateLoad(gen::get_alloca(id), id);
     }
 }
 

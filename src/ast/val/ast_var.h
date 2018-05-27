@@ -22,6 +22,8 @@ protected:
 
     bool semantics_self() override;
 
+    void codegen() override;
+
 private:
     ast_type_node *type;
     std::vector<ast_id *> id_vec;
