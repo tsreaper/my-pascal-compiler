@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "ast/id/ast_id.h"
+#include "ast/val/ast_id.h"
 
 struct sem_enum_type {
     int size;
@@ -24,6 +24,8 @@ private:
     std::vector<int> enum_count;
 };
 
-int define_enum_type(const std::vector<ast_id *> &id_vec);
+namespace sem {
+    int define_enum_type(const std::vector<ast_id *> &id_vec);
+}
 
 #endif //MY_PASCAL_SEM_ENUM_TYPE_H

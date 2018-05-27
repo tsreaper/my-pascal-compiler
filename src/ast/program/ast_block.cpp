@@ -12,11 +12,9 @@ void ast_block_head::add_node(ast_node *node) {
 
 bool ast_block_head::semantics_child() {
     for (auto child : node_vec) {
-        llvm::Value *code = child->analyse();
-        if (code == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
-        code_node_vec.emplace_back(code);
     }
     return true;
 }
@@ -35,7 +33,7 @@ ast_block::~ast_block() {
 }
 
 bool ast_block::semantics_child() {
-    return (code_head = head->analyse()) != nullptr && (code_body = body->analyse()) != nullptr;
+    return head->analyse() && body->analyse();
 }
 
 void ast_block::explain_impl(std::string &res, int indent) const {

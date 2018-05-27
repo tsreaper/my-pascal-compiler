@@ -2,7 +2,7 @@
 #define MY_PASCAL_AST_ASSIGN_H
 
 #include "ast/stmt/ast_stmt.h"
-#include "ast/id/ast_id.h"
+#include "ast/val/ast_id.h"
 
 class ast_assign : public ast_stmt {
 public:
@@ -20,9 +20,6 @@ protected:
 private:
     ast_id *id;
     ast_type_node *rhs;
-
-    llvm::Value *code_id;
-    llvm::Value *code_rhs;
 };
 
 #endif //MY_PASCAL_AST_ASSIGN_H

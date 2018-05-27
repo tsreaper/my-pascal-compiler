@@ -3,12 +3,10 @@
 
 #include <string>
 
-#include <llvm/IR/Value.h>
-
 #include "ast/ast_interface.h"
 #include "sem/type/sem_type.h"
 
-#define PRINT_ERROR_MSG(e) fprintf(stderr, "%s (at %d:%d)\n", (e).msg.c_str(), lineno, colno)
+#define PRINT_ERROR_MSG(e) fprintf(stderr, "%s (at %d:%d)\n", (e).what(), lineno, colno)
 
 class ast_node {
 public:
@@ -16,7 +14,7 @@ public:
 
     void set_location(int lineno, int colno);
 
-    virtual llvm::Value *analyse();
+    virtual bool analyse();
 
     void explain(std::string &res) const;
 
@@ -29,7 +27,7 @@ protected:
 
     virtual bool semantics_self();
 
-    virtual llvm::Value *codegen();
+    virtual void codegen();
 
     void explain_indent(std::string &res, int indent) const;
 };

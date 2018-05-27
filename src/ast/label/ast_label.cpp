@@ -1,5 +1,3 @@
-#include <cstdio>
-
 #include "sem/exception/sem_exception.h"
 #include "sem/label/sem_label.h"
 #include "ast/label/ast_label.h"
@@ -8,7 +6,7 @@ ast_label_dec::ast_label_dec(int label) : label(label) {}
 
 bool ast_label_dec::semantics_self() {
     try {
-        declare_label(label);
+        sem::declare_label(label);
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
@@ -33,7 +31,7 @@ void ast_label_dec_seq::add_label_dec(ast_label_dec *dec) {
 
 bool ast_label_dec_seq::semantics_child() {
     for (auto child : label_dec_vec) {
-        if (child->analyse() == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
     }

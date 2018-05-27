@@ -22,7 +22,7 @@ void ast_enum_type::add_id(ast_id *id) {
 
 bool ast_enum_type::semantics_child() {
     for (auto child : id_vec) {
-        if (child->analyse() == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
     }
@@ -31,8 +31,8 @@ bool ast_enum_type::semantics_child() {
 
 bool ast_enum_type::semantics_self() {
     try {
-        enum_id = define_enum_type(id_vec);
-        s_type = {true, meta_group::TYPE, type_group::ENUM, enum_id};
+        enum_id = sem::define_enum_type(id_vec);
+        s_type = {true, type_group::ENUM, enum_id};
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);

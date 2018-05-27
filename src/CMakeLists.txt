@@ -3,24 +3,30 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 aux_source_directory(ast AST_SOURCE)
 aux_source_directory(ast/exp AST_SOURCE)
+aux_source_directory(ast/exp/arith AST_SOURCE)
+aux_source_directory(ast/exp/cmp AST_SOURCE)
+aux_source_directory(ast/exp/logic AST_SOURCE)
 aux_source_directory(ast/func AST_SOURCE)
-aux_source_directory(ast/id AST_SOURCE)
 aux_source_directory(ast/label AST_SOURCE)
 aux_source_directory(ast/program AST_SOURCE)
 aux_source_directory(ast/stmt AST_SOURCE)
 aux_source_directory(ast/type AST_SOURCE)
-aux_source_directory(ast/value AST_SOURCE)
+aux_source_directory(ast/type/builtin AST_SOURCE)
+aux_source_directory(ast/val AST_SOURCE)
+aux_source_directory(ast/val/literal AST_SOURCE)
 
 aux_source_directory(sem SEM_SOURCE)
 aux_source_directory(sem/exception SEM_SOURCE)
 aux_source_directory(sem/exp SEM_SOURCE)
 aux_source_directory(sem/func SEM_SOURCE)
-aux_source_directory(sem/id SEM_SOURCE)
 aux_source_directory(sem/label SEM_SOURCE)
 aux_source_directory(sem/type SEM_SOURCE)
-aux_source_directory(sem/value SEM_SOURCE)
+aux_source_directory(sem/val SEM_SOURCE)
 
-aux_source_directory(codegen CODEGEN_SOURCE)
+aux_source_directory(gen GEN_SOURCE)
+aux_source_directory(gen/exp GEN_SOURCE)
+aux_source_directory(gen/type GEN_SOURCE)
+aux_source_directory(gen/val GEN_SOURCE)
 
 file(
         GLOB BISON_SOURCE
@@ -32,7 +38,7 @@ file(
         bison/program/*.y
         bison/stmt/*.y
         bison/type/*.y
-        bison/value/*.y
+        bison/val/*.y
 )
 list(REMOVE_ITEM BISON_SOURCE ${CMAKE_CURRENT_LIST_DIR}/bison/head.y)
 
@@ -57,7 +63,7 @@ string(STRIP ${LLVM_LINK_LIBRARIES} LLVM_LINK_LIBRARIES)
 
 add_executable(
         my_pascal
-        main.cpp ${AST_SOURCE} ${SEM_SOURCE} ${CODEGEN_SOURCE}
+        main.cpp ${AST_SOURCE} ${SEM_SOURCE} ${GEN_SOURCE}
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.l.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.cpp ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.hpp
 )

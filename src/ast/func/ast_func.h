@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "ast/ast_node.h"
-#include "ast/id/ast_id.h"
+#include "ast/val/ast_id.h"
 #include "ast/program/ast_block.h"
 #include "sem/func/sem_func.h"
 
@@ -44,11 +44,6 @@ private:
     std::vector<ast_type_node *> param_type_vec;
     func_sign sign;
     sem_type ret_type;
-
-    llvm::Value *code_name;
-    llvm::Value *code_type;
-    std::vector<llvm::Value *> code_param_name_vec;
-    std::vector<llvm::Value *> code_param_type_vec;
 };
 
 class ast_func_dec : public ast_node {
@@ -66,8 +61,6 @@ protected:
 
 private:
     ast_func_head *head;
-
-    llvm::Value *code_head;
 };
 
 class ast_func_def : public ast_node {
@@ -76,7 +69,7 @@ public:
 
     ~ast_func_def() override;
 
-    llvm::Value *analyse() override;
+    bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 
@@ -88,9 +81,6 @@ protected:
 private:
     ast_func_head *head;
     ast_block *block;
-
-    llvm::Value *code_head;
-    llvm::Value *code_block;
 };
 
 #endif //MY_PASCAL_AST_FUNC_H

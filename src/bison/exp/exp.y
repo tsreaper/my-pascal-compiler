@@ -1,6 +1,6 @@
 #union
 
-%type <type_node> exp exp_base
+%type <value_node> exp exp_base
 
 %%
 

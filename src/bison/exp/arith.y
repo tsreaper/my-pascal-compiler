@@ -1,6 +1,6 @@
 #union
 
-%type <type_node> arith_add_sub arith_mul_div arith_pos_neg
+%type <value_node> arith_add_sub arith_mul_div arith_pos_neg
 
 %%
 
@@ -48,7 +48,7 @@ arith_pos_neg:
         $$ = $2;
     }
     | SYM_SUB exp_base {
-        $$ = new ast_arith_sub(new ast_lit_int(0), $2);
+        $$ = new ast_arith_sub(new ast_int_val(0), $2);
         YY_SET_LOCATION($$);
     }
 ;

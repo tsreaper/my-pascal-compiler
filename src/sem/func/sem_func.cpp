@@ -71,11 +71,11 @@ void sem_func_context::set_defined(const func_sign &sign) {
     layer.emplace_back(func_sign_defined{sign, true});
 }
 
-void declare_func(const func_sign& sign, const sem_type &ret_type) {
+void sem::declare_func(const func_sign& sign, const sem_type &ret_type) {
     sem_env.get_func_env().set_ret_type(sign, ret_type);
 }
 
-void define_func(const func_sign &sign, const sem_type &ret_type) {
+void sem::define_func(const func_sign &sign, const sem_type &ret_type) {
     try {
         declare_func(sign, ret_type);
     } catch (const sem_exception &e) {}
@@ -87,6 +87,6 @@ void define_func(const func_sign &sign, const sem_type &ret_type) {
     sem_env.get_func_env().set_defined(sign);
 }
 
-const sem_type &get_ret_type(const func_sign &sign) {
+const sem_type &sem::get_ret_type(const func_sign &sign) {
     return sem_env.get_func_env().get_ret_type(sign);
 }

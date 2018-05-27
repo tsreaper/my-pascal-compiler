@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "ast/ast_node.h"
-#include "ast/id/ast_id.h"
+#include "ast/val/ast_id.h"
 
 class ast_type_def : public ast_node {
 public:

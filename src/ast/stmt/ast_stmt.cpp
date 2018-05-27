@@ -12,11 +12,9 @@ void ast_stmt_seq::add_stmt(ast_stmt *stmt) {
 
 bool ast_stmt_seq::semantics_child() {
     for (auto child : stmt_vec) {
-        llvm::Value *code = child->analyse();
-        if (code == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
-        code_stmt_vec.emplace_back(code);
     }
     return true;
 }

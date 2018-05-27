@@ -91,11 +91,10 @@ SIGN "+"|"-"
 INT {SIGN}?[0-9]+
 REAL {SIGN}?([0-9]+\.[0-9]+|[0-9]+e{SIGN}?[0-9]+)
 
-CHAR \'[^\n]\'
-STR \'[^\n]*\'
+CHAR \'.\'
+STR \'[^']*\'
 
-COMMENT_BEGIN "{"|"(*"
-COMMENT_END "}"|"*)"
+COMMENT "{"[^\}]*"}"
 
 %%
 
@@ -318,12 +317,7 @@ COMMENT_END "}"|"*)"
     return STR;
 }
 
-{COMMENT_BEGIN} {
-    return COMMENT_BEGIN;
-}
-{COMMENT_END} {
-    return COMMENT_END;
-}
+{COMMENT} {}
 
 \n {
     yycolumn = 1;

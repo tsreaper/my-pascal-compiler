@@ -27,6 +27,6 @@ void sem_label_context::set_loc(int label, int loc) {
     table[label] = loc;
 }
 
-void declare_label(int label) {
+void sem::declare_label(int label) {
     sem_env.get_label_env().set_loc(label, -1);
 }

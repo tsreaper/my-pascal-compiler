@@ -20,8 +20,6 @@ protected:
 
 private:
     std::vector<ast_stmt *> stmt_vec;
-
-    std::vector<llvm::Value *> code_stmt_vec;
 };
 
 #endif //MY_PASCAL_AST_STMT_H

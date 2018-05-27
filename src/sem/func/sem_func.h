@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#include "ast/ast_node.h"
 #include "sem/type/sem_type.h"
 
 struct func_sign {
@@ -36,10 +35,12 @@ private:
     std::vector<std::vector<func_sign_defined>> defined_layers;
 };
 
-void declare_func(const func_sign &sign, const sem_type &ret_type);
+namespace sem {
+    void declare_func(const func_sign &sign, const sem_type &ret_type);
 
-void define_func(const func_sign &sign, const sem_type &ret_type);
+    void define_func(const func_sign &sign, const sem_type &ret_type);
 
-const sem_type &get_ret_type(const func_sign &sign);
+    const sem_type &get_ret_type(const func_sign &sign);
+}
 
 #endif //MY_PASCAL_SEM_FUNC_H

@@ -1,16 +1,19 @@
 #include "sem/exception/sem_exception.h"
+#include "gen/val/gen_literal.h"
 #include "ast/func/ast_call.h"
 
-ast_call::ast_call(ast_id *id) : id(id) {
-    type = {false};
-}
+ast_call::ast_call(ast_id *id) : id(id), s_type({false}), s_value({false}) {}
 
 ast_call::~ast_call() {
     delete id;
 }
 
 const sem_type &ast_call::get_type() const {
-    return type;
+    return s_type;
+}
+
+const sem_value &ast_call::get_value() const {
+    return s_value;
 }
 
 void ast_call::add_param(ast_type_node *param) {
@@ -18,15 +21,13 @@ void ast_call::add_param(ast_type_node *param) {
 }
 
 bool ast_call::semantics_child() {
-    if ((code_id = id->analyse()) == nullptr) {
+    if (!id->analyse()) {
         return false;
     }
     for (auto child : param_vec) {
-        llvm::Value *code = child->analyse();
-        if (code == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
-        code_param_vec.emplace_back(code);
     }
     return true;
 }
@@ -34,7 +35,7 @@ bool ast_call::semantics_child() {
 bool ast_call::semantics_self() {
     try {
         for (auto child : param_vec) {
-            if (child->get_type().mg == meta_group::TYPE) {
+            if (child->get_type().is_type) {
                 throw sem_exception("semantics error, procedure/function parameters cannot be a type");
             }
         }
@@ -45,13 +46,18 @@ bool ast_call::semantics_self() {
             sign.param_type_vec.emplace_back(child->get_type());
         }
 
-        type = get_ret_type(sign);
-        type.mg = meta_group::EXP;
+        s_type = sem::get_ret_type(sign);
+        s_type.is_type = false;
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
         return false;
     }
+}
+
+void ast_call::codegen() {
+    // TODO remove place holder
+    llvm_value = gen::get_llvm_int(sem_value{true, {.num = 0}});
 }
 
 void ast_call::explain_impl(std::string &res, int indent) const {

@@ -15,20 +15,15 @@ ast_program::~ast_program() {
     delete block;
 }
 
-llvm::Value *ast_program::analyse() {
+bool ast_program::analyse() {
     sem_env.push();
-    if (!semantics_child()) {
-        sem_env.pop();
-        return nullptr;
-    }
-
-    llvm::Value *code = codegen();
+    bool res = semantics_child();
     sem_env.pop();
-    return code;
+    return res;
 }
 
 bool ast_program::semantics_child() {
-    return head->analyse() != nullptr && (code_block = block->analyse()) != nullptr;
+    return head->analyse() && block->analyse();
 }
 
 void ast_program::explain_impl(std::string &res, int indent) const {

@@ -10,12 +10,12 @@ ast_assign::~ast_assign() {
 }
 
 bool ast_assign::semantics_child() {
-    return (code_id = id->analyse()) != nullptr && (code_rhs = rhs->analyse()) != nullptr;
+    return id->analyse() && rhs->analyse();
 }
 
 bool ast_assign::semantics_self() {
     try {
-        assert_can_assign(id->get_type(), rhs->get_type());
+        sem::assert_can_assign(id->get_id(), id->get_type(), rhs->get_type());
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);

@@ -19,8 +19,6 @@ protected:
 
 private:
     std::vector<ast_node *> node_vec;
-
-    std::vector<llvm::Value *> code_node_vec;
 };
 
 class ast_block : public ast_node {
@@ -37,9 +35,6 @@ protected:
 private:
     ast_block_head *head;
     ast_stmt_seq *body;
-
-    llvm::Value *code_head;
-    llvm::Value *code_body;
 };
 
 #endif //MY_PASCAL_AST_BLOCK_H

@@ -8,7 +8,7 @@
 #include "sem/label/sem_label.h"
 #include "sem/type/sem_type.h"
 #include "sem/type/sem_enum_type.h"
-#include "sem/value/sem_const.h"
+#include "sem/val/sem_const.h"
 
 class sem_context {
 public:

@@ -1,6 +1,6 @@
 #union
 
-%type <type_node> logic_or logic_xor logic_and logic_not
+%type <value_node> logic_or logic_xor logic_and logic_not
 
 %%
 

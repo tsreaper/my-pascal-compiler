@@ -24,7 +24,7 @@ public:
 
     ~ast_program() override;
 
-    llvm::Value *analyse() override;
+    bool analyse() override;
 
     void explain_impl(std::string &res, int indent) const override;
 
@@ -34,8 +34,6 @@ protected:
 private:
     ast_program_head *head;
     ast_block *block;
-
-    llvm::Value *code_block;
 };
 
 #endif //MY_PASCAL_AST_PROGRAM_H

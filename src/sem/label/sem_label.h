@@ -18,6 +18,8 @@ private:
     std::vector<std::map<int, int>> layers;
 };
 
-void declare_label(int label);
+namespace sem {
+    void declare_label(int label);
+}
 
 #endif //MY_PASCAL_SEM_LABEL_H

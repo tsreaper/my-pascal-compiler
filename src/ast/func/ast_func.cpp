@@ -1,5 +1,4 @@
 #include "sem/sem.h"
-#include "sem/value/sem_var.h"
 #include "sem/exception/sem_exception.h"
 #include "ast/func/ast_func.h"
 
@@ -52,33 +51,29 @@ void ast_func_head::set_ret_type_node(ast_type_node *type) {
 }
 
 bool ast_func_head::semantics_child() {
-    if ((code_name = name->analyse()) == nullptr) {
+    if (!name->analyse()) {
         return false;
     }
     for (auto child : param_name_vec) {
-        llvm::Value *code = child->analyse();
-        if (code == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
-        code_param_name_vec.emplace_back(code);
     }
     for (auto child : param_type_vec) {
-        llvm::Value *code = child->analyse();
-        if (code == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
-        code_param_type_vec.emplace_back(code);
     }
-    return type == nullptr || (code_type = type->analyse()) != nullptr;
+    return type == nullptr || type->analyse();
 }
 
 bool ast_func_head::semantics_self() {
     try {
         for (auto child : param_type_vec) {
-            assert_is_type(child->get_type());
+            sem::assert_is_type(child->get_type());
         }
         if (type != nullptr) {
-            assert_is_type(type->get_type());
+            sem::assert_is_type(type->get_type());
         }
 
         // Set function signature and return type
@@ -126,12 +121,12 @@ ast_func_dec::~ast_func_dec() {
 }
 
 bool ast_func_dec::semantics_child() {
-    return (code_head = head->analyse()) != nullptr;
+    return head->analyse();
 }
 
 bool ast_func_dec::semantics_self() {
     try {
-        declare_func(head->get_func_sign(), head->get_ret_type());
+        sem::declare_func(head->get_func_sign(), head->get_ret_type());
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
@@ -154,28 +149,23 @@ ast_func_def::~ast_func_def() {
     delete block;
 }
 
-llvm::Value *ast_func_def::analyse() {
+bool ast_func_def::analyse() {
     if (!semantics_child()) {
-        return nullptr;
+        return false;
     }
 
     sem_env.push();
-    if (!semantics_self()) {
-        sem_env.pop();
-        return nullptr;
-    }
-
-    llvm::Value *code = codegen();
+    bool res = semantics_self();
     sem_env.pop();
-    return code;
+    return res;
 }
 
 bool ast_func_def::semantics_child() {
-    if ((code_head = head->analyse()) == nullptr) {
+    if (!head->analyse()) {
         return false;
     }
     try {
-        define_func(head->get_func_sign(), head->get_ret_type());
+        sem::define_func(head->get_func_sign(), head->get_ret_type());
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
@@ -189,18 +179,18 @@ bool ast_func_def::semantics_self() {
     std::vector<ast_type_node *> types = head->get_param_type_node();
     try {
         for (int i = 0; i < param_num; i++) {
-            declare_var_id(names[i]->get_id(), types[i]->get_type());
+            sem::set_id_type(names[i]->get_id(), types[i]->get_type());
         }
         if (head->get_ret_type() != built_in_type::VOID_TYPE) {
-            // In pascal, function return value is stored in a variable with the same name as the function name
-            declare_var_id(head->get_name(), head->get_ret_type());
+            // In pascal, function return val is stored in a variable with the same name as the function name
+            sem::set_id_type(head->get_name(), head->get_ret_type());
         }
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
         return false;
     }
 
-    return (code_block = block->analyse()) != nullptr;
+    return block->analyse();
 }
 
 void ast_func_def::explain_impl(std::string &res, int indent) const {

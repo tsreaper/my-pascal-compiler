@@ -1,6 +1,6 @@
 #union
 
-%type <type_node> cmp_eq cmp_cmp
+%type <value_node> cmp_eq cmp_cmp
 
 %%
 

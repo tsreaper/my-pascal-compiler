@@ -1,5 +1,5 @@
-#include "sem/exception/sem_exception.h"
 #include "sem/type/sem_type.h"
+#include "sem/exception/sem_exception.h"
 #include "ast/type/ast_type.h"
 
 ast_type_def::ast_type_def(ast_id *id, ast_type_node *type) : id(id), type(type) {}
@@ -10,12 +10,12 @@ ast_type_def::~ast_type_def() {
 }
 
 bool ast_type_def::semantics_child() {
-    return id->analyse() != nullptr && type->analyse() != nullptr;
+    return id->analyse() && type->analyse();
 }
 
 bool ast_type_def::semantics_self() {
     try {
-        define_type_id(id->get_id(), type->get_type());
+        sem::define_type(id->get_id(), type->get_type());
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);
@@ -46,7 +46,7 @@ void ast_type_def_seq::add_type_def(ast_type_def *def) {
 
 bool ast_type_def_seq::semantics_child() {
     for (auto child : type_def_vec) {
-        if (child->analyse() == nullptr) {
+        if (!child->analyse()) {
             return false;
         }
     }
