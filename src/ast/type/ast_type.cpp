@@ -10,7 +10,7 @@ ast_type_def::~ast_type_def() {
 }
 
 bool ast_type_def::semantics_child() {
-    return id->analyse() && type->analyse();
+    return id->analyse(false) && type->analyse();
 }
 
 bool ast_type_def::semantics_self() {

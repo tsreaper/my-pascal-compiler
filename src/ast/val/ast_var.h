@@ -6,7 +6,6 @@
 #include "ast/ast_node.h"
 #include "ast/val/ast_id.h"
 
-// TODO codegen
 class ast_var_dec : public ast_node {
 public:
     explicit ast_var_dec(ast_type_node *type);

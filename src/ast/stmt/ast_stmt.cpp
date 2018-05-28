@@ -6,7 +6,7 @@ ast_stmt_seq::~ast_stmt_seq() {
     }
 }
 
-void ast_stmt_seq::add_stmt(ast_stmt *stmt) {
+void ast_stmt_seq::add_stmt(ast_node *stmt) {
     stmt_vec.emplace_back(stmt);
 }
 

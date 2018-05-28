@@ -4,7 +4,7 @@
 #include "ast/stmt/ast_stmt.h"
 #include "ast/val/ast_id.h"
 
-class ast_assign : public ast_stmt {
+class ast_assign : public ast_node {
 public:
     ast_assign(ast_id *id, ast_value_node *rhs);
 

@@ -22,7 +22,7 @@ void ast_enum_type::add_id(ast_id *id) {
 
 bool ast_enum_type::semantics_child() {
     for (auto child : id_vec) {
-        if (!child->analyse()) {
+        if (!child->analyse(false)) {
             return false;
         }
     }

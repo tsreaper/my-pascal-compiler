@@ -17,13 +17,13 @@ public:
 
     const sem_value &get_value() const override;
 
-    void add_param(ast_type_node *param);
+    void add_param(ast_value_node *param);
 
     void explain_impl(std::string &res, int indent) const override;
 
 private:
     ast_id *id;
-    std::vector<ast_type_node *> param_vec;
+    std::vector<ast_value_node *> param_vec;
     sem_type s_type;
     sem_value s_value;
     func_sign sign;

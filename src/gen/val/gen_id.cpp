@@ -4,6 +4,7 @@
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/type/gen_type.h"
+#include "gen/val/gen_literal.h"
 #include "gen/val/gen_id.h"
 
 void gen_id_context::push() {
@@ -14,24 +15,32 @@ void gen_id_context::pop() {
     layers.pop_back();
 }
 
-llvm::AllocaInst *gen_id_context::get_alloca(const std::string &id) const {
+llvm::Value *gen_id_context::get_mem(const std::string &id) const {
     for (auto it = layers.rbegin(); it != layers.rend(); it++) {
         if ((*it).find(id) != (*it).end()) {
             return (*it).at(id);
         }
     }
-    throw std::invalid_argument("[gen_id_context::get_alloca] Unknown identifier");
+    throw std::invalid_argument("[gen_id_context::get_mem] Unknown identifier");
 }
 
-void gen_id_context::set_alloca(const std::string &id, llvm::AllocaInst *alloca) {
-    (*layers.rbegin())[id] = alloca;
+void gen_id_context::set_mem(const std::string &id, llvm::Value *mem) {
+    (*layers.rbegin())[id] = mem;
 }
 
 void gen::declare_id(const std::string &id, const sem_type &type) {
-    llvm::AllocaInst *alloca = ir_builder.CreateAlloca(get_llvm_type(type), nullptr, id);
-    gen_env.get_id_env().set_alloca(id, alloca);
+    llvm::Value *mem = nullptr;
+    if (gen_env.is_global()) {
+        mem = new llvm::GlobalVariable(
+                llvm_module, get_llvm_type(type), false, llvm::GlobalValue::InternalLinkage,
+                get_llvm_int(sem_value{true, {.num = 0}}), id
+        );
+    } else {
+        mem = ir_builder.CreateAlloca(get_llvm_type(type), nullptr, id);
+    }
+    gen_env.get_id_env().set_mem(id, mem);
 }
 
-llvm::AllocaInst *gen::get_alloca(const std::string &id) {
-    return gen_env.get_id_env().get_alloca(id);
+llvm::Value *gen::get_mem(const std::string &id) {
+    return gen_env.get_id_env().get_mem(id);
 }

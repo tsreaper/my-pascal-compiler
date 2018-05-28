@@ -18,7 +18,7 @@ void ast_var_dec::add_id(ast_id *id) {
 
 bool ast_var_dec::semantics_child() {
     for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        if (!(*it)->analyse()) {
+        if (!(*it)->analyse(false)) {
             return false;
         }
     }

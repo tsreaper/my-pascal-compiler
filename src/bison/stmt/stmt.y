@@ -1,10 +1,9 @@
-ast_stmt* stmt_node;
 ast_stmt_seq* stmt_seq_node;
 
 #union
 
 %type <stmt_seq_node> compound_stm stmt_seq
-%type <stmt_node> stmt
+%type <node> stmt
 
 %%
 
@@ -28,6 +27,9 @@ stmt_seq:
 
 stmt:
     assign {
+        $$ = $1;
+    }
+    | proc_func_call {
         $$ = $1;
     }
     // TODO more statements

@@ -17,12 +17,12 @@ proc_func_call:
 ;
 
 proc_func_call_has_param:
-    id SYM_LPAREN id {
+    id SYM_LPAREN exp {
         $$ = new ast_call($1);
         $$->add_param($3);
         YY_SET_LOCATION($$);
     }
-    | proc_func_call_has_param SYM_COMMA id {
+    | proc_func_call_has_param SYM_COMMA exp {
         $$ = $1;
         $$->add_param($3);
         YY_SET_LOCATION($$);

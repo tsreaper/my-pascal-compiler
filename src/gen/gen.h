@@ -6,6 +6,7 @@
 #include <llvm/IR/Function.h>
 
 #include "gen/val/gen_id.h"
+#include "gen/func/gen_func.h"
 
 class gen_context {
 public:
@@ -13,10 +14,17 @@ public:
 
     void pop();
 
+    bool is_global();
+
     gen_id_context &get_id_env();
 
+    gen_func_context &get_func_env();
+
 private:
+    int depth = 0;
+
     gen_id_context id_env;
+    gen_func_context func_env;
 };
 
 extern llvm::LLVMContext llvm_context;

@@ -1,5 +1,6 @@
 #include "sem/exception/sem_exception.h"
-#include "gen/val/gen_literal.h"
+#include "gen/gen.h"
+#include "gen/func/gen_func.h"
 #include "ast/func/ast_call.h"
 
 ast_call::ast_call(ast_id *id) : id(id), s_type({false}), s_value({false}) {}
@@ -16,12 +17,12 @@ const sem_value &ast_call::get_value() const {
     return s_value;
 }
 
-void ast_call::add_param(ast_type_node *param) {
+void ast_call::add_param(ast_value_node *param) {
     param_vec.emplace_back(param);
 }
 
 bool ast_call::semantics_child() {
-    if (!id->analyse()) {
+    if (!id->analyse(false)) {
         return false;
     }
     for (auto child : param_vec) {
@@ -56,8 +57,17 @@ bool ast_call::semantics_self() {
 }
 
 void ast_call::codegen() {
-    // TODO remove place holder
-    llvm_value = gen::get_llvm_int(sem_value{true, {.num = 0}});
+    std::vector<llvm::Value *> args_vec;
+    for (auto child : param_vec) {
+        args_vec.emplace_back(child->get_llvm_value());
+    }
+
+    llvm::Function *func = gen::get_func(sign);
+    if (s_type == built_in_type::VOID_TYPE) {
+        llvm_value = ir_builder.CreateCall(func, args_vec);
+    } else {
+        llvm_value = ir_builder.CreateCall(func, args_vec, "call_" + id->get_id());
+    }
 }
 
 void ast_call::explain_impl(std::string &res, int indent) const {

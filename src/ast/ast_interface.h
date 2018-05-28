@@ -18,7 +18,7 @@ public:
     llvm::Value *get_llvm_value() const;
 
 protected:
-    llvm::Value *llvm_value;
+    llvm::Value *llvm_value = nullptr;
 };
 
 #endif //MY_PASCAL_AST_INTERFACE_H

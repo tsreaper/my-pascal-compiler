@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 
-#include <llvm/IR/Instructions.h>
+#include <llvm/IR/Value.h>
 
 #include "sem/type/sem_type.h"
 
@@ -15,18 +15,18 @@ public:
 
     void pop();
 
-    llvm::AllocaInst *get_alloca(const std::string &id) const;
+    llvm::Value *get_mem(const std::string &id) const;
 
-    void set_alloca(const std::string &id, llvm::AllocaInst *alloca);
+    void set_mem(const std::string &id, llvm::Value *alloca);
 
 private:
-    std::vector<std::map<std::string, llvm::AllocaInst *>> layers;
+    std::vector<std::map<std::string, llvm::Value *>> layers;
 };
 
 namespace gen {
     void declare_id(const std::string &id, const sem_type &type);
 
-    llvm::AllocaInst *get_alloca(const std::string &id);
+    llvm::Value *get_mem(const std::string &id);
 }
 
 #endif //MY_PASCAL_GEN_ID_H

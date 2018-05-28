@@ -23,11 +23,11 @@ proc_func_dec:
 ;
 
 proc_func_def:
-    proc_head block SYM_SEMICOLON {
+    proc_head local_block SYM_SEMICOLON {
         $$ = new ast_func_def($1, $2);
         YY_SET_LOCATION($$);
     }
-    | func_head block SYM_SEMICOLON {
+    | func_head local_block SYM_SEMICOLON {
         $$ = new ast_func_def($1, $2);
         YY_SET_LOCATION($$);
     }

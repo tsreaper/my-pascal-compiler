@@ -13,5 +13,3 @@
 int yylex(void);
 void yyerror(const char *s);
 %}
-
-// TODO Priority of each operator

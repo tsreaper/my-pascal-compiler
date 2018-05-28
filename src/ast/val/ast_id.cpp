@@ -24,6 +24,21 @@ const std::string &ast_id::get_id() const {
     return id;
 }
 
+bool ast_id::analyse() {
+    return analyse(true);
+}
+
+bool ast_id::analyse(bool need_codegen) {
+    if (semantics_child() && semantics_self()) {
+        if (need_codegen) {
+            codegen();
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool ast_id::semantics_self() {
     return true;
 }
@@ -31,8 +46,8 @@ bool ast_id::semantics_self() {
 void ast_id::codegen() {
     if (sem::is_const_id(id)) {
         llvm_value = gen::get_llvm_const(get_type(), get_value());
-    } else if (sem::is_declared_val(id)) {
-        llvm_value = ir_builder.CreateLoad(gen::get_alloca(id), id);
+    } else if (sem::is_declared_val(id) && !get_type().is_type) {
+        llvm_value = ir_builder.CreateLoad(gen::get_mem(id), id);
     }
 }
 

@@ -13,6 +13,10 @@ public:
 
     const std::string &get_id() const;
 
+    bool analyse() override;
+
+    bool analyse(bool need_codegen);
+
     void explain_impl(std::string &res, int indent) const override;
 
 protected:

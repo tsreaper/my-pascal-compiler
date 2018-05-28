@@ -11,7 +11,7 @@ ast_assign::~ast_assign() {
 }
 
 bool ast_assign::semantics_child() {
-    return id->analyse() && rhs->analyse();
+    return id->analyse(false) && rhs->analyse();
 }
 
 bool ast_assign::semantics_self() {
@@ -25,7 +25,7 @@ bool ast_assign::semantics_self() {
 }
 
 void ast_assign::codegen() {
-    ir_builder.CreateStore(rhs->get_llvm_value(), gen::get_alloca(id->get_id()));
+    ir_builder.CreateStore(rhs->get_llvm_value(), gen::get_mem(id->get_id()));
 }
 
 void ast_assign::explain_impl(std::string &res, int indent) const {

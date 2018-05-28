@@ -3,7 +3,9 @@
 
 #include "ast/ast_node.h"
 #include "ast/exp/ast_all_exps.h"
-#include "ast/func/ast_func.h"
+#include "ast/func/ast_func_head.h"
+#include "ast/func/ast_func_dec.h"
+#include "ast/func/ast_func_def.h"
 #include "ast/func/ast_call.h"
 #include "ast/label/ast_label.h"
 #include "ast/program/ast_program.h"

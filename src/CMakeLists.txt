@@ -25,6 +25,7 @@ aux_source_directory(sem/val SEM_SOURCE)
 
 aux_source_directory(gen GEN_SOURCE)
 aux_source_directory(gen/exp GEN_SOURCE)
+aux_source_directory(gen/func GEN_SOURCE)
 aux_source_directory(gen/program GEN_SOURCE)
 aux_source_directory(gen/type GEN_SOURCE)
 aux_source_directory(gen/val GEN_SOURCE)

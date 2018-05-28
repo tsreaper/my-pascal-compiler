@@ -1,5 +1,6 @@
 #include "sem/sem.h"
 #include "gen/gen.h"
+#include "gen/val/gen_literal.h"
 #include "gen/program/gen_program.h"
 #include "ast/program/ast_program.h"
 
@@ -17,14 +18,25 @@ ast_program::~ast_program() {
     delete block;
 }
 
+#define ENV_POP { \
+    gen_env.pop(); \
+    sem_env.pop(); \
+}
+
 bool ast_program::analyse() {
     sem_env.push();
     gen_env.push();
-    pre_codegen();
-    bool res = semantics_child();
-    gen_env.pop();
-    sem_env.pop();
-    return res;
+
+    codegen_phase1();
+
+    if (!semantics_child()) {
+        ENV_POP;
+        return false;
+    }
+
+    codegen_phase2();
+    ENV_POP;
+    return true;
 }
 
 bool ast_program::semantics_child() {
@@ -42,6 +54,10 @@ void ast_program::explain_impl(std::string &res, int indent) const {
     res += ")\n";
 }
 
-void ast_program::pre_codegen() {
-    gen::gen_main();
+void ast_program::codegen_phase1() {
+    gen::define_main();
+}
+
+void ast_program::codegen_phase2() {
+    ir_builder.CreateRet(gen::get_llvm_int(sem_value{true, {.num = 0}}));
 }

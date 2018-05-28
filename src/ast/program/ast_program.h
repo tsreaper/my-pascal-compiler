@@ -35,7 +35,9 @@ private:
     ast_program_head *head;
     ast_block *block;
 
-    void pre_codegen();
+    void codegen_phase1();
+
+    void codegen_phase2();
 };
 
 #endif //MY_PASCAL_AST_PROGRAM_H

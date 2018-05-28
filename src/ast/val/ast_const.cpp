@@ -13,7 +13,7 @@ ast_const_def::~ast_const_def() {
 }
 
 bool ast_const_def::semantics_child() {
-    return id->analyse() && value->analyse();
+    return id->analyse(false) && value->analyse();
 }
 
 bool ast_const_def::semantics_self() {

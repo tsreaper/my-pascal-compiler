@@ -3,32 +3,63 @@ ast_block* block_node;
 
 #union
 
-%type <node> block_head_component
-%type <block_head_node> block_head
-%type <block_node> block
+%type <node> global_block_head_component local_block_head_component
+%type <block_head_node> global_block_head local_block_head
+%type <block_node> global_block local_block
 
 %%
 
-block:
-    block_head compound_stm {
+global_block:
+    global_block_head compound_stm {
         $$ = new ast_block($1, $2);
         YY_SET_LOCATION($$);
     }
 ;
 
-block_head:
+global_block_head:
     {
         $$ = new ast_block_head();
         YY_SET_LOCATION($$);
     }
-    | block_head block_head_component {
+    | global_block_head global_block_head_component {
         $$ = $1;
         $$->add_node($2);
         YY_SET_LOCATION($$);
     }
 ;
 
-block_head_component:
+global_block_head_component:
+    local_block_head_component {
+        $$ = $1;
+    }
+    | proc_func_dec {
+        $$ = $1;
+    }
+    | proc_func_def {
+        $$ = $1;
+    }
+;
+
+local_block:
+    local_block_head compound_stm {
+        $$ = new ast_block($1, $2);
+        YY_SET_LOCATION($$);
+    }
+;
+
+local_block_head:
+    {
+        $$ = new ast_block_head();
+        YY_SET_LOCATION($$);
+    }
+    | local_block_head local_block_head_component {
+        $$ = $1;
+        $$->add_node($2);
+        YY_SET_LOCATION($$);
+    }
+;
+
+local_block_head_component:
     label_dec_part {
         $$ = $1;
     }
@@ -39,12 +70,6 @@ block_head_component:
         $$ = $1;
     }
     | var_dec_part {
-        $$ = $1;
-    }
-    | proc_func_dec {
-        $$ = $1;
-    }
-    | proc_func_def {
         $$ = $1;
     }
 ;

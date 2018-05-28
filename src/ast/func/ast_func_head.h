@@ -1,16 +1,15 @@
-#ifndef MY_PASCAL_AST_FUNC_H
-#define MY_PASCAL_AST_FUNC_H
+#ifndef MY_PASCAL_AST_FUNC_HEAD_H
+#define MY_PASCAL_AST_FUNC_HEAD_H
 
 #include <vector>
 
 #include "ast/ast_node.h"
 #include "ast/val/ast_id.h"
-#include "ast/program/ast_block.h"
 #include "sem/func/sem_func.h"
 
 class ast_func_head : public ast_node {
 public:
-    explicit ast_func_head(ast_id *name);
+    explicit ast_func_head(ast_id *id);
 
     ~ast_func_head() override;
 
@@ -38,7 +37,7 @@ protected:
     bool semantics_self() override;
 
 private:
-    ast_id *name;
+    ast_id *id;
     ast_type_node *type;
     std::vector<ast_id *> param_name_vec;
     std::vector<ast_type_node *> param_type_vec;
@@ -46,41 +45,4 @@ private:
     sem_type ret_type;
 };
 
-class ast_func_dec : public ast_node {
-public:
-    explicit ast_func_dec(ast_func_head *head);
-
-    ~ast_func_dec() override;
-
-    void explain_impl(std::string &res, int indent) const override;
-
-protected:
-    bool semantics_child() override;
-
-    bool semantics_self() override;
-
-private:
-    ast_func_head *head;
-};
-
-class ast_func_def : public ast_node {
-public:
-    ast_func_def(ast_func_head *head, ast_block *block);
-
-    ~ast_func_def() override;
-
-    bool analyse() override;
-
-    void explain_impl(std::string &res, int indent) const override;
-
-protected:
-    bool semantics_child() override;
-
-    bool semantics_self() override;
-
-private:
-    ast_func_head *head;
-    ast_block *block;
-};
-
-#endif //MY_PASCAL_AST_FUNC_H
+#endif //MY_PASCAL_AST_FUNC_HEAD_H
