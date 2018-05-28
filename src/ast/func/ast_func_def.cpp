@@ -115,7 +115,7 @@ void ast_func_def::codegen_phase2() {
 
 void ast_func_def::codegen_phase3() {
     if (head->get_ret_type() != built_in_type::VOID_TYPE) {
-        llvm::Value *ret = ir_builder.CreateLoad(gen::get_mem(head->get_name()), head->get_name());
+        llvm::Value *ret = ir_builder.CreateLoad(gen::get_mem(head->get_name()), "ret");
         ir_builder.CreateRet(ret);
     } else {
         ir_builder.CreateRetVoid();

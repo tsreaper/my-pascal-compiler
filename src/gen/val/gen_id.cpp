@@ -21,7 +21,7 @@ llvm::Value *gen_id_context::get_mem(const std::string &id) const {
             return (*it).at(id);
         }
     }
-    throw std::invalid_argument("[gen_id_context::get_mem] Unknown identifier");
+    throw std::invalid_argument("[gen_id_context::get_llvm_mem] Unknown identifier");
 }
 
 void gen_id_context::set_mem(const std::string &id, llvm::Value *mem) {

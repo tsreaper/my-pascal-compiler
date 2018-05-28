@@ -7,6 +7,7 @@ aux_source_directory(ast/exp/arith AST_SOURCE)
 aux_source_directory(ast/exp/cmp AST_SOURCE)
 aux_source_directory(ast/exp/logic AST_SOURCE)
 aux_source_directory(ast/func AST_SOURCE)
+aux_source_directory(ast/func/sys AST_SOURCE)
 aux_source_directory(ast/label AST_SOURCE)
 aux_source_directory(ast/program AST_SOURCE)
 aux_source_directory(ast/stmt AST_SOURCE)
@@ -26,6 +27,7 @@ aux_source_directory(sem/val SEM_SOURCE)
 aux_source_directory(gen GEN_SOURCE)
 aux_source_directory(gen/exp GEN_SOURCE)
 aux_source_directory(gen/func GEN_SOURCE)
+aux_source_directory(gen/func/sys GEN_SOURCE)
 aux_source_directory(gen/program GEN_SOURCE)
 aux_source_directory(gen/type GEN_SOURCE)
 aux_source_directory(gen/val GEN_SOURCE)
@@ -35,6 +37,7 @@ file(
         bison/*.y
         bison/exp/*.y
         bison/func/*.y
+        bison/func/sys/*.y
         bison/id/*.y
         bison/label/*.y
         bison/program/*.y

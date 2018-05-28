@@ -24,6 +24,10 @@ const std::string &ast_id::get_id() const {
     return id;
 }
 
+llvm::Value *ast_id::get_llvm_mem() const {
+    return gen::get_mem(id);
+}
+
 bool ast_id::analyse() {
     return analyse(true);
 }
@@ -47,7 +51,7 @@ void ast_id::codegen() {
     if (sem::is_const_id(id)) {
         llvm_value = gen::get_llvm_const(get_type(), get_value());
     } else if (sem::is_declared_val(id) && !get_type().is_type) {
-        llvm_value = ir_builder.CreateLoad(gen::get_mem(id), id);
+        llvm_value = ir_builder.CreateLoad(get_llvm_mem(), id);
     }
 }
 

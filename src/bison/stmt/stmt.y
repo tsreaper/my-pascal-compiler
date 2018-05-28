@@ -33,4 +33,7 @@ stmt:
         $$ = $1;
     }
     // TODO more statements
+    | sys_func {
+        $$ = $1;
+    }
 ;

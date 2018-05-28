@@ -47,6 +47,18 @@ llvm::Type *gen::get_llvm_void_type() {
     return llvm::Type::getVoidTy(llvm_context);
 }
 
+llvm::Type *gen::get_llvm_int_ptr_type() {
+    return llvm::Type::getInt32PtrTy(llvm_context);
+}
+
+llvm::Type *gen::get_llvm_real_ptr_type() {
+    return llvm::Type::getDoublePtrTy(llvm_context);
+}
+
+llvm::Type *gen::get_llvm_char_ptr_type() {
+    return llvm::Type::getInt8PtrTy(llvm_context);
+}
+
 void gen::to_llvm_arith_type(
         const sem_type &type_l, const sem_type &type_r, llvm::Value **value_l, llvm::Value **value_r
 ) {

@@ -55,6 +55,10 @@ PAS_WHILE while
 PAS_WITH with
 PAS_XOR xor
 
+SYS_WRITE write
+SYS_WRITELN writeln
+SYS_READ read
+
 SYM_ADD "+"
 SYM_SUB "-"
 SYM_MUL "*"
@@ -85,7 +89,7 @@ TYPE_BOOL boolean
 BOOL_TRUE true
 BOOL_FALSE false
 
-ID [a-zA-Z][a-zA-Z0-9]*
+ID [a-zA-Z_][a-zA-Z0-9_]*
 
 SIGN "+"|"-"
 INT {SIGN}?[0-9]+
@@ -208,6 +212,16 @@ COMMENT "{"[^\}]*"}"
 }
 {PAS_XOR} {
     return PAS_XOR;
+}
+
+{SYS_WRITE} {
+    return SYS_WRITE;
+}
+{SYS_WRITELN} {
+    return SYS_WRITELN;
+}
+{SYS_READ} {
+    return SYS_READ;
 }
 
 {SYM_ADD} {

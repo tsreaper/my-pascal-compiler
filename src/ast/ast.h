@@ -7,6 +7,7 @@
 #include "ast/func/ast_func_dec.h"
 #include "ast/func/ast_func_def.h"
 #include "ast/func/ast_call.h"
+#include "ast/func/sys/ast_all_sys_funcs.h"
 #include "ast/label/ast_label.h"
 #include "ast/program/ast_program.h"
 #include "ast/program/ast_block.h"

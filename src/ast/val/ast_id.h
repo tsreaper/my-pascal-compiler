@@ -13,6 +13,8 @@ public:
 
     const std::string &get_id() const;
 
+    llvm::Value *get_llvm_mem() const;
+
     bool analyse() override;
 
     bool analyse(bool need_codegen);
