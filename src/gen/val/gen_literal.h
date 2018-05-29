@@ -9,6 +9,8 @@
 namespace gen {
     llvm::Constant *get_llvm_const(const sem_type &type, const sem_value &value);
 
+    llvm::Constant *get_llvm_init_val(const sem_type &type);
+
     llvm::Constant *get_llvm_int(const sem_value &value);
 
     llvm::Constant *get_llvm_real(const sem_value &value);

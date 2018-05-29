@@ -1,4 +1,5 @@
 #include "sem/type/sem_type.h"
+#include "sem/stmt/sem_loop.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "ast/stmt/ast_assign.h"
@@ -17,6 +18,7 @@ bool ast_assign::semantics_child() {
 bool ast_assign::semantics_self() {
     try {
         sem::assert_can_assign(id->get_id(), id->get_type(), rhs->get_type());
+        sem::assert_not_loop_var(id->get_id());
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);

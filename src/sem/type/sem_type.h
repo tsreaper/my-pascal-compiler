@@ -75,6 +75,8 @@ namespace sem {
     const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_r);
 
     void assert_can_assign(const std::string &id, const sem_type &type_l, const sem_type &type_r);
+
+    void assert_can_be_range(const sem_type &type_l, const sem_type &type_r);
 }
 
 #endif //MY_PASCAL_SEM_TYPE_H

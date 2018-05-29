@@ -7,6 +7,7 @@
 
 #include "gen/val/gen_id.h"
 #include "gen/func/gen_func.h"
+#include "gen/stmt/gen_loop.h"
 
 class gen_context {
 public:
@@ -20,11 +21,14 @@ public:
 
     gen_func_context &get_func_env();
 
+    gen_loop_context &get_loop_env();
+
 private:
     int depth = 0;
 
     gen_id_context id_env;
     gen_func_context func_env;
+    gen_loop_context loop_env;
 };
 
 extern llvm::LLVMContext llvm_context;

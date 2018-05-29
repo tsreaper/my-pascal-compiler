@@ -25,6 +25,10 @@ namespace gen {
     llvm::Value *gen_arith_div_floor(llvm::Value *value_l, llvm::Value *value_r);
 
     llvm::Value *gen_arith_mod(llvm::Value *value_l, llvm::Value *value_r);
+
+    llvm::Value *gen_arith_add_one(const sem_type &type, llvm::Value *value);
+
+    llvm::Value *gen_arith_sub_one(const sem_type &type, llvm::Value *value);
 }
 
 #endif //MY_PASCAL_GEN_ARITH_H

@@ -3,7 +3,7 @@ ast_stmt_seq* stmt_seq_node;
 #union
 
 %type <stmt_seq_node> compound_stm stmt_seq
-%type <node> stmt
+%type <node> stmt simple_stmt
 
 %%
 
@@ -18,7 +18,7 @@ stmt_seq:
         $$ = new ast_stmt_seq();
         YY_SET_LOCATION($$);
     }
-    | stmt_seq stmt SYM_SEMICOLON {
+    | stmt_seq stmt {
         $$ = $1;
         $$->add_stmt($2);
         YY_SET_LOCATION($$);
@@ -26,14 +26,38 @@ stmt_seq:
 ;
 
 stmt:
-    assign {
+    simple_stmt SYM_SEMICOLON {
+        $$ = $1;
+    }
+    | compound_stm {
+        $$ = $1;
+    }
+    | if {
+        $$ = $1;
+    }
+    | for {
+        $$ = $1;
+    }
+    // TODO more statements
+;
+
+simple_stmt:
+    {
+        $$ = new ast_empty_stmt();
+    }
+    | assign {
         $$ = $1;
     }
     | proc_func_call {
         $$ = $1;
     }
-    // TODO more statements
     | sys_func {
+        $$ = $1;
+    }
+    | continue {
+        $$ = $1;
+    }
+    | break {
         $$ = $1;
     }
 ;

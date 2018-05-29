@@ -39,3 +39,7 @@ gen_id_context &gen_context::get_id_env() {
 gen_func_context &gen_context::get_func_env() {
     return func_env;
 }
+
+gen_loop_context &gen_context::get_loop_env() {
+    return loop_env;
+}

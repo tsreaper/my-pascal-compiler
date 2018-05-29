@@ -33,7 +33,7 @@ void gen::declare_id(const std::string &id, const sem_type &type) {
     if (gen_env.is_global()) {
         mem = new llvm::GlobalVariable(
                 llvm_module, get_llvm_type(type), false, llvm::GlobalValue::InternalLinkage,
-                get_llvm_int(sem_value{true, {.num = 0}}), id
+                get_llvm_init_val(type), id
         );
     } else {
         mem = ir_builder.CreateAlloca(get_llvm_type(type), nullptr, id);

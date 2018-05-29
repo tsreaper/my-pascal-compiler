@@ -38,3 +38,7 @@ sem_enum_context &sem_context::get_enum_env() {
 sem_func_context &sem_context::get_func_env() {
     return func_env;
 }
+
+sem_loop_context &sem_context::get_loop_env() {
+    return loop_env;
+}

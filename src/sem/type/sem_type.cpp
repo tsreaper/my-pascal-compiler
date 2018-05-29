@@ -137,3 +137,22 @@ void sem::assert_can_assign(const std::string &id, const sem_type &type_l, const
     }
     throw sem_exception("semantics error, cannot assign rhs to variable because their types are inconsistent");
 }
+
+void sem::assert_can_be_range(const sem_type &type_l, const sem_type &type_r) {
+    if (type_l.is_type || type_r.is_type) {
+        throw sem_exception("semantics error, must be two values");
+    }
+    if (type_l != type_r) {
+        throw sem_exception("semantics error, two values must be of same type");
+    }
+    if (type_l == built_in_type::INT_TYPE) {
+        return;
+    }
+    if (type_l == built_in_type::CHAR_TYPE) {
+        return;
+    }
+    if (type_l.tg == type_group::ENUM) {
+        return;
+    }
+    throw sem_exception("semantics error, must be integer, character or enum type");
+}

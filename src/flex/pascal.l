@@ -20,8 +20,10 @@ void copy_str(char *str, int len) {
 PAS_AND and
 PAS_ARRAY array
 PAS_BEGIN begin
+PAS_BREAK break
 PAS_CASE case
 PAS_CONST const
+PAS_CONTINUE continue
 PAS_DIV div
 PAS_DO do
 PAS_DOWNTO downto
@@ -111,11 +113,17 @@ COMMENT "{"[^\}]*"}"
 {PAS_BEGIN} {
     return PAS_BEGIN;
 }
+{PAS_BREAK} {
+    return PAS_BREAK;
+}
 {PAS_CASE} {
     return PAS_CASE;
 }
 {PAS_CONST} {
     return PAS_CONST;
+}
+{PAS_CONTINUE} {
+    return PAS_CONTINUE;
 }
 {PAS_DIV} {
     return PAS_DIV;
