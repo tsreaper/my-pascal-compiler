@@ -38,6 +38,12 @@ stmt:
     | for {
         $$ = $1;
     }
+    | repeat {
+        $$ = $1;
+    }
+    | while {
+        $$ = $1;
+    }
     // TODO more statements
 ;
 

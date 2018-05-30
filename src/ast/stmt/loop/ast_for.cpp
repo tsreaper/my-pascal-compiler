@@ -24,8 +24,8 @@ llvm::BasicBlock *ast_for::get_break_block() const {
 }
 
 #define ENV_POP { \
-    sem_env.get_loop_env().pop(); \
     gen_env.get_loop_env().pop(); \
+    sem_env.get_loop_env().pop(); \
 }
 
 bool ast_for::analyse() {

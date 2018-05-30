@@ -5,6 +5,8 @@
 #include "ast/stmt/ast_empty_stmt.h"
 #include "ast/stmt/cond/ast_if.h"
 #include "ast/stmt/loop/ast_for.h"
+#include "ast/stmt/loop/ast_repeat.h"
+#include "ast/stmt/loop/ast_while.h"
 #include "ast/stmt/loop/ast_cont.h"
 #include "ast/stmt/loop/ast_break.h"
 
