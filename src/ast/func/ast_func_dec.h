@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_FUNC_DEC_H
-#define MY_PASCAL_AST_FUNC_DEC_H
+#ifndef MPC_AST_FUNC_DEC_H
+#define MPC_AST_FUNC_DEC_H
 
 #include "ast/func/ast_func_head.h"
 
@@ -22,4 +22,4 @@ private:
     ast_func_head *head;
 };
 
-#endif //MY_PASCAL_AST_FUNC_DEC_H
+#endif //MPC_AST_FUNC_DEC_H

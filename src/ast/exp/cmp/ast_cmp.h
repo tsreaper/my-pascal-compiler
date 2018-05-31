@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_CMP_H
-#define MY_PASCAL_AST_CMP_H
+#ifndef MPC_AST_CMP_H
+#define MPC_AST_CMP_H
 
 #include "ast/ast_node.h"
 
@@ -29,4 +29,4 @@ protected:
     void cmp_explain_impl(const std::string &op_name, std::string &res, int indent) const;
 };
 
-#endif //MY_PASCAL_AST_CMP_H
+#endif //MPC_AST_CMP_H

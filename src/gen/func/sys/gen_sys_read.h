@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_SYS_READ_H
-#define MY_PASCAL_GEN_SYS_READ_H
+#ifndef MPC_GEN_SYS_READ_H
+#define MPC_GEN_SYS_READ_H
 
 #include <vector>
 
@@ -11,4 +11,4 @@ namespace gen {
     // void gen_readln(ast_id *arg);
 }
 
-#endif //MY_PASCAL_GEN_SYS_READ_H
+#endif //MPC_GEN_SYS_READ_H

@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_INT_VAL_H
-#define MY_PASCAL_AST_INT_VAL_H
+#ifndef MPC_AST_INT_VAL_H
+#define MPC_AST_INT_VAL_H
 
 #include "ast/val/literal/ast_literal.h"
 
@@ -15,4 +15,4 @@ private:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_INT_VAL_H
+#endif //MPC_AST_INT_VAL_H

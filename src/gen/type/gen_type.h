@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_TYPE_H
-#define MY_PASCAL_GEN_TYPE_H
+#ifndef MPC_GEN_TYPE_H
+#define MPC_GEN_TYPE_H
 
 #include <llvm/IR/Value.h>
 
@@ -29,4 +29,4 @@ namespace gen {
     void to_llvm_real_type(const sem_type &type, llvm::Value **value);
 }
 
-#endif //MY_PASCAL_GEN_TYPE_H
+#endif //MPC_GEN_TYPE_H

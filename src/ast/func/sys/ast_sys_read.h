@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_SYS_READ_H
-#define MY_PASCAL_AST_SYS_READ_H
+#ifndef MPC_AST_SYS_READ_H
+#define MPC_AST_SYS_READ_H
 
 #include "ast/ast_node.h"
 #include "ast/val/ast_id.h"
@@ -22,4 +22,4 @@ private:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_SYS_WRITE_H
+#endif //MPC_AST_SYS_WRITE_H

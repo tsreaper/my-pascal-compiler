@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_PROGRAM_H
-#define MY_PASCAL_AST_PROGRAM_H
+#ifndef MPC_AST_PROGRAM_H
+#define MPC_AST_PROGRAM_H
 
 #include <string>
 
@@ -40,4 +40,4 @@ private:
     void codegen_phase2();
 };
 
-#endif //MY_PASCAL_AST_PROGRAM_H
+#endif //MPC_AST_PROGRAM_H

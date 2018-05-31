@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_H
-#define MY_PASCAL_AST_H
+#ifndef MPC_AST_H
+#define MPC_AST_H
 
 #include "ast/ast_node.h"
 #include "ast/exp/ast_all_exps.h"
@@ -22,4 +22,4 @@
 
 extern ast_node *ast_root;
 
-#endif //MY_PASCAL_AST_H
+#endif //MPC_AST_H

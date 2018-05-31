@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_LITERAL_H
-#define MY_PASCAL_AST_LITERAL_H
+#ifndef MPC_AST_LITERAL_H
+#define MPC_AST_LITERAL_H
 
 #include "ast/ast_node.h"
 #include "sem/type/sem_type.h"
@@ -16,4 +16,4 @@ protected:
     sem_value s_value{};
 };
 
-#endif //MY_PASCAL_AST_LITERAL_H
+#endif //MPC_AST_LITERAL_H

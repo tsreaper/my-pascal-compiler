@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_ARITH_DIV_FLOOR_H
-#define MY_PASCAL_AST_ARITH_DIV_FLOOR_H
+#ifndef MPC_AST_ARITH_DIV_FLOOR_H
+#define MPC_AST_ARITH_DIV_FLOOR_H
 
 #include "ast/exp/arith/ast_arith.h"
 
@@ -17,4 +17,4 @@ protected:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_ARITH_DIV_FLOOR_H
+#endif //MPC_AST_ARITH_DIV_FLOOR_H

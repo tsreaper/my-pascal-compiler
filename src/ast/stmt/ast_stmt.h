@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_STMT_H
-#define MY_PASCAL_AST_STMT_H
+#ifndef MPC_AST_STMT_H
+#define MPC_AST_STMT_H
 
 #include <vector>
 
@@ -20,4 +20,4 @@ private:
     std::vector<ast_node *> stmt_vec;
 };
 
-#endif //MY_PASCAL_AST_STMT_H
+#endif //MPC_AST_STMT_H

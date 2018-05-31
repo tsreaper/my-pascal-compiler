@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_REPEAT_H
-#define MY_PASCAL_AST_REPEAT_H
+#ifndef MPC_AST_REPEAT_H
+#define MPC_AST_REPEAT_H
 
 #include "ast/stmt/loop/ast_loop.h"
 
@@ -34,4 +34,4 @@ private:
     void codegen_cond();
 };
 
-#endif //MY_PASCAL_AST_REPEAT_H
+#endif //MPC_AST_REPEAT_H

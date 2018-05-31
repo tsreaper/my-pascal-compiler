@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_LOOP_H
-#define MY_PASCAL_GEN_LOOP_H
+#ifndef MPC_GEN_LOOP_H
+#define MPC_GEN_LOOP_H
 
 #include <vector>
 
@@ -21,4 +21,4 @@ namespace gen {
     ast_loop *get_current_loop();
 }
 
-#endif //MY_PASCAL_GEN_LOOP_H
+#endif //MPC_GEN_LOOP_H

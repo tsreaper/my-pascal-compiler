@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_LOGIC_OR_H
-#define MY_PASCAL_AST_LOGIC_OR_H
+#ifndef MPC_AST_LOGIC_OR_H
+#define MPC_AST_LOGIC_OR_H
 
 #include "ast/exp/logic/ast_logic.h"
 
@@ -17,4 +17,4 @@ protected:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_LOGIC_OR_H
+#endif //MPC_AST_LOGIC_OR_H

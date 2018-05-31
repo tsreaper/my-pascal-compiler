@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_CONST_H
-#define MY_PASCAL_SEM_CONST_H
+#ifndef MPC_SEM_CONST_H
+#define MPC_SEM_CONST_H
 
 #include <string>
 #include <vector>
@@ -26,4 +26,4 @@ namespace sem {
     void define_const_id(const std::string &id, const sem_type &type, const sem_value &value);
 }
 
-#endif //MY_PASCAL_SEM_CONST_H
+#endif //MPC_SEM_CONST_H

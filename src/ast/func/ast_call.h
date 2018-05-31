@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_CALL_H
-#define MY_PASCAL_AST_CALL_H
+#ifndef MPC_AST_CALL_H
+#define MPC_AST_CALL_H
 
 #include <vector>
 
@@ -35,4 +35,4 @@ private:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_CALL_H
+#endif //MPC_AST_CALL_H

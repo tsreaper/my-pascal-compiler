@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_BLOCK_H
-#define MY_PASCAL_AST_BLOCK_H
+#ifndef MPC_AST_BLOCK_H
+#define MPC_AST_BLOCK_H
 
 #include <vector>
 
@@ -37,4 +37,4 @@ private:
     ast_stmt_seq *body;
 };
 
-#endif //MY_PASCAL_AST_BLOCK_H
+#endif //MPC_AST_BLOCK_H

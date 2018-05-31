@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_FUNC_HEAD_H
-#define MY_PASCAL_AST_FUNC_HEAD_H
+#ifndef MPC_AST_FUNC_HEAD_H
+#define MPC_AST_FUNC_HEAD_H
 
 #include <vector>
 
@@ -45,4 +45,4 @@ private:
     sem_type ret_type;
 };
 
-#endif //MY_PASCAL_AST_FUNC_HEAD_H
+#endif //MPC_AST_FUNC_HEAD_H

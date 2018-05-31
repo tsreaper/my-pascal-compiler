@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_VAR_H
-#define MY_PASCAL_AST_VAR_H
+#ifndef MPC_AST_VAR_H
+#define MPC_AST_VAR_H
 
 #include <vector>
 
@@ -43,4 +43,4 @@ private:
     std::vector<ast_var_dec *> var_dec_vec;
 };
 
-#endif //MY_PASCAL_AST_VAR_H
+#endif //MPC_AST_VAR_H

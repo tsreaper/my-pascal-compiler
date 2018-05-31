@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_LOGIC_H
-#define MY_PASCAL_AST_LOGIC_H
+#ifndef MPC_AST_LOGIC_H
+#define MPC_AST_LOGIC_H
 
 #include "ast/ast_node.h"
 
@@ -29,4 +29,4 @@ protected:
     void logic_explain_impl(const std::string &op_name, std::string &res, int indent) const;
 };
 
-#endif //MY_PASCAL_AST_LOGIC_H
+#endif //MPC_AST_LOGIC_H

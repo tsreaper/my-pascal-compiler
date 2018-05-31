@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_EXCEPTION_H
-#define MY_PASCAL_SEM_EXCEPTION_H
+#ifndef MPC_SEM_EXCEPTION_H
+#define MPC_SEM_EXCEPTION_H
 
 #include <string>
 
@@ -13,4 +13,4 @@ private:
     std::string msg;
 };
 
-#endif //MY_PASCAL_SEM_EXCEPTION_H
+#endif //MPC_SEM_EXCEPTION_H

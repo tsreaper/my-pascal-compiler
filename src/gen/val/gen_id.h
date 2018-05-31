@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_ID_H
-#define MY_PASCAL_GEN_ID_H
+#ifndef MPC_GEN_ID_H
+#define MPC_GEN_ID_H
 
 #include <string>
 #include <vector>
@@ -29,4 +29,4 @@ namespace gen {
     llvm::Value *get_mem(const std::string &id);
 }
 
-#endif //MY_PASCAL_GEN_ID_H
+#endif //MPC_GEN_ID_H

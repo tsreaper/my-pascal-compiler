@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_ARITH_H
-#define MY_PASCAL_AST_ARITH_H
+#ifndef MPC_AST_ARITH_H
+#define MPC_AST_ARITH_H
 
 #include "ast/ast_node.h"
 
@@ -39,4 +39,4 @@ protected:
     bool semantics_self() override;
 };
 
-#endif //MY_PASCAL_AST_ARITH_H
+#endif //MPC_AST_ARITH_H

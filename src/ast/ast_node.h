@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_NODE_H
-#define MY_PASCAL_AST_NODE_H
+#ifndef MPC_AST_NODE_H
+#define MPC_AST_NODE_H
 
 #include <string>
 
@@ -36,4 +36,4 @@ class ast_type_node : public ast_node, public ast_has_type {};
 
 class ast_value_node : public ast_type_node, public ast_has_value {};
 
-#endif //MY_PASCAL_AST_NODE_H
+#endif //MPC_AST_NODE_H

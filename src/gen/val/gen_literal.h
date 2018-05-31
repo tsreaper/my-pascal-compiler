@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_LITERAL_H
-#define MY_PASCAL_GEN_LITERAL_H
+#ifndef MPC_GEN_LITERAL_H
+#define MPC_GEN_LITERAL_H
 
 #include <llvm/IR/Constants.h>
 
@@ -20,4 +20,4 @@ namespace gen {
     llvm::Constant *get_llvm_bool(const sem_value &value);
 }
 
-#endif //MY_PASCAL_GEN_LITERAL_H
+#endif //MPC_GEN_LITERAL_H

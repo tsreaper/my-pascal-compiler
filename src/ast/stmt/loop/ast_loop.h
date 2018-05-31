@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_LOOP_H
-#define MY_PASCAL_AST_LOOP_H
+#ifndef MPC_AST_LOOP_H
+#define MPC_AST_LOOP_H
 
 #include "ast/ast_node.h"
 
@@ -10,4 +10,4 @@ public:
     virtual llvm::BasicBlock *get_break_block() const = 0;
 };
 
-#endif //MY_PASCAL_AST_LOOP_H
+#endif //MPC_AST_LOOP_H

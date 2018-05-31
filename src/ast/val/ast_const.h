@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_CONST_H
-#define MY_PASCAL_AST_CONST_H
+#ifndef MPC_AST_CONST_H
+#define MPC_AST_CONST_H
 
 #include <vector>
 #include <llvm/IR/Value.h>
@@ -40,4 +40,4 @@ private:
     std::vector<ast_const_def *> const_def_vec;
 };
 
-#endif //MY_PASCAL_AST_CONST_H
+#endif //MPC_AST_CONST_H

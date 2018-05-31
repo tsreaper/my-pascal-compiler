@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_FUNC_DEF_H
-#define MY_PASCAL_AST_FUNC_DEF_H
+#ifndef MPC_AST_FUNC_DEF_H
+#define MPC_AST_FUNC_DEF_H
 
 #include "ast/func/ast_func_head.h"
 #include "ast/program/ast_block.h"
@@ -32,4 +32,4 @@ private:
     void codegen_phase3();
 };
 
-#endif //MY_PASCAL_AST_FUNC_DEF_H
+#endif //MPC_AST_FUNC_DEF_H

@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_ID_H
-#define MY_PASCAL_SEM_ID_H
+#ifndef MPC_SEM_ID_H
+#define MPC_SEM_ID_H
 
 #include <string>
 
@@ -16,4 +16,4 @@ namespace sem {
     bool is_declared_val(const std::string &id);
 }
 
-#endif //MY_PASCAL_SEM_ID_H
+#endif //MPC_SEM_ID_H

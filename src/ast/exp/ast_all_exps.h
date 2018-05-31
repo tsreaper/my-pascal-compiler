@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_ALL_EXPS_H
-#define MY_PASCAL_AST_ALL_EXPS_H
+#ifndef MPC_AST_ALL_EXPS_H
+#define MPC_AST_ALL_EXPS_H
 
 #include "ast/exp/arith/ast_arith_add.h"
 #include "ast/exp/arith/ast_arith_sub.h"
@@ -20,4 +20,4 @@
 #include "ast/exp/logic/ast_logic_xor.h"
 #include "ast/exp/logic/ast_logic_not.h"
 
-#endif //MY_PASCAL_AST_ALL_EXPS_H
+#endif //MPC_AST_ALL_EXPS_H

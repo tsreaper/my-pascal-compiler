@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_BUILTIN_TYPE_H
-#define MY_PASCAL_AST_BUILTIN_TYPE_H
+#ifndef MPC_AST_BUILTIN_TYPE_H
+#define MPC_AST_BUILTIN_TYPE_H
 
 #include "ast/ast_node.h"
 #include "sem/type/sem_type.h"
@@ -14,4 +14,4 @@ protected:
 
 
 
-#endif //MY_PASCAL_AST_BUILTIN_TYPE_H
+#endif //MPC_AST_BUILTIN_TYPE_H

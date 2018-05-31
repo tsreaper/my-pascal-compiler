@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_BREAK_H
-#define MY_PASCAL_AST_BREAK_H
+#ifndef MPC_AST_BREAK_H
+#define MPC_AST_BREAK_H
 
 #include "ast/ast_node.h"
 
@@ -15,4 +15,4 @@ protected:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_BREAK_H
+#endif //MPC_AST_BREAK_H

@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_INTERFACE_H
-#define MY_PASCAL_AST_INTERFACE_H
+#ifndef MPC_AST_INTERFACE_H
+#define MPC_AST_INTERFACE_H
 
 #include <llvm/IR/Value.h>
 
@@ -21,4 +21,4 @@ protected:
     llvm::Value *llvm_value = nullptr;
 };
 
-#endif //MY_PASCAL_AST_INTERFACE_H
+#endif //MPC_AST_INTERFACE_H

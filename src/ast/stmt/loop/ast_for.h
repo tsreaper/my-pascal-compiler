@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_FOR_H
-#define MY_PASCAL_AST_FOR_H
+#ifndef MPC_AST_FOR_H
+#define MPC_AST_FOR_H
 
 #include "ast/stmt/loop/ast_loop.h"
 #include "ast/val/ast_id.h"
@@ -35,4 +35,4 @@ private:
     void codegen_body();
 };
 
-#endif //MY_PASCAL_AST_FOR_H
+#endif //MPC_AST_FOR_H

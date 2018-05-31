@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_H
-#define MY_PASCAL_GEN_H
+#ifndef MPC_GEN_H
+#define MPC_GEN_H
 
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/IRBuilder.h>
@@ -37,4 +37,4 @@ extern llvm::IRBuilder<> ir_builder;
 
 extern gen_context gen_env;
 
-#endif //MY_PASCAL_GEN_H
+#endif //MPC_GEN_H

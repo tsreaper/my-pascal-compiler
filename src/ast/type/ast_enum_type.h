@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_ENUM_TYPE_H
-#define MY_PASCAL_AST_ENUM_TYPE_H
+#ifndef MPC_AST_ENUM_TYPE_H
+#define MPC_AST_ENUM_TYPE_H
 
 #include <vector>
 
@@ -28,4 +28,4 @@ private:
     sem_type s_type;
 };
 
-#endif //MY_PASCAL_AST_ENUM_TYPE_H
+#endif //MPC_AST_ENUM_TYPE_H

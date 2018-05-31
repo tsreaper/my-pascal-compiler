@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_VALUE_H
-#define MY_PASCAL_SEM_VALUE_H
+#ifndef MPC_SEM_VALUE_H
+#define MPC_SEM_VALUE_H
 
 #include <string>
 #include <map>
@@ -19,4 +19,4 @@ namespace built_in_value {
     const sem_value UNKNOWN_VALUE = {false};
 }
 
-#endif //MY_PASCAL_SEM_VALUE_H
+#endif //MPC_SEM_VALUE_H

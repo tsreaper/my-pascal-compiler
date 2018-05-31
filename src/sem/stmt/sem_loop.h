@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_LOOP_H
-#define MY_PASCAL_SEM_LOOP_H
+#ifndef MPC_SEM_LOOP_H
+#define MPC_SEM_LOOP_H
 
 #include <vector>
 #include <string>
@@ -24,4 +24,4 @@ namespace sem {
     void assert_in_loop();
 }
 
-#endif //MY_PASCAL_SEM_LOOP_H
+#endif //MPC_SEM_LOOP_H

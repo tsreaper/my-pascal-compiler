@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_ASSIGN_H
-#define MY_PASCAL_AST_ASSIGN_H
+#ifndef MPC_AST_ASSIGN_H
+#define MPC_AST_ASSIGN_H
 
 #include "ast/stmt/ast_stmt.h"
 #include "ast/val/ast_id.h"
@@ -24,4 +24,4 @@ private:
     ast_value_node *rhs;
 };
 
-#endif //MY_PASCAL_AST_ASSIGN_H
+#endif //MPC_AST_ASSIGN_H

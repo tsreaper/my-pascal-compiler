@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_TYPE_H
-#define MY_PASCAL_SEM_TYPE_H
+#ifndef MPC_SEM_TYPE_H
+#define MPC_SEM_TYPE_H
 
 #include <string>
 #include <vector>
@@ -79,4 +79,4 @@ namespace sem {
     void assert_can_be_range(const sem_type &type_l, const sem_type &type_r);
 }
 
-#endif //MY_PASCAL_SEM_TYPE_H
+#endif //MPC_SEM_TYPE_H

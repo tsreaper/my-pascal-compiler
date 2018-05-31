@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_WHILE_H
-#define MY_PASCAL_AST_WHILE_H
+#ifndef MPC_AST_WHILE_H
+#define MPC_AST_WHILE_H
 
 #include "ast/stmt/loop/ast_loop.h"
 
@@ -34,4 +34,4 @@ private:
     void codegen_body();
 };
 
-#endif //MY_PASCAL_AST_WHILE_H
+#endif //MPC_AST_WHILE_H

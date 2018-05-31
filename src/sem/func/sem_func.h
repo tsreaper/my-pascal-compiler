@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_FUNC_H
-#define MY_PASCAL_SEM_FUNC_H
+#ifndef MPC_SEM_FUNC_H
+#define MPC_SEM_FUNC_H
 
 #include <string>
 #include <vector>
@@ -43,4 +43,4 @@ namespace sem {
     const sem_type &get_ret_type(const func_sign &sign);
 }
 
-#endif //MY_PASCAL_SEM_FUNC_H
+#endif //MPC_SEM_FUNC_H

@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_CONT_H
-#define MY_PASCAL_AST_CONT_H
+#ifndef MPC_AST_CONT_H
+#define MPC_AST_CONT_H
 
 #include "ast/ast_node.h"
 
@@ -15,4 +15,4 @@ protected:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_CONT_H
+#endif //MPC_AST_CONT_H

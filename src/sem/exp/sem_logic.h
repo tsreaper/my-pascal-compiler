@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_LOGIC_H
-#define MY_PASCAL_SEM_LOGIC_H
+#ifndef MPC_SEM_LOGIC_H
+#define MPC_SEM_LOGIC_H
 
 #include "sem/val/sem_value.h"
 
@@ -13,4 +13,4 @@ namespace sem {
     sem_value do_logic_not(const sem_value &value);
 }
 
-#endif //MY_PASCAL_SEM_LOGIC_H
+#endif //MPC_SEM_LOGIC_H

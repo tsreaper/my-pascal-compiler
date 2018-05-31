@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_TYPE_H
-#define MY_PASCAL_AST_TYPE_H
+#ifndef MPC_AST_TYPE_H
+#define MPC_AST_TYPE_H
 
 #include <vector>
 
@@ -39,4 +39,4 @@ private:
     std::vector<ast_type_def*> type_def_vec;
 };
 
-#endif //MY_PASCAL_AST_TYPE_H
+#endif //MPC_AST_TYPE_H

@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_CMP_NE_H
-#define MY_PASCAL_AST_CMP_NE_H
+#ifndef MPC_AST_CMP_NE_H
+#define MPC_AST_CMP_NE_H
 
 #include "ast/exp/cmp/ast_cmp.h"
 
@@ -19,4 +19,4 @@ protected:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_CMP_NE_H
+#endif //MPC_AST_CMP_NE_H

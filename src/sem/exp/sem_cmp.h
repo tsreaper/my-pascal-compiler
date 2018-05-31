@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_CMP_H
-#define MY_PASCAL_SEM_CMP_H
+#ifndef MPC_SEM_CMP_H
+#define MPC_SEM_CMP_H
 
 #include "sem/type/sem_type.h"
 #include "sem/val/sem_value.h"
@@ -30,4 +30,4 @@ namespace sem {
     );
 }
 
-#endif //MY_PASCAL_SEM_CMP_H
+#endif //MPC_SEM_CMP_H

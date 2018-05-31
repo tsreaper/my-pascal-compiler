@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_LABEL_H
-#define MY_PASCAL_AST_LABEL_H
+#ifndef MPC_AST_LABEL_H
+#define MPC_AST_LABEL_H
 
 #include <vector>
 
@@ -35,4 +35,4 @@ private:
     std::vector<ast_label_dec*> label_dec_vec;
 };
 
-#endif //MY_PASCAL_AST_LABEL_H
+#endif //MPC_AST_LABEL_H

@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_LOGIC_NOT_H
-#define MY_PASCAL_AST_LOGIC_NOT_H
+#ifndef MPC_AST_LOGIC_NOT_H
+#define MPC_AST_LOGIC_NOT_H
 
 #include "ast/ast_node.h"
 
@@ -32,4 +32,4 @@ private:
     void do_logic();
 };
 
-#endif //MY_PASCAL_AST_LOGIC_NOT_H
+#endif //MPC_AST_LOGIC_NOT_H

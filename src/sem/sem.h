@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_H
-#define MY_PASCAL_SEM_H
+#ifndef MPC_SEM_H
+#define MPC_SEM_H
 
 #include <vector>
 #include <map>
@@ -40,4 +40,4 @@ private:
 
 extern sem_context sem_env;
 
-#endif //MY_PASCAL_SEM_H
+#endif //MPC_SEM_H

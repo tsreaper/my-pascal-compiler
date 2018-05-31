@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_IF_H
-#define MY_PASCAL_AST_IF_H
+#ifndef MPC_AST_IF_H
+#define MPC_AST_IF_H
 
 #include "ast/ast_node.h"
 
@@ -32,4 +32,4 @@ private:
     void codegen_else();
 };
 
-#endif //MY_PASCAL_AST_IF_H
+#endif //MPC_AST_IF_H

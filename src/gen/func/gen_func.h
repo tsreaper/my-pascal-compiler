@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_FUNC_H
-#define MY_PASCAL_GEN_FUNC_H
+#ifndef MPC_GEN_FUNC_H
+#define MPC_GEN_FUNC_H
 
 #include <llvm/IR/Type.h>
 #include <llvm/IR/Function.h>
@@ -31,4 +31,4 @@ namespace gen {
     llvm::Function *get_func(const func_sign &sign);
 }
 
-#endif //MY_PASCAL_GEN_FUNC_H
+#endif //MPC_GEN_FUNC_H

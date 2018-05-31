@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_GEN_ARITH_H
-#define MY_PASCAL_GEN_ARITH_H
+#ifndef MPC_GEN_ARITH_H
+#define MPC_GEN_ARITH_H
 
 #include <llvm/IR/Value.h>
 
@@ -31,4 +31,4 @@ namespace gen {
     llvm::Value *gen_arith_sub_one(const sem_type &type, llvm::Value *value);
 }
 
-#endif //MY_PASCAL_GEN_ARITH_H
+#endif //MPC_GEN_ARITH_H

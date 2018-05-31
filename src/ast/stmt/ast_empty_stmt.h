@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_EMPTY_STMT_H
-#define MY_PASCAL_AST_EMPTY_STMT_H
+#ifndef MPC_AST_EMPTY_STMT_H
+#define MPC_AST_EMPTY_STMT_H
 
 #include "ast/ast_node.h"
 
@@ -10,4 +10,4 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 };
 
-#endif //MY_PASCAL_AST_EMPTY_STMT_H
+#endif //MPC_AST_EMPTY_STMT_H

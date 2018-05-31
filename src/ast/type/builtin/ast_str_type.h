@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_STR_TYPE_H
-#define MY_PASCAL_AST_STR_TYPE_H
+#ifndef MPC_AST_STR_TYPE_H
+#define MPC_AST_STR_TYPE_H
 
 #include "ast/type/builtin/ast_builtin_type.h"
 
@@ -10,4 +10,4 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 };
 
-#endif //MY_PASCAL_AST_STR_TYPE_H
+#endif //MPC_AST_STR_TYPE_H

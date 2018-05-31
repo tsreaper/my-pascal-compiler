@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_AST_ARITH_DIV_H
-#define MY_PASCAL_AST_ARITH_DIV_H
+#ifndef MPC_AST_ARITH_DIV_H
+#define MPC_AST_ARITH_DIV_H
 
 #include "ast/exp/arith/ast_arith.h"
 
@@ -19,4 +19,4 @@ protected:
     void codegen() override;
 };
 
-#endif //MY_PASCAL_AST_ARITH_DIV_H
+#endif //MPC_AST_ARITH_DIV_H

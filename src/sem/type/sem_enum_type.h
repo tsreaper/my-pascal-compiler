@@ -1,5 +1,5 @@
-#ifndef MY_PASCAL_SEM_ENUM_TYPE_H
-#define MY_PASCAL_SEM_ENUM_TYPE_H
+#ifndef MPC_SEM_ENUM_TYPE_H
+#define MPC_SEM_ENUM_TYPE_H
 
 #include <string>
 #include <vector>
@@ -28,4 +28,4 @@ namespace sem {
     int define_enum_type(const std::vector<ast_id *> &id_vec);
 }
 
-#endif //MY_PASCAL_SEM_ENUM_TYPE_H
+#endif //MPC_SEM_ENUM_TYPE_H
