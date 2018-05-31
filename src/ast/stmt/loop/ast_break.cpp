@@ -16,6 +16,9 @@ bool ast_break::semantics_self() {
 
 void ast_break::codegen() {
     ir_builder.CreateBr(gen::get_current_loop()->get_break_block());
+    llvm::Function *func = ir_builder.GetInsertBlock()->getParent();
+    llvm::BasicBlock* bb = llvm::BasicBlock::Create(llvm_context, "after_break", func);
+    ir_builder.SetInsertPoint(bb);
 }
 
 void ast_break::explain_impl(std::string &res, int indent) const {

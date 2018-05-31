@@ -36,6 +36,8 @@ aux_source_directory(gen/stmt GEN_SOURCE)
 aux_source_directory(gen/type GEN_SOURCE)
 aux_source_directory(gen/val GEN_SOURCE)
 
+aux_source_directory(make MAKE_SOURCE)
+
 file(
         GLOB BISON_SOURCE
         bison/*.y
@@ -71,9 +73,9 @@ execute_process(COMMAND llvm-config --libs OUTPUT_VARIABLE LLVM_LINK_LIBRARIES)
 string(STRIP ${LLVM_LINK_LIBRARIES} LLVM_LINK_LIBRARIES)
 
 add_executable(
-        my_pascal
-        main.cpp ${AST_SOURCE} ${SEM_SOURCE} ${GEN_SOURCE}
+        mpc
+        main.cpp ${AST_SOURCE} ${SEM_SOURCE} ${GEN_SOURCE} ${MAKE_SOURCE}
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.l.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.cpp ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.hpp
 )
-set_target_properties(my_pascal PROPERTIES LINK_LIBRARIES ${LLVM_LINK_LIBRARIES})
+set_target_properties(mpc PROPERTIES LINK_LIBRARIES ${LLVM_LINK_LIBRARIES})

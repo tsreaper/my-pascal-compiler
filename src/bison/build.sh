@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 union_part="%union {"$'\n'
 first_part=""
