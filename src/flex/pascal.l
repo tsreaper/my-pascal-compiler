@@ -30,6 +30,7 @@ PAS_DO do
 PAS_DOWNTO downto
 PAS_ELSE else
 PAS_END end
+PAS_EXIT exit
 PAS_FILE file
 PAS_FOR for
 PAS_FORWARD forward
@@ -95,8 +96,8 @@ BOOL_FALSE false
 ID [a-zA-Z_][a-zA-Z0-9_]*
 
 SIGN "+"|"-"
-INT {SIGN}?[0-9]+
-REAL {SIGN}?([0-9]+\.[0-9]+|[0-9]+e{SIGN}?[0-9]+)
+INT [0-9]+
+REAL ([0-9]+\.[0-9]+|[0-9]+e{SIGN}?[0-9]+)
 
 CHAR \'.\'
 STR \'[^']*\'
@@ -143,6 +144,9 @@ COMMENT "{"[^\}]*"}"
 }
 {PAS_END} {
     return PAS_END;
+}
+{PAS_EXIT} {
+    return PAS_EXIT;
 }
 {PAS_FILE} {
     return PAS_FILE;
@@ -345,12 +349,13 @@ COMMENT "{"[^\}]*"}"
 
 {COMMENT} {}
 
-\n {
+\n|(\r\n) {
     yycolumn = 1;
 }
 " "|\t {}
 
 . {
+    printf("unknown character %d\n", (int) yytext[0]);
     return yytext[0];
 }
 

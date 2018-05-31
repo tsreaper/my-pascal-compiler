@@ -1,8 +1,10 @@
 #include "sem/sem.h"
+#include "sem/func/sem_func.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/val/gen_literal.h"
 #include "gen/program/gen_program.h"
+#include "gen/func/gen_func.h"
 #include "ast/program/ast_program.h"
 
 ast_program_head::ast_program_head(const std::string &name) : name(name) {}
@@ -31,7 +33,7 @@ ast_program::~ast_program() {
 
 bool ast_program::analyse() {
     sem_env.push();
-    gen_env.push();
+    gen_env.push(func_sign{"main"});
 
     codegen_phase1();
 
@@ -65,5 +67,5 @@ void ast_program::codegen_phase1() {
 }
 
 void ast_program::codegen_phase2() {
-    ir_builder.CreateRet(gen::get_llvm_int(sem_value{true, {.num = 0}}));
+    gen::gen_exit();
 }

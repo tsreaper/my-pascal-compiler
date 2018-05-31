@@ -4,6 +4,7 @@
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/IRBuilder.h>
 
+#include "sem/func/sem_func.h"
 #include "gen/label/gen_label.h"
 #include "gen/val/gen_id.h"
 #include "gen/func/gen_func.h"
@@ -11,7 +12,7 @@
 
 class gen_context {
 public:
-    void push();
+    void push(const func_sign &current_sign);
 
     void pop();
 

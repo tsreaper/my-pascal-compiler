@@ -1,6 +1,7 @@
 #include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
+#include "gen/func/gen_func.h"
 #include "ast/func/ast_func_def.h"
 
 ast_func_def::ast_func_def(ast_func_head *head, ast_block *block) : head(head), block(block) {}
@@ -27,7 +28,7 @@ bool ast_func_def::analyse() {
 
     codegen_phase1();
     sem_env.push();
-    gen_env.push();
+    gen_env.push(head->get_func_sign());
 
     if (!semantics_self()) {
         ENV_POP;
@@ -119,11 +120,6 @@ void ast_func_def::codegen_phase2() {
 }
 
 void ast_func_def::codegen_phase3() {
-    if (head->get_ret_type() != built_in_type::VOID_TYPE) {
-        llvm::Value *ret = ir_builder.CreateLoad(gen::get_mem(head->get_name()), "ret");
-        ir_builder.CreateRet(ret);
-    } else {
-        ir_builder.CreateRetVoid();
-    }
+    gen::gen_exit();
     ir_builder.SetInsertPoint(old_bb);
 }

@@ -8,7 +8,7 @@
 
 class gen_func_context {
 public:
-    void push();
+    void push(const func_sign &current_sign);
 
     void pop();
 
@@ -16,11 +16,14 @@ public:
 
     llvm::Function *get_func(const func_sign &sign) const;
 
+    const func_sign &get_current_func_sign() const;
+
     void set_func(const func_sign &sign, llvm::Function *func);
 
 private:
     typedef std::pair<func_sign, llvm::Function *> func_sign_func;
     std::vector<std::vector<func_sign_func>> layers;
+    std::vector<func_sign> current_func_sign;
 };
 
 namespace gen {
@@ -29,6 +32,10 @@ namespace gen {
     void define_func(const func_sign &sign, const sem_type &ret_type);
 
     llvm::Function *get_func(const func_sign &sign);
+
+    const func_sign &get_current_func_sign();
+
+    void gen_exit();
 }
 
 #endif //MPC_GEN_FUNC_H

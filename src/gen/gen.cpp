@@ -9,11 +9,11 @@ llvm::IRBuilder<> ir_builder(llvm_context);
 
 gen_context gen_env;
 
-void gen_context::push() {
+void gen_context::push(const func_sign &current_sign) {
     depth++;
     label_env.push();
     id_env.push();
-    func_env.push();
+    func_env.push(current_sign);
 }
 
 void gen_context::pop() {

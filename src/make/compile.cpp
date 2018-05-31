@@ -2,6 +2,7 @@
 
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 #include "pascal.y.hpp"
 
@@ -25,6 +26,13 @@ bool make::compile(const std::string &filename, bool debug) {
         return false;
     }
     close(fd);
+
+    struct stat file_stat;
+    stat(filename.c_str(), &file_stat);
+    if (!S_ISREG(file_stat.st_mode)) {
+        std::cerr << filename << " is not a regular file" << std::endl;
+        return false;
+    }
 
     if (yyparse() != 0) {
         return false;

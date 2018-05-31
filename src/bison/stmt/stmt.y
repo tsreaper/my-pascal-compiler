@@ -82,4 +82,7 @@ simple_stmt:
     | goto {
         $$ = $1;
     }
+    | exit {
+        $$ = $1;
+    }
 ;

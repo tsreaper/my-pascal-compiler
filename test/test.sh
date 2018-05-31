@@ -47,7 +47,7 @@ do
     timeout $TIMEOUT ./p < $in_file > $out_file
     if [ $? -ne 0 ]
     then
-        echo -e "${RED}Execution time out${WHITE}"
+        echo -e "${RED}Execution failure or execution time out${WHITE}"
         continue
     fi
 
