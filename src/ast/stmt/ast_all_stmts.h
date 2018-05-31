@@ -1,6 +1,8 @@
 #ifndef MPC_AST_ALL_STMTS_H
 #define MPC_AST_ALL_STMTS_H
 
+#include "ast/stmt/ast_lab_stmt.h"
+#include "ast/stmt/ast_goto.h"
 #include "ast/stmt/ast_assign.h"
 #include "ast/stmt/ast_empty_stmt.h"
 #include "ast/stmt/cond/ast_case.h"

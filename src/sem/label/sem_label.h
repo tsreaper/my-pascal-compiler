@@ -2,7 +2,7 @@
 #define MPC_SEM_LABEL_H
 
 #include <vector>
-#include <map>
+#include <set>
 
 class sem_label_context {
 public:
@@ -10,16 +10,26 @@ public:
 
     void pop();
 
-    int get_loc(int label) const;
+    void declare_label(int label);
 
-    void set_loc(int label, int loc);
+    void assert_label_declared(int label);
+
+    void use_label(int label);
+
+    void need_label(int label);
 
 private:
-    std::vector<std::map<int, int>> layers;
+    std::vector<std::set<int>> declare_vec;
+    std::vector<std::set<int>> use_vec;
+    std::vector<std::set<int>> need_vec;
 };
 
 namespace sem {
     void declare_label(int label);
+
+    void use_label(int label);
+
+    void need_label(int label);
 }
 
 #endif //MPC_SEM_LABEL_H

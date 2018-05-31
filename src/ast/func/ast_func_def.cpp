@@ -11,8 +11,13 @@ ast_func_def::~ast_func_def() {
 }
 
 #define ENV_POP { \
-    gen_env.pop(); \
-    sem_env.pop(); \
+    try { \
+        gen_env.pop(); \
+        sem_env.pop(); \
+    } catch (const sem_exception &e) { \
+        PRINT_ERROR_MSG(e); \
+        return false; \
+    } \
 }
 
 bool ast_func_def::analyse() {

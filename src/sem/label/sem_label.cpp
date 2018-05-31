@@ -3,30 +3,65 @@
 #include "sem/label/sem_label.h"
 
 void sem_label_context::push() {
-    layers.emplace_back();
+    declare_vec.emplace_back();
+    use_vec.emplace_back();
+    need_vec.emplace_back();
 }
+
+#define POP { \
+    declare_vec.pop_back(); \
+    use_vec.pop_back(); \
+    need_vec.pop_back(); \
+};
 
 void sem_label_context::pop() {
-    layers.pop_back();
-}
-
-int sem_label_context::get_loc(int label) const {
-    for (auto it = layers.rbegin(); it != layers.rend(); it++) {
-        if ((*it).find(label) != (*it).end()) {
-            return (*it).at(label);
+    for (auto label : *need_vec.rbegin()) {
+        auto &table = *use_vec.rbegin();
+        if (table.find(label) == table.end()) {
+            POP;
+            throw sem_exception("semantics error, label " + std::to_string(label) + " is not defined");
         }
     }
-    throw sem_exception("semantics error, undeclared label " + std::to_string(label));
+    POP;
 }
 
-void sem_label_context::set_loc(int label, int loc) {
-    auto &table = *layers.rbegin();
-    if (loc == -1 && table.find(label) != table.end()) {
+void sem_label_context::declare_label(int label) {
+    auto &table = *declare_vec.rbegin();
+    if (table.find(label) != table.end()) {
         throw sem_exception("semantics error, duplicated label " + std::to_string(label));
     }
-    table[label] = loc;
+    table.insert(label);
+}
+
+void sem_label_context::assert_label_declared(int label) {
+    auto &table = *declare_vec.rbegin();
+    if (table.find(label) == table.end()) {
+        throw sem_exception("semantics error, undeclared label " + std::to_string(label));
+    }
+}
+
+void sem_label_context::use_label(int label) {
+    assert_label_declared(label);
+    auto &table = *use_vec.rbegin();
+    if (table.find(label) != table.end()) {
+        throw sem_exception("semantics error, label " + std::to_string(label) + " is defined multiple times");
+    }
+    table.insert(label);
+}
+
+void sem_label_context::need_label(int label) {
+    assert_label_declared(label);
+    (*need_vec.rbegin()).insert(label);
 }
 
 void sem::declare_label(int label) {
-    sem_env.get_label_env().set_loc(label, -1);
+    sem_env.get_label_env().declare_label(label);
+}
+
+void sem::use_label(int label) {
+    sem_env.get_label_env().use_label(label);
+}
+
+void sem::need_label(int label) {
+    sem_env.get_label_env().need_label(label);
 }

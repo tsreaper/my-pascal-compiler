@@ -3,8 +3,8 @@
 
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/IRBuilder.h>
-#include <llvm/IR/Function.h>
 
+#include "gen/label/gen_label.h"
 #include "gen/val/gen_id.h"
 #include "gen/func/gen_func.h"
 #include "gen/stmt/gen_loop.h"
@@ -17,6 +17,8 @@ public:
 
     bool is_global();
 
+    gen_label_context &get_label_env();
+
     gen_id_context &get_id_env();
 
     gen_func_context &get_func_env();
@@ -26,6 +28,7 @@ public:
 private:
     int depth = 0;
 
+    gen_label_context label_env;
     gen_id_context id_env;
     gen_func_context func_env;
     gen_loop_context loop_env;

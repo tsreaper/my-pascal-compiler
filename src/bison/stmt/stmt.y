@@ -3,7 +3,7 @@ ast_stmt_seq* stmt_seq_node;
 #union
 
 %type <stmt_seq_node> compound_stm stmt_seq
-%type <node> stmt simple_stmt
+%type <node> stmt no_lab_stmt simple_stmt
 
 %%
 
@@ -26,6 +26,16 @@ stmt_seq:
 ;
 
 stmt:
+    no_lab_stmt {
+        $$ = $1;
+    }
+    | INT SYM_COLON no_lab_stmt {
+        $$ = new ast_lab_stmt($1, $3);
+        YY_SET_LOCATION($$);
+    }
+;
+
+no_lab_stmt:
     simple_stmt SYM_SEMICOLON {
         $$ = $1;
     }
@@ -67,6 +77,9 @@ simple_stmt:
         $$ = $1;
     }
     | break {
+        $$ = $1;
+    }
+    | goto {
         $$ = $1;
     }
 ;

@@ -9,27 +9,26 @@ llvm::IRBuilder<> ir_builder(llvm_context);
 
 gen_context gen_env;
 
-/*
-const llvm::Function *const intri_func::get_do_nothing() {
-    std::vector<llvm::Type *> no_args;
-    return llvm::Intrinsic::getDeclaration(&llvm_module, llvm::Intrinsic::donothing, no_args);
-}
-*/
-
 void gen_context::push() {
     depth++;
+    label_env.push();
     id_env.push();
     func_env.push();
 }
 
 void gen_context::pop() {
     depth--;
+    label_env.pop();
     id_env.pop();
     func_env.pop();
 }
 
 bool gen_context::is_global() {
     return depth == 1;
+}
+
+gen_label_context &gen_context::get_label_env() {
+    return label_env;
 }
 
 gen_id_context &gen_context::get_id_env() {

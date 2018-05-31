@@ -1,4 +1,5 @@
 #include "sem/sem.h"
+#include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/val/gen_literal.h"
 #include "gen/program/gen_program.h"
@@ -19,8 +20,13 @@ ast_program::~ast_program() {
 }
 
 #define ENV_POP { \
-    gen_env.pop(); \
-    sem_env.pop(); \
+    try { \
+        gen_env.pop(); \
+        sem_env.pop(); \
+    } catch (const sem_exception &e) { \
+        PRINT_ERROR_MSG(e); \
+        return false; \
+    } \
 }
 
 bool ast_program::analyse() {
