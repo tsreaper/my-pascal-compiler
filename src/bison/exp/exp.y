@@ -3,11 +3,21 @@ ast_exp_seq* exp_seq_node;
 #union
 
 %type <value_node> exp exp_base
-%type <exp_seq_node> exp_seq
+%type <exp_seq_node> exp_seq exp_seq_not_empty
 
 %%
 
 exp_seq:
+    {
+        $$ = new ast_exp_seq();
+        YY_SET_LOCATION($$);
+    }
+    | exp_seq_not_empty {
+        $$ = $1;
+    }
+;
+
+exp_seq_not_empty:
     exp {
         $$ = new ast_exp_seq();
         $$->add_exp($1);

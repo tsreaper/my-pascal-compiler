@@ -92,6 +92,9 @@ bool ast_case::semantics_seq(ast_exp_seq *seq) {
         return false;
     }
     try {
+        if (seq->get_exp_vec().empty()) {
+            throw sem_exception("semantics error, expression list must not be empty");
+        }
         for (auto exp : seq->get_exp_vec()) {
             sem::assert_can_equal(lhs->get_type(), exp->get_type());
         }
