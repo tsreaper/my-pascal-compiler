@@ -1,8 +1,24 @@
+ast_exp_seq* exp_seq_node;
+
 #union
 
 %type <value_node> exp exp_base
+%type <exp_seq_node> exp_seq
 
 %%
+
+exp_seq:
+    exp {
+        $$ = new ast_exp_seq();
+        $$->add_exp($1);
+        YY_SET_LOCATION($$);
+    }
+    | exp_seq SYM_COMMA exp {
+        $$ = $1;
+        $$->add_exp($3);
+        YY_SET_LOCATION($$);
+    }
+;
 
 exp:
     logic_or {

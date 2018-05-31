@@ -44,6 +44,9 @@ stmt:
     | while {
         $$ = $1;
     }
+    | case {
+        $$ = $1;
+    }
     // TODO more statements
 ;
 

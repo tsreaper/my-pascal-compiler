@@ -24,6 +24,7 @@ PAS_BREAK break
 PAS_CASE case
 PAS_CONST const
 PAS_CONTINUE continue
+PAS_DEFAULT default
 PAS_DIV div
 PAS_DO do
 PAS_DOWNTO downto
@@ -124,6 +125,9 @@ COMMENT "{"[^\}]*"}"
 }
 {PAS_CONTINUE} {
     return PAS_CONTINUE;
+}
+{PAS_DEFAULT} {
+    return PAS_DEFAULT;
 }
 {PAS_DIV} {
     return PAS_DIV;

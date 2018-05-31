@@ -3,6 +3,7 @@
 
 #include "ast/stmt/ast_assign.h"
 #include "ast/stmt/ast_empty_stmt.h"
+#include "ast/stmt/cond/ast_case.h"
 #include "ast/stmt/cond/ast_if.h"
 #include "ast/stmt/loop/ast_for.h"
 #include "ast/stmt/loop/ast_repeat.h"
