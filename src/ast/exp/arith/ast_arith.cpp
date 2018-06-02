@@ -1,5 +1,6 @@
 #include "sem/type/sem_type.h"
 #include "sem/val/sem_value.h"
+#include "sem/exp/sem_arith.h"
 #include "sem/exception/sem_exception.h"
 #include "ast/exp/arith/ast_arith.h"
 

@@ -100,8 +100,13 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (make::compile(input_file, debug) && make::gen_outfile(output_file, file_type, debug)) {
-        return 0;
+    if (!make::compile(input_file, debug)) {
+        return 2;
     }
-    return 1;
+
+    if (!make::gen_outfile(output_file, file_type, debug)) {
+        return 3;
+    }
+
+    return 0;
 }

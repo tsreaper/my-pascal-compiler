@@ -19,9 +19,10 @@ namespace built_in_type {
 }
 
 struct sem_type {
-    bool is_type;
-    type_group tg;
-    int id;
+    bool is_type = false;
+    type_group tg = type_group::BUILT_IN;
+    int id = built_in_type::VOID;
+    int ptr = 0;
 
     bool operator==(const sem_type &rhs) const;
 
@@ -65,16 +66,6 @@ namespace sem {
     void define_type(const std::string &id, const sem_type &type);
 
     void assert_is_type(const sem_type &type);
-
-    const sem_type &assert_can_do_arith(const sem_type &type_l, const sem_type &type_r);
-
-    const sem_type &assert_can_do_logic(const sem_type &type_l, const sem_type &type_r);
-
-    const sem_type &assert_can_equal(const sem_type &type_l, const sem_type &type_r);
-
-    const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_r);
-
-    void assert_can_assign(const std::string &id, const sem_type &type_l, const sem_type &type_r);
 
     void assert_can_be_range(const sem_type &type_l, const sem_type &type_r);
 }

@@ -6,21 +6,17 @@
 
 class sem_loop_context {
 public:
-    void push(const std::string &id = "");
+    void push();
 
     void pop();
 
     bool empty() const;
 
-    bool is_loop_var(const std::string &id) const;
-
 private:
-    std::vector<std::string> id_vec;
+    int depth = 0;
 };
 
 namespace sem {
-    void assert_not_loop_var(const std::string &id);
-
     void assert_in_loop();
 }
 

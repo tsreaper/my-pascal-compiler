@@ -1,9 +1,9 @@
 #ifndef MPC_AST_ID_H
 #define MPC_AST_ID_H
 
-#include "ast/ast_node.h"
+#include "ast/val/ast_lhs.h"
 
-class ast_id : public ast_value_node {
+class ast_id : public ast_lhs {
 public:
     explicit ast_id(const char *id);
 
@@ -13,11 +13,7 @@ public:
 
     const std::string &get_id() const;
 
-    llvm::Value *get_llvm_mem() const;
-
-    bool analyse() override;
-
-    bool analyse(bool need_codegen);
+    llvm::Value *get_llvm_mem() const override;
 
     void explain_impl(std::string &res, int indent) const override;
 

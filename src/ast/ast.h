@@ -19,6 +19,7 @@
 #include "ast/type/ast_all_types.h"
 #include "ast/val/ast_const.h"
 #include "ast/val/ast_var.h"
+#include "ast/val/ast_lhs.h"
 #include "ast/val/ast_id.h"
 #include "ast/val/literal/ast_all_literals.h"
 

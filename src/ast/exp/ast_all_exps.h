@@ -20,4 +20,7 @@
 #include "ast/exp/logic/ast_logic_xor.h"
 #include "ast/exp/logic/ast_logic_not.h"
 
+#include "ast/exp/ptr/ast_at.h"
+#include "ast/exp/ptr/ast_deref.h"
+
 #endif //MPC_AST_ALL_EXPS_H

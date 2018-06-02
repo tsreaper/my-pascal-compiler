@@ -49,5 +49,8 @@ type:
     | enum_type {
         $$ = $1;
     }
-    // TODO subrange type, structured type and pointer type
+    | ptr_type {
+        $$ = $1;
+    }
+    // TODO subrange type, pointer type and array type
 ;

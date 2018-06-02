@@ -2,11 +2,11 @@
 #define MPC_AST_FOR_H
 
 #include "ast/stmt/loop/ast_loop.h"
-#include "ast/val/ast_id.h"
+#include "ast/val/ast_lhs.h"
 
 class ast_for : public ast_loop {
 public:
-    ast_for(ast_id *loop_id, ast_value_node *start_val, ast_value_node *end_val, ast_node *body, bool down);
+    ast_for(ast_lhs *lhs, ast_value_node *start_val, ast_value_node *end_val, ast_node *body, bool down);
 
     ~ast_for() override;
 
@@ -19,7 +19,7 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 
 private:
-    ast_id *loop_id;
+    ast_lhs *lhs;
     ast_value_node *start_val, *end_val;
     ast_node *body;
     bool down;

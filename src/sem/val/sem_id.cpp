@@ -31,3 +31,10 @@ bool sem::is_declared_val(const std::string &id) {
         return false;
     }
 }
+
+void sem::assert_is_variable(const std::string &id) {
+    const sem_type &t = get_id_type(id);
+    if (t.is_type || is_const_id(id)) {
+        throw sem_exception("semantics error, identifier " + id + " is not a variable");
+    }
+}

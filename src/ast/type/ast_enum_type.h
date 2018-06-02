@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "ast/type/ast_type.h"
+#include "ast/ast_node.h"
 
 class ast_enum_type : public ast_type_node {
 public:
@@ -23,7 +23,7 @@ protected:
     bool semantics_self() override;
 
 private:
-    std::vector<ast_id*> id_vec;
+    std::vector<ast_id *> id_vec;
     int enum_id = -1;
     sem_type s_type;
 };

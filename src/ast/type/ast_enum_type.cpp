@@ -2,9 +2,7 @@
 #include "sem/type/sem_enum_type.h"
 #include "ast/type/ast_enum_type.h"
 
-ast_enum_type::ast_enum_type() {
-    s_type = {false};
-}
+ast_enum_type::ast_enum_type() : s_type({false}) {}
 
 ast_enum_type::~ast_enum_type() {
     for (auto id : id_vec) {

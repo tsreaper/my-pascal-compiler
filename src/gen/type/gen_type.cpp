@@ -4,26 +4,36 @@
 #include "gen/type/gen_type.h"
 
 llvm::Type *gen::get_llvm_type(const sem_type &type) {
+    if (type.ptr > 0) {
+        sem_type t = type;
+        t.ptr--;
+        return llvm::PointerType::getUnqual(get_llvm_type(t));
+    }
+
     switch (type.tg) {
         case type_group::BUILT_IN:
-            switch (type.id) {
-                case built_in_type::INT:
-                    return get_llvm_int_type();
-                case built_in_type::REAL:
-                    return get_llvm_real_type();
-                case built_in_type::CHAR:
-                    return get_llvm_char_type();
-                case built_in_type::BOOL:
-                    return get_llvm_bool_type();
-                case built_in_type::VOID:
-                    return get_llvm_void_type();
-                default:
-                    throw std::invalid_argument("[gen::get_llvm_type] Invalid built-in type");
-            }
+            return get_builtin_type(type);
         case type_group::ENUM:
             return get_llvm_int_type();
         default:
             throw std::invalid_argument("[gen::get_llvm_type] Invalid type group");
+    }
+}
+
+llvm::Type *gen::get_builtin_type(const sem_type &type) {
+    switch (type.id) {
+        case built_in_type::INT:
+            return get_llvm_int_type();
+        case built_in_type::REAL:
+            return get_llvm_real_type();
+        case built_in_type::CHAR:
+            return get_llvm_char_type();
+        case built_in_type::BOOL:
+            return get_llvm_bool_type();
+        case built_in_type::VOID:
+            return get_llvm_void_type();
+        default:
+            throw std::invalid_argument("[gen::get_llvm_type] Invalid built-in type");
     }
 }
 
@@ -45,18 +55,6 @@ llvm::Type *gen::get_llvm_bool_type() {
 
 llvm::Type *gen::get_llvm_void_type() {
     return llvm::Type::getVoidTy(llvm_context);
-}
-
-llvm::Type *gen::get_llvm_int_ptr_type() {
-    return llvm::Type::getInt32PtrTy(llvm_context);
-}
-
-llvm::Type *gen::get_llvm_real_ptr_type() {
-    return llvm::Type::getDoublePtrTy(llvm_context);
-}
-
-llvm::Type *gen::get_llvm_char_ptr_type() {
-    return llvm::Type::getInt8PtrTy(llvm_context);
 }
 
 void gen::to_llvm_arith_type(

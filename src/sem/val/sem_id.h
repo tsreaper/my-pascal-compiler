@@ -14,6 +14,8 @@ namespace sem {
     bool is_const_id(const std::string &id);
 
     bool is_declared_val(const std::string &id);
+
+    void assert_is_variable(const std::string &id);
 }
 
 #endif //MPC_SEM_ID_H

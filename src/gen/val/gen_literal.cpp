@@ -26,24 +26,32 @@ llvm::Constant *gen::get_llvm_const(const sem_type &type, const sem_value &value
 }
 
 llvm::Constant *gen::get_llvm_init_val(const sem_type &type) {
+    if (type.ptr > 0) {
+        return llvm::ConstantPointerNull::get((llvm::PointerType *) get_llvm_type(type));
+    }
+
     switch (type.tg) {
         case type_group::BUILT_IN:
-            switch (type.id) {
-                case built_in_type::INT:
-                    return get_llvm_int(sem_value{true, {.num = 0}});
-                case built_in_type::REAL:
-                    return get_llvm_real(sem_value{true, {.real = 0}});
-                case built_in_type::CHAR:
-                    return get_llvm_char(sem_value{true, {.chr = 0}});
-                case built_in_type::BOOL:
-                    return get_llvm_bool(sem_value{true, {.boo = false}});
-                default:
-                    throw std::invalid_argument("[gen::get_llvm_const] Invalid built-in type");
-            }
+            return get_llvm_builtin_init_val(type);
         case type_group::ENUM:
             return get_llvm_int(sem_value{true, {.num = 0}});
         default:
             throw std::invalid_argument("[gen::get_llvm_init_val] Invalid type group");
+    }
+}
+
+llvm::Constant *gen::get_llvm_builtin_init_val(const sem_type &type) {
+    switch (type.id) {
+        case built_in_type::INT:
+            return get_llvm_int(sem_value{true, {.num = 0}});
+        case built_in_type::REAL:
+            return get_llvm_real(sem_value{true, {.real = 0}});
+        case built_in_type::CHAR:
+            return get_llvm_char(sem_value{true, {.chr = 0}});
+        case built_in_type::BOOL:
+            return get_llvm_bool(sem_value{true, {.boo = false}});
+        default:
+            throw std::invalid_argument("[gen::get_llvm_const] Invalid built-in type");
     }
 }
 

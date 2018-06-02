@@ -7,7 +7,7 @@ ast_assign* assign_node;
 %%
 
 assign:
-    id SYM_ASSIGN exp {
+    lhs SYM_ASSIGN exp {
         $$ = new ast_assign($1, $3);
         YY_SET_LOCATION($$);
     }

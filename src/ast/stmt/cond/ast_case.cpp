@@ -1,4 +1,5 @@
 #include "sem/val/sem_value.h"
+#include "sem/exp/sem_cmp.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/exp/gen_cmp.h"

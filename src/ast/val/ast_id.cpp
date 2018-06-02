@@ -28,21 +28,6 @@ llvm::Value *ast_id::get_llvm_mem() const {
     return gen::get_mem(id);
 }
 
-bool ast_id::analyse() {
-    return analyse(true);
-}
-
-bool ast_id::analyse(bool need_codegen) {
-    if (semantics_child() && semantics_self()) {
-        if (need_codegen) {
-            codegen();
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
 bool ast_id::semantics_self() {
     return true;
 }

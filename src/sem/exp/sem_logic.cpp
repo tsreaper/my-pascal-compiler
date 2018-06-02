@@ -1,4 +1,15 @@
+#include "sem/exception/sem_exception.h"
 #include "sem/exp/sem_logic.h"
+
+const sem_type &sem::assert_can_do_logic(const sem_type &type_l, const sem_type &type_r) {
+    if (!type_l.is_type && !type_r.is_type) {
+        if (type_l == built_in_type::BOOL_TYPE && type_r == built_in_type::BOOL_TYPE) {
+            return built_in_type::BOOL_VAL;
+        }
+    }
+
+    throw sem_exception("semantics error, must be boolean type values");
+}
 
 #define DO_LOGIC_OP(op) return sem_value{true, {.boo = value_l.value.boo op value_r.value.boo }}
 

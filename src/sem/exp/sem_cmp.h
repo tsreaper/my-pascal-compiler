@@ -5,6 +5,10 @@
 #include "sem/val/sem_value.h"
 
 namespace sem {
+    const sem_type &assert_can_equal(const sem_type &type_l, const sem_type &type_r);
+
+    const sem_type &assert_can_compare(const sem_type &type_l, const sem_type &type_r);
+
     sem_value do_cmp_eq(
             const sem_type &type_l, const sem_type &type_r, const sem_value &value_l, const sem_value &value_r
     );

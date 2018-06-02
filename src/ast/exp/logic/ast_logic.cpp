@@ -1,3 +1,4 @@
+#include "sem/exp/sem_logic.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/exp/gen_logic.h"
 #include "ast/exp/logic/ast_logic.h"

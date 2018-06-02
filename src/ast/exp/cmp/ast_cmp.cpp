@@ -1,4 +1,5 @@
 #include "sem/type/sem_type.h"
+#include "sem/exp/sem_cmp.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/exp/gen_cmp.h"
 #include "ast/exp/cmp/ast_cmp.h"

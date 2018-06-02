@@ -76,6 +76,7 @@ SYM_PERIOD "."
 SYM_COMMA ","
 SYM_COLON ":"
 SYM_SEMICOLON ";"
+SYM_AT "@"
 SYM_CARET "^"
 SYM_LPAREN "("
 SYM_RPAREN ")"
@@ -278,6 +279,9 @@ COMMENT "{"[^\}]*"}"
 }
 {SYM_SEMICOLON} {
     return SYM_SEMICOLON;
+}
+{SYM_AT} {
+    return SYM_AT;
 }
 {SYM_CARET} {
     return SYM_CARET;

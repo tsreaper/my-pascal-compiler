@@ -1,6 +1,64 @@
 #include "sem/exception/sem_exception.h"
 #include "sem/exp/sem_arith.h"
 
+const sem_type &sem::assert_can_do_arith(const sem_type &type_l, const sem_type &type_r) {
+    if (!type_l.is_type && !type_r.is_type) {
+        if (type_l == built_in_type::INT_TYPE && type_r == built_in_type::INT_TYPE) {
+            return built_in_type::INT_VAL;
+        } else if (type_l == built_in_type::INT_TYPE && type_r == built_in_type::REAL_TYPE) {
+            return built_in_type::REAL_VAL;
+        } else if (type_l == built_in_type::REAL_TYPE && type_r == built_in_type::INT_TYPE) {
+            return built_in_type::REAL_VAL;
+        } else if (type_l == built_in_type::REAL_TYPE && type_r == built_in_type::REAL_TYPE) {
+            return built_in_type::REAL_VAL;
+        }
+    }
+
+    throw sem_exception("semantics error, must be integer type values or real type values");
+}
+
+const sem_type &sem::assert_can_do_add(const sem_type &type_l, const sem_type &type_r) {
+    try {
+        return assert_can_do_arith(type_l, type_r);
+    } catch (const sem_exception &e) {
+        if (!type_l.is_type && !type_r.is_type) {
+            if (type_l.ptr > 0 && type_r == built_in_type::INT_TYPE) {
+                return type_l;
+            }
+        }
+
+        throw sem_exception(
+                "semantics error, must be one of the following\n"
+                "    integer type + integer type\n"
+                "    integer type + real type\n"
+                "    real type + integer type\n"
+                "    real type + real type\n"
+                "    pointer type + integer type\n"
+        );
+    }
+}
+
+const sem_type &sem::assert_can_do_sub(const sem_type &type_l, const sem_type &type_r) {
+    try {
+        return assert_can_do_arith(type_l, type_r);
+    } catch (const sem_exception &e) {
+        if (!type_l.is_type && !type_r.is_type) {
+            if (type_l.ptr > 0 && type_l == type_r) {
+                return built_in_type::INT_VAL;
+            }
+        }
+
+        throw sem_exception(
+                "semantics error, must be one of the following\n"
+                "    integer type - integer type\n"
+                "    integer type - real type\n"
+                "    real type - integer type\n"
+                "    real type - real type\n"
+                "    pointer type - same pointer type\n"
+        );
+    }
+}
+
 #define DO_ARITH_OP(op) { \
     if (type_l == built_in_type::INT_VAL && type_r == built_in_type::INT_VAL) { \
         return sem_value{true, {.num = value_l.value.num op value_r.value.num}}; \

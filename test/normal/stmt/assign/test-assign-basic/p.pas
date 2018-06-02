@@ -1,4 +1,4 @@
-program test_assign;
+program test_assign_basic;
 var
     a, b, ans: integer;
 begin
