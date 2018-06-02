@@ -104,15 +104,9 @@ sem_value sem::do_arith_div(
 }
 
 sem_value sem::do_arith_div_floor(const sem_value &value_l, const sem_value &value_r) {
-    if (value_r.value.num == 0) {
-        throw sem_exception("semantics error, cannot div zero");
-    }
     return sem_value{true, {.num = value_l.value.num / value_r.value.num}};
 }
 
 sem_value sem::do_arith_mod(const sem_value &value_l, const sem_value &value_r) {
-    if (value_r.value.num == 0) {
-        throw sem_exception("semantics error, cannot mod zero");
-    }
     return sem_value{true, {.num = value_l.value.num % value_r.value.num}};
 }

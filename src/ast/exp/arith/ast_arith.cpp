@@ -1,3 +1,4 @@
+#include <sem/val/sem_value.h>
 #include "sem/type/sem_type.h"
 #include "sem/val/sem_value.h"
 #include "sem/exp/sem_arith.h"
@@ -72,6 +73,9 @@ bool ast_int_arith::semantics_self() {
     try {
         if (child_l->get_type() != built_in_type::INT_TYPE || child_r->get_type() != built_in_type::INT_TYPE) {
             throw sem_exception("semantics error, must be integer type values");
+        }
+        if (child_r->get_value().known && child_r->get_value().value.num == 0) {
+            throw sem_exception("semantics error, cannot divide zero");
         }
         return true;
     } catch (const sem_exception &e) {
