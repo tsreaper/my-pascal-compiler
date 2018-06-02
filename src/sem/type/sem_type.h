@@ -6,7 +6,7 @@
 #include <map>
 
 enum class type_group {
-    BUILT_IN, ENUM
+    BUILT_IN, ENUM, SUBRANGE, ARRAY
 };
 
 namespace built_in_type {
@@ -66,8 +66,6 @@ namespace sem {
     void define_type(const std::string &id, const sem_type &type);
 
     void assert_is_type(const sem_type &type);
-
-    void assert_can_be_range(const sem_type &type_l, const sem_type &type_r);
 }
 
 #endif //MPC_SEM_TYPE_H

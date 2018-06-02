@@ -51,6 +51,9 @@ exp_base:
     | deref {
         $$ = $1;
     }
+    | array_idx {
+        $$ = $1;
+    }
     | SYM_LPAREN exp SYM_RPAREN {
         $$ = $2;
     }

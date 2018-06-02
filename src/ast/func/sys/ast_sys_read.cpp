@@ -7,13 +7,13 @@ ast_sys_read::~ast_sys_read() {
     }
 }
 
-void ast_sys_read::add_param(ast_id *param) {
+void ast_sys_read::add_param(ast_lhs *param) {
     param_vec.emplace_back(param);
 }
 
 bool ast_sys_read::semantics_child() {
     for (auto child : param_vec) {
-        if (!child->analyse()) {
+        if (!child->analyse(false)) {
             return false;
         }
     }

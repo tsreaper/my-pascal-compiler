@@ -9,14 +9,15 @@ const sem_type &sem::assert_can_equal(const sem_type &type_l, const sem_type &ty
                 ) {
             return built_in_type::BOOL_VAL;
         }
-        if (type_l != built_in_type::VOID_TYPE && type_l == type_r) {
+        if (type_l.tg == type_group::BUILT_IN && type_l != built_in_type::VOID_TYPE && type_l == type_r) {
+            return built_in_type::BOOL_VAL;
+        }
+        if (type_l.tg == type_group::ENUM && type_l == type_r) {
             return built_in_type::BOOL_VAL;
         }
     }
 
-    throw sem_exception(
-            "semantics error, cannot check the equality of these two values because their types are inconsistent"
-    );
+    throw sem_exception("semantics error, cannot check the equality of these two values");
 }
 
 const sem_type &sem::assert_can_compare(const sem_type &type_l, const sem_type &type_r) {
@@ -51,6 +52,8 @@ const sem_type &sem::assert_can_compare(const sem_type &type_l, const sem_type &
         return sem_value{true, {.boo = value_l.value.chr op value_r.value.chr}}; \
     } else if (type_l == built_in_type::BOOL_VAL) { \
         return sem_value{true, {.boo = value_l.value.boo op value_r.value.boo}}; \
+    } else if (type_l.tg == type_group::ENUM) { \
+        return sem_value{true, {.boo = value_l.value.num op value_r.value.num}}; \
     } else { \
         return sem_value{false}; \
     } \

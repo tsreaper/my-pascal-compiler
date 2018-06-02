@@ -1,5 +1,7 @@
 #include <stdexcept>
 
+#include "sem/type/sem_range_type.h"
+#include "sem/type/sem_array_type.h"
 #include "gen/gen.h"
 #include "gen/type/gen_type.h"
 
@@ -15,6 +17,8 @@ llvm::Type *gen::get_llvm_type(const sem_type &type) {
             return get_builtin_type(type);
         case type_group::ENUM:
             return get_llvm_int_type();
+        case type_group::ARRAY:
+            return get_llvm_array_type(type);
         default:
             throw std::invalid_argument("[gen::get_llvm_type] Invalid type group");
     }
@@ -35,6 +39,22 @@ llvm::Type *gen::get_builtin_type(const sem_type &type) {
         default:
             throw std::invalid_argument("[gen::get_llvm_type] Invalid built-in type");
     }
+}
+
+llvm::Type *gen::get_llvm_array_type(const sem_type &type) {
+    const sem_array_type &s_type = sem::get_array_type_by_idx(type.id);
+
+    llvm::ArrayType *array_type = nullptr;
+    for (int i = s_type.size - 1; i >= 0; i--) {
+        const sem_range_type &r_type = sem::get_range_type_by_idx(s_type.range_vec[i]);
+        int len = sem::get_range_length(r_type);
+        if (array_type == nullptr) {
+            array_type = llvm::ArrayType::get(get_llvm_type(s_type.ele_type), (uint64_t) len);
+        } else {
+            array_type = llvm::ArrayType::get(array_type, (uint64_t) len);
+        }
+    }
+    return array_type;
 }
 
 llvm::Type *gen::get_llvm_int_type() {

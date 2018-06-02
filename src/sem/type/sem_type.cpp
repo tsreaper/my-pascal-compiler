@@ -45,6 +45,9 @@ void sem::set_id_type(const std::string &id, const sem_type &type) {
     if (!type.is_type) {
         throw sem_exception("semantics error, rhs is not a type");
     }
+    if (type.tg == type_group::SUBRANGE) {
+        throw sem_exception("semantics error, mpc does not support subrange type variables");
+    }
     sem_env.get_type_env().set_type(id, {false, type.tg, type.id, type.ptr});
 }
 
@@ -59,23 +62,4 @@ void sem::assert_is_type(const sem_type &type) {
     if (!type.is_type) {
         throw sem_exception("semantics error, not a type");
     }
-}
-
-void sem::assert_can_be_range(const sem_type &type_l, const sem_type &type_r) {
-    if (type_l.is_type || type_r.is_type) {
-        throw sem_exception("semantics error, must be two values");
-    }
-    if (type_l != type_r) {
-        throw sem_exception("semantics error, two values must be of same type");
-    }
-    if (type_l == built_in_type::INT_TYPE) {
-        return;
-    }
-    if (type_l == built_in_type::CHAR_TYPE) {
-        return;
-    }
-    if (type_l.tg == type_group::ENUM) {
-        return;
-    }
-    throw sem_exception("semantics error, must be integer, character or enum type");
 }

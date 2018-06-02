@@ -1,4 +1,5 @@
 #include "sem/sem.h"
+#include "sem/type/sem_range_type.h"
 #include "sem/stmt/sem_assign.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"

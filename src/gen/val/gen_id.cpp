@@ -30,13 +30,14 @@ void gen_id_context::set_mem(const std::string &id, llvm::Value *mem) {
 
 void gen::declare_id(const std::string &id, const sem_type &type) {
     llvm::Value *mem = nullptr;
+    llvm::Type *llvm_type = get_llvm_type(type);
     if (gen_env.is_global()) {
         mem = new llvm::GlobalVariable(
-                llvm_module, get_llvm_type(type), false, llvm::GlobalValue::InternalLinkage,
-                get_llvm_init_val(type), id
+                llvm_module, llvm_type, false, llvm::GlobalValue::InternalLinkage,
+                llvm::ConstantAggregateZero::get(llvm_type), id
         );
     } else {
-        mem = ir_builder.CreateAlloca(get_llvm_type(type), nullptr, id);
+        mem = ir_builder.CreateAlloca(llvm_type, nullptr, id);
     }
     gen_env.get_id_env().set_mem(id, mem);
 }

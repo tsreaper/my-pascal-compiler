@@ -23,4 +23,6 @@
 #include "ast/exp/ptr/ast_at.h"
 #include "ast/exp/ptr/ast_deref.h"
 
+#include "ast/exp/array/ast_array_idx.h"
+
 #endif //MPC_AST_ALL_EXPS_H

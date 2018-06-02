@@ -2,18 +2,18 @@
 #define MPC_AST_SYS_READ_H
 
 #include "ast/ast_node.h"
-#include "ast/val/ast_id.h"
+#include "ast/val/ast_lhs.h"
 
 class ast_sys_read : public ast_node {
 public:
     ~ast_sys_read() override;
 
-    void add_param(ast_id *param);
+    void add_param(ast_lhs *param);
 
     void explain_impl(std::string &res, int indent) const override;
 
 private:
-    std::vector<ast_id *> param_vec;
+    std::vector<ast_lhs *> param_vec;
 
     bool semantics_child() override;
 

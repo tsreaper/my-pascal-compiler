@@ -6,7 +6,7 @@ ast_type_def* type_def_node;
 %type <node> type_def_part
 %type <type_def_seq_node> type_def_body
 %type <type_def_node> type_def
-%type <type_node> type
+%type <type_node> type array_ele_type
 
 %%
 
@@ -39,6 +39,18 @@ type_def:
 ;
 
 type:
+    array_ele_type {
+        $$ = $1;
+    }
+    | range_type {
+        $$ = $1;
+    }
+    | array_type {
+        $$ = $1;
+    }
+;
+
+array_ele_type:
     ID {
         $$ = new ast_id($1);
         YY_SET_LOCATION($$);
@@ -52,5 +64,4 @@ type:
     | ptr_type {
         $$ = $1;
     }
-    // TODO subrange type, pointer type and array type
 ;

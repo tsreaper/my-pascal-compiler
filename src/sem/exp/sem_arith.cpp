@@ -60,14 +60,14 @@ const sem_type &sem::assert_can_do_sub(const sem_type &type_l, const sem_type &t
 }
 
 #define DO_ARITH_OP(op) { \
-    if (type_l == built_in_type::INT_VAL && type_r == built_in_type::INT_VAL) { \
-        return sem_value{true, {.num = value_l.value.num op value_r.value.num}}; \
+    if (type_l == built_in_type::REAL_VAL && type_r == built_in_type::REAL_VAL) { \
+        return sem_value{true, {.real = value_l.value.real op value_r.value.real}}; \
     } else if (type_l == built_in_type::REAL_VAL && type_r == built_in_type::INT_VAL) { \
         return sem_value{true, {.real = value_l.value.real op value_r.value.num}}; \
     } else if (type_l == built_in_type::INT_VAL && type_r == built_in_type::REAL_VAL) { \
         return sem_value{true, {.real = value_l.value.num op value_r.value.real}}; \
     } else { \
-        return sem_value{true, {.real = value_l.value.real op value_r.value.real}}; \
+        return sem_value{true, {.num = value_l.value.num op value_r.value.num}}; \
     } \
 }
 
