@@ -4,6 +4,7 @@
 #include "gen/gen.h"
 #include "gen/type/gen_type.h"
 #include "gen/val/gen_literal.h"
+#include "gen/func/sys/gen_sys_func.h"
 #include "gen/func/gen_func.h"
 
 void gen_func_context::push(const func_sign &current_sign) {
@@ -57,7 +58,7 @@ void gen_func_context::set_func(const func_sign &sign, llvm::Function *func) {
 
 void gen::declare_func(const func_sign &sign, const sem_type &ret_type) {
     std::vector<llvm::Type *> args_type;
-    for (auto t : sign.param_type_vec) {
+    for (auto &t : sign.param_type_vec) {
         args_type.emplace_back(get_llvm_type(t));
     }
     llvm::FunctionType *func_type = llvm::FunctionType::get(get_llvm_type(ret_type), args_type, false);
@@ -76,6 +77,27 @@ void gen::define_func(const func_sign &sign, const sem_type &ret_type) {
 
 llvm::Function *gen::get_func(const func_sign &sign) {
     return gen_env.get_func_env().get_func(sign);
+}
+
+llvm::Value *gen::get_func_call(const func_sign &sign, const std::vector<ast_value_node *> &args) {
+    llvm::Function *func;
+    try {
+        func = get_func(sign);
+    } catch (const std::invalid_argument &e) {
+        return get_sys_func_call(sign, args);
+    }
+
+    std::vector<llvm::Value *> args_vec;
+    for (auto &child : args) {
+        args_vec.emplace_back(child->get_llvm_value());
+    }
+
+    const sem_type &ret_type = sem::get_ret_type(sign);
+    if (ret_type == built_in_type::VOID_TYPE) {
+        return ir_builder.CreateCall(func, args_vec);
+    } else {
+        return ir_builder.CreateCall(func, args_vec, "call_" + sign.id);
+    }
 }
 
 const func_sign &gen::get_current_func_sign() {

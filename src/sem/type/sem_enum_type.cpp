@@ -27,7 +27,7 @@ int sem_enum_context::add_enum_type(const std::vector<ast_id *> &id_vec) {
     auto &current = *enum_table.rbegin();
 
     int count = 0;
-    for (auto child : id_vec) {
+    for (auto &child : id_vec) {
         sem_type type = {false, type_group::ENUM, enum_id};
         sem_value value = {true, {.num = count++}};
         sem::define_const_id(child->get_id(), type, value);

@@ -70,9 +70,6 @@ simple_stmt:
     | proc_func_call {
         $$ = $1;
     }
-    | sys_func {
-        $$ = $1;
-    }
     | continue {
         $$ = $1;
     }

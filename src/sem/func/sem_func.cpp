@@ -1,4 +1,5 @@
 #include "sem/sem.h"
+#include "sem/func/sys/sem_sys_func.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/func/sem_func.h"
 
@@ -48,7 +49,7 @@ const sem_type &sem_func_context::get_ret_type(const func_sign &sign) const {
             return (*it)[pos].second;
         }
     }
-    throw sem_exception("semantics error, unknown procedure/function " + sign.id);
+    throw sem_exception("semantics error, undeclared procedure/function " + sign.id);
 }
 
 void sem_func_context::set_ret_type(const func_sign &sign, const sem_type &ret_type) {
@@ -88,5 +89,9 @@ void sem::define_func(const func_sign &sign, const sem_type &ret_type) {
 }
 
 const sem_type &sem::get_ret_type(const func_sign &sign) {
-    return sem_env.get_func_env().get_ret_type(sign);
+    try {
+        return sem_env.get_func_env().get_ret_type(sign);
+    } catch (const sem_exception &e) {
+        return get_sys_func_ret_type(sign);
+    }
 }

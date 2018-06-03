@@ -1,7 +1,7 @@
 #include "ast/program/ast_block.h"
 
 ast_block_head::~ast_block_head() {
-    for (auto child : node_vec) {
+    for (auto &child : node_vec) {
         delete child;
     }
 }
@@ -11,7 +11,7 @@ void ast_block_head::add_node(ast_node *node) {
 }
 
 bool ast_block_head::semantics_child() {
-    for (auto child : node_vec) {
+    for (auto &child : node_vec) {
         if (!child->analyse()) {
             return false;
         }
@@ -20,7 +20,7 @@ bool ast_block_head::semantics_child() {
 }
 
 void ast_block_head::explain_impl(std::string &res, int indent) const {
-    for (auto child : node_vec) {
+    for (auto &child : node_vec) {
         child->explain_impl(res, indent);
     }
 }

@@ -35,7 +35,7 @@ void ast_type_def::explain_impl(std::string &res, int indent) const {
 }
 
 ast_type_def_seq::~ast_type_def_seq() {
-    for (auto child : type_def_vec) {
+    for (auto &child : type_def_vec) {
         delete child;
     }
 }
@@ -45,7 +45,7 @@ void ast_type_def_seq::add_type_def(ast_type_def *def) {
 }
 
 bool ast_type_def_seq::semantics_child() {
-    for (auto child : type_def_vec) {
+    for (auto &child : type_def_vec) {
         if (!child->analyse()) {
             return false;
         }
@@ -54,7 +54,7 @@ bool ast_type_def_seq::semantics_child() {
 }
 
 void ast_type_def_seq::explain_impl(std::string &res, int indent) const {
-    for (auto child : type_def_vec) {
+    for (auto &child : type_def_vec) {
         child->explain_impl(res, indent);
     }
 }

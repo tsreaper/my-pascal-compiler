@@ -20,7 +20,7 @@ void ast_label_dec::explain_impl(std::string &res, int indent) const {
 }
 
 ast_label_dec_seq::~ast_label_dec_seq() {
-    for (auto child : label_dec_vec) {
+    for (auto &child : label_dec_vec) {
         delete child;
     }
 }
@@ -30,7 +30,7 @@ void ast_label_dec_seq::add_label_dec(ast_label_dec *dec) {
 }
 
 bool ast_label_dec_seq::semantics_child() {
-    for (auto child : label_dec_vec) {
+    for (auto &child : label_dec_vec) {
         if (!child->analyse()) {
             return false;
         }
@@ -39,7 +39,7 @@ bool ast_label_dec_seq::semantics_child() {
 }
 
 void ast_label_dec_seq::explain_impl(std::string &res, int indent) const {
-    for (auto child : label_dec_vec) {
+    for (auto &child : label_dec_vec) {
         child->explain_impl(res, indent);
     }
 }

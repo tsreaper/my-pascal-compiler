@@ -15,7 +15,7 @@ void sem_label_context::push() {
 };
 
 void sem_label_context::pop() {
-    for (auto label : *need_vec.rbegin()) {
+    for (auto &label : *need_vec.rbegin()) {
         auto &table = *use_vec.rbegin();
         if (table.find(label) == table.end()) {
             POP;

@@ -4,6 +4,7 @@
 #include <llvm/IR/Type.h>
 #include <llvm/IR/Function.h>
 
+#include "ast/ast_node.h"
 #include "sem/func/sem_func.h"
 
 class gen_func_context {
@@ -32,6 +33,8 @@ namespace gen {
     void define_func(const func_sign &sign, const sem_type &ret_type);
 
     llvm::Function *get_func(const func_sign &sign);
+
+    llvm::Value *get_func_call(const func_sign &sign, const std::vector<ast_value_node *> &args);
 
     const func_sign &get_current_func_sign();
 

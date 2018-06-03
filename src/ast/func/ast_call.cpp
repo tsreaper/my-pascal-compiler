@@ -13,7 +13,7 @@ bool ast_call::semantics_child() {
     if (!id->analyse(false)) {
         return false;
     }
-    for (auto child : param->get_exp_vec()) {
+    for (auto &child : param->get_exp_vec()) {
         if (!child->analyse()) {
             return false;
         }
@@ -23,7 +23,7 @@ bool ast_call::semantics_child() {
 
 bool ast_call::semantics_self() {
     try {
-        for (auto child : param->get_exp_vec()) {
+        for (auto &child : param->get_exp_vec()) {
             if (child->get_type().is_type) {
                 throw sem_exception("semantics error, procedure/function parameters cannot be a type");
             }
@@ -31,7 +31,7 @@ bool ast_call::semantics_self() {
 
         // Make function signature;
         sign.id = id->get_id();
-        for (auto child : param->get_exp_vec()) {
+        for (auto &child : param->get_exp_vec()) {
             sign.param_type_vec.emplace_back(child->get_type());
         }
 
@@ -45,17 +45,7 @@ bool ast_call::semantics_self() {
 }
 
 void ast_call::codegen() {
-    std::vector<llvm::Value *> args_vec;
-    for (auto child : param->get_exp_vec()) {
-        args_vec.emplace_back(child->get_llvm_value());
-    }
-
-    llvm::Function *func = gen::get_func(sign);
-    if (s_type == built_in_type::VOID_TYPE) {
-        llvm_value = ir_builder.CreateCall(func, args_vec);
-    } else {
-        llvm_value = ir_builder.CreateCall(func, args_vec, "call_" + id->get_id());
-    }
+    llvm_value = gen::get_func_call(sign, param->get_exp_vec());
 }
 
 void ast_call::explain_impl(std::string &res, int indent) const {
@@ -65,7 +55,7 @@ void ast_call::explain_impl(std::string &res, int indent) const {
     id->explain_impl(res, indent + 1);
     explain_indent(res, indent + 1);
     res += "--- param ---\n";
-    for (auto child : param->get_exp_vec()) {
+    for (auto &child : param->get_exp_vec()) {
         child->explain_impl(res, indent + 1);
     }
 

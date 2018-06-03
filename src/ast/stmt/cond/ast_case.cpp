@@ -10,10 +10,10 @@ ast_case::ast_case(ast_value_node *lhs) : lhs(lhs) {}
 
 ast_case::~ast_case() {
     delete lhs;
-    for (auto child : seq_vec) {
+    for (auto &child : seq_vec) {
         delete child;
     }
-    for (auto child : body_vec) {
+    for (auto &child : body_vec) {
         delete child;
     }
     delete default_body;
@@ -96,7 +96,7 @@ bool ast_case::semantics_seq(ast_exp_seq *seq) {
         if (seq->get_exp_vec().empty()) {
             throw sem_exception("semantics error, expression list must not be empty");
         }
-        for (auto exp : seq->get_exp_vec()) {
+        for (auto &exp : seq->get_exp_vec()) {
             sem::assert_can_equal(lhs->get_type(), exp->get_type());
         }
     } catch (const sem_exception &e) {
@@ -130,7 +130,7 @@ void ast_case::codegen_before() {
 
 void ast_case::codegen_seq(ast_exp_seq *seq, llvm::BasicBlock *body_block, llvm::BasicBlock *nxt_block) {
     llvm::Value *llvm_cond = nullptr;
-    for (auto child : seq->get_exp_vec()) {
+    for (auto &child : seq->get_exp_vec()) {
         llvm::Value *v = gen::gen_cmp_eq(
                 lhs->get_type(), child->get_type(), lhs->get_llvm_value(), child->get_llvm_value()
         );

@@ -6,9 +6,9 @@
 #include "gen/type/gen_type.h"
 #include "gen/func/sys/gen_sys_read.h"
 
-bool has_scanf = false;
+static llvm::Value *scanf_func = nullptr;
 
-void register_scanf() {
+llvm::Value *register_scanf() {
     std::vector<llvm::Type *> scanf_arg_types;
     scanf_arg_types.push_back(llvm::Type::getInt8PtrTy(llvm_context));
 
@@ -20,17 +20,17 @@ void register_scanf() {
             scanf_type, llvm::Function::ExternalLinkage, "scanf", &llvm_module
     );
     func->setCallingConv(llvm::CallingConv::C);
+    return func;
 }
 
-void gen::gen_read(std::vector<ast_value_node *> args) {
-    if (!has_scanf) {
-        register_scanf();
-        has_scanf = true;
+llvm::Value *gen::gen_sys_read(const std::vector<ast_value_node *> &args) {
+    if (scanf_func == nullptr) {
+        scanf_func = register_scanf();
     }
 
     std::string format;
     std::vector<llvm::Value *> scanf_args;
-    for (auto arg : args) {
+    for (auto &arg : args) {
         const sem_type &t = arg->get_type();
         if (t == built_in_type::INT_TYPE) {
             format += "%d";
@@ -45,6 +45,5 @@ void gen::gen_read(std::vector<ast_value_node *> args) {
     }
     scanf_args.insert(scanf_args.begin(), ir_builder.CreateGlobalStringPtr(format, "scanf_format"));
 
-    llvm::Function *scanf_func = llvm_module.getFunction("scanf");
-    ir_builder.CreateCall(scanf_func, scanf_args);
+    return ir_builder.CreateCall(scanf_func, scanf_args);
 }

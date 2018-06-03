@@ -6,7 +6,7 @@
 ast_var_dec::ast_var_dec(ast_type_node *type) : type(type) {}
 
 ast_var_dec::~ast_var_dec() {
-    for (auto child : id_vec) {
+    for (auto &child : id_vec) {
         delete child;
     }
     delete type;
@@ -38,7 +38,7 @@ bool ast_var_dec::semantics_self() {
 }
 
 void ast_var_dec::codegen() {
-    for (auto child : id_vec) {
+    for (auto &child : id_vec) {
         gen::declare_id(child->get_id(), type->get_type());
     }
 }
@@ -60,7 +60,7 @@ void ast_var_dec::explain_impl(std::string &res, int indent) const {
 }
 
 ast_var_dec_seq::~ast_var_dec_seq() {
-    for (auto child : var_dec_vec) {
+    for (auto &child : var_dec_vec) {
         delete child;
     }
 }
@@ -70,7 +70,7 @@ void ast_var_dec_seq::add_var_dec(ast_var_dec *dec) {
 }
 
 bool ast_var_dec_seq::semantics_child() {
-    for (auto child : var_dec_vec) {
+    for (auto &child : var_dec_vec) {
         if (!child->analyse()) {
             return false;
         }
@@ -79,7 +79,7 @@ bool ast_var_dec_seq::semantics_child() {
 }
 
 void ast_var_dec_seq::explain_impl(std::string &res, int indent) const {
-    for (auto child : var_dec_vec) {
+    for (auto &child : var_dec_vec) {
         child->explain_impl(res, indent);
     }
 }

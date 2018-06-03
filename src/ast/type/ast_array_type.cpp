@@ -3,7 +3,7 @@
 #include "ast/type/ast_array_type.h"
 
 ast_array_type::~ast_array_type() {
-    for (auto child : range_vec) {
+    for (auto &child : range_vec) {
         delete child;
     }
     delete ele_type;
@@ -18,7 +18,7 @@ void ast_array_type::set_ele_type(ast_type_node *ele_type) {
 }
 
 bool ast_array_type::semantics_child() {
-    for (auto child : range_vec) {
+    for (auto &child : range_vec) {
         if (!child->analyse()) {
             return false;
         }
@@ -31,7 +31,7 @@ bool ast_array_type::semantics_self() {
         sem::assert_is_type(ele_type->get_type());
 
         std::vector<int> v;
-        for (auto child : range_vec) {
+        for (auto &child : range_vec) {
             v.emplace_back(child->get_type().id);
         }
         sem_type s_ele_type = ele_type->get_type();
@@ -57,7 +57,7 @@ void ast_array_type::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "array_type(\n";
 
-    for (auto child : range_vec) {
+    for (auto &child : range_vec) {
         child->explain_impl(res, indent + 1);
     }
     explain_indent(res, indent + 1);

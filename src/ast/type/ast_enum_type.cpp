@@ -3,7 +3,7 @@
 #include "ast/type/ast_enum_type.h"
 
 ast_enum_type::~ast_enum_type() {
-    for (auto id : id_vec) {
+    for (auto &id : id_vec) {
         delete id;
     }
 }
@@ -13,7 +13,7 @@ void ast_enum_type::add_id(ast_id *id) {
 }
 
 bool ast_enum_type::semantics_child() {
-    for (auto child : id_vec) {
+    for (auto &child : id_vec) {
         if (!child->analyse(false)) {
             return false;
         }
@@ -36,7 +36,7 @@ void ast_enum_type::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "enum_type(\n";
 
-    for (auto child : id_vec) {
+    for (auto &child : id_vec) {
         child->explain_impl(res, indent + 1);
     }
 
