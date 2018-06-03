@@ -6,45 +6,20 @@
 #include "gen/exp/gen_arith.h"
 #include "ast/exp/array/ast_array_idx.h"
 
-ast_array_idx::ast_array_idx(ast_lhs *arr) : arr(arr), s_type({false}), s_value({false}) {}
+ast_array_idx::ast_array_idx(ast_value_node *arr, ast_exp_seq *idx_seq) : arr(arr), idx_seq(idx_seq) {}
 
 ast_array_idx::~ast_array_idx() {
     delete arr;
-    for (auto child : idx_vec) {
-        delete child;
-    }
-}
-
-const sem_type &ast_array_idx::get_type() const {
-    return s_type;
-}
-
-const sem_value &ast_array_idx::get_value() const {
-    return s_value;
-}
-
-llvm::Value *ast_array_idx::get_llvm_mem() const {
-    return llvm_mem;
-}
-
-void ast_array_idx::append_idx(ast_value_node *idx) {
-    idx_vec.emplace_back(idx);
+    delete idx_seq;
 }
 
 bool ast_array_idx::semantics_child() {
-    if (!arr->analyse(false)) {
-        return false;
-    }
-    for (auto child : idx_vec) {
-        if (!child->analyse()) {
-            return false;
-        }
-    }
-    return true;
+    return arr->analyse(false) && idx_seq->analyse();
 }
 
 bool ast_array_idx::semantics_self() {
     try {
+        const std::vector<ast_value_node *> &idx_vec = idx_seq->get_exp_vec();
         const sem_type &t = arr->get_type();
         sem::assert_is_array_value(t);
 
@@ -106,9 +81,8 @@ void ast_array_idx::explain_impl(std::string &res, int indent) const {
 
     explain_indent(res, indent + 1);
     res += "--- index ---\n";
-    for (auto child : idx_vec) {
-        child->explain_impl(res, indent + 1);
-    }
+    idx_seq->explain_impl(res, indent + 1);
+
     explain_indent(res, indent);
     res += ")\n";
 }

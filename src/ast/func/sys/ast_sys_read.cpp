@@ -7,7 +7,7 @@ ast_sys_read::~ast_sys_read() {
     }
 }
 
-void ast_sys_read::add_param(ast_lhs *param) {
+void ast_sys_read::add_param(ast_value_node *param) {
     param_vec.emplace_back(param);
 }
 

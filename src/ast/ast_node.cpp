@@ -37,3 +37,34 @@ void ast_node::explain_indent(std::string &res, int indent) const {
         res += ' ';
     }
 }
+
+const sem_type &ast_type_node::get_type() const {
+    return s_type;
+}
+
+const sem_value &ast_value_node::get_value() const {
+    return s_value;
+}
+
+llvm::Value *ast_value_node::get_llvm_value() const {
+    return llvm_value;
+}
+
+llvm::Value *ast_value_node::get_llvm_mem() const {
+    return llvm_mem;
+}
+
+bool ast_value_node::analyse() {
+    return analyse(true);
+}
+
+bool ast_value_node::analyse(bool as_rval) {
+    if (semantics_child() && semantics_self()) {
+        if (as_rval) {
+            codegen();
+        }
+        return true;
+    } else {
+        return false;
+    }
+}

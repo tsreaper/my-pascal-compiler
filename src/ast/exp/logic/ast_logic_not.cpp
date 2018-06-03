@@ -4,21 +4,17 @@
 #include "sem/exception/sem_exception.h"
 #include "ast/exp/logic/ast_logic_not.h"
 
-ast_logic_not::ast_logic_not(ast_value_node *child) : child(child), s_type(built_in_type::BOOL_VAL), s_value({false}) {}
+ast_logic_not::ast_logic_not(ast_value_node *child) : child(child) {
+    s_type = built_in_type::BOOL_VAL;
+}
 
 ast_logic_not::~ast_logic_not() {
     delete child;
 }
 
-const sem_type &ast_logic_not::get_type() const {
-    return s_type;
-}
+bool ast_logic_not::analyse(bool as_rval) {
+    MUST_BE_RVAL;
 
-const sem_value &ast_logic_not::get_value() const {
-    return s_value;
-}
-
-bool ast_logic_not::analyse() {
     if (semantics_child() && semantics_self()) {
         if (child->get_value().known) {
             do_logic();

@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "ast/val/ast_lhs.h"
+#include "ast/ast_node.h"
 
 namespace gen {
-    void gen_read(std::vector<ast_lhs *> args);
+    void gen_read(std::vector<ast_value_node *> args);
 
     // void gen_readln(ast_id *arg);
 }

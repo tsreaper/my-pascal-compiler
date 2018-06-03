@@ -17,12 +17,12 @@ sys_read:
 ;
 
 sys_read_has_param:
-    SYS_READ SYM_LPAREN lhs {
+    SYS_READ SYM_LPAREN deref_array_idx {
         $$ = new ast_sys_read();
         $$->add_param($3);
         YY_SET_LOCATION($$);
     }
-    | sys_read_has_param SYM_COMMA lhs {
+    | sys_read_has_param SYM_COMMA deref_array_idx {
         $$ = $1;
         $$->add_param($3);
         YY_SET_LOCATION($$);

@@ -22,7 +22,7 @@ void register_scanf() {
     func->setCallingConv(llvm::CallingConv::C);
 }
 
-void gen::gen_read(std::vector<ast_lhs *> args) {
+void gen::gen_read(std::vector<ast_value_node *> args) {
     if (!has_scanf) {
         register_scanf();
         has_scanf = true;

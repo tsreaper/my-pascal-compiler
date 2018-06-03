@@ -4,15 +4,11 @@
 #include "sem/exception/sem_exception.h"
 #include "ast/type/ast_range_type.h"
 
-ast_range_type::ast_range_type(ast_value_node *low, ast_value_node *high) : low(low), high(high), s_type({false}) {}
+ast_range_type::ast_range_type(ast_value_node *low, ast_value_node *high) : low(low), high(high) {}
 
 ast_range_type::~ast_range_type() {
     delete low;
     delete high;
-}
-
-const sem_type &ast_range_type::get_type() const {
-    return s_type;
 }
 
 bool ast_range_type::semantics_child() {

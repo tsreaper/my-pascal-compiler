@@ -5,7 +5,7 @@
 #include "gen/gen.h"
 #include "ast/stmt/ast_assign.h"
 
-ast_assign::ast_assign(ast_lhs *lhs, ast_value_node *rhs) : lhs(lhs), rhs(rhs) {}
+ast_assign::ast_assign(ast_value_node *lhs, ast_value_node *rhs) : lhs(lhs), rhs(rhs) {}
 
 ast_assign::~ast_assign() {
     delete lhs;

@@ -3,18 +3,10 @@
 #include "gen/func/gen_func.h"
 #include "ast/func/ast_call.h"
 
-ast_call::ast_call(ast_id *id, ast_exp_seq *param) : id(id), param(param), s_type({false}), s_value({false}) {}
+ast_call::ast_call(ast_id *id, ast_exp_seq *param) : id(id), param(param) {}
 
 ast_call::~ast_call() {
     delete id;
-}
-
-const sem_type &ast_call::get_type() const {
-    return s_type;
-}
-
-const sem_value &ast_call::get_value() const {
-    return s_value;
 }
 
 bool ast_call::semantics_child() {

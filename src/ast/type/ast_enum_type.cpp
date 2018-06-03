@@ -2,16 +2,10 @@
 #include "sem/type/sem_enum_type.h"
 #include "ast/type/ast_enum_type.h"
 
-ast_enum_type::ast_enum_type() : s_type({false}) {}
-
 ast_enum_type::~ast_enum_type() {
     for (auto id : id_vec) {
         delete id;
     }
-}
-
-const sem_type &ast_enum_type::get_type() const {
-    return s_type;
 }
 
 void ast_enum_type::add_id(ast_id *id) {

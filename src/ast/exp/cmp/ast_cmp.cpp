@@ -4,24 +4,18 @@
 #include "gen/exp/gen_cmp.h"
 #include "ast/exp/cmp/ast_cmp.h"
 
-ast_cmp::ast_cmp(
-        ast_value_node *child_l, ast_value_node *child_r
-) : child_l(child_l), child_r(child_r), s_type(built_in_type::BOOL_VAL), s_value({false}) {}
+ast_cmp::ast_cmp(ast_value_node *child_l, ast_value_node *child_r) : child_l(child_l), child_r(child_r) {
+    s_type = built_in_type::BOOL_VAL;
+}
 
 ast_cmp::~ast_cmp() {
     delete child_l;
     delete child_r;
 }
 
-const sem_type &ast_cmp::get_type() const {
-    return s_type;
-}
+bool ast_cmp::analyse(bool as_rval) {
+    MUST_BE_RVAL;
 
-const sem_value &ast_cmp::get_value() const {
-    return s_value;
-}
-
-bool ast_cmp::analyse() {
     if (semantics_child() && semantics_self()) {
         if (child_l->get_value().known && child_r->get_value().known) {
             do_cmp();

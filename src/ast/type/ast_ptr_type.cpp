@@ -2,14 +2,10 @@
 #include "sem/exception/sem_exception.h"
 #include "ast/type/ast_ptr_type.h"
 
-ast_ptr_type::ast_ptr_type(ast_type_node *domain) : domain(domain), s_type({false}) {}
+ast_ptr_type::ast_ptr_type(ast_type_node *domain) : domain(domain) {}
 
 ast_ptr_type::~ast_ptr_type() {
     delete domain;
-}
-
-const sem_type &ast_ptr_type::get_type() const {
-    return s_type;
 }
 
 bool ast_ptr_type::semantics_child() {

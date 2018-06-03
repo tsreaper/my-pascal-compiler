@@ -1,9 +1,9 @@
 #ifndef MPC_AST_ID_H
 #define MPC_AST_ID_H
 
-#include "ast/val/ast_lhs.h"
+#include "ast/ast_node.h"
 
-class ast_id : public ast_lhs {
+class ast_id : public ast_value_node {
 public:
     explicit ast_id(const char *id);
 

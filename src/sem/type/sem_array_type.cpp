@@ -37,7 +37,7 @@ const sem_array_type &sem::get_array_type_by_idx(int idx) {
 }
 
 void sem::assert_is_array_value(const sem_type &type) {
-    if (type.is_type || type.tg != type_group::ARRAY) {
+    if (type.is_type || type.tg != type_group::ARRAY || type.ptr > 0) {
         throw sem_exception("semantics error, must be an array value");
     }
 }

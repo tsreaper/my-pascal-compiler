@@ -7,7 +7,7 @@
 #include "ast/stmt/loop/ast_for.h"
 
 ast_for::ast_for(
-        ast_lhs *lhs, ast_value_node *start_val, ast_value_node *end_val, ast_node *body, bool down
+        ast_value_node *lhs, ast_value_node *start_val, ast_value_node *end_val, ast_node *body, bool down
 ) : lhs(lhs), start_val(start_val), end_val(end_val), body(body), down(down) {}
 
 ast_for::~ast_for() {

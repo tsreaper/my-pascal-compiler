@@ -1,13 +1,13 @@
 #ifndef MPC_AST_ASSIGN_H
 #define MPC_AST_ASSIGN_H
 
+#include "ast/ast_node.h"
 #include "ast/stmt/ast_stmt.h"
-#include "ast/val/ast_lhs.h"
 #include "ast/val/ast_id.h"
 
 class ast_assign : public ast_node {
 public:
-    ast_assign(ast_lhs *lhs, ast_value_node *rhs);
+    ast_assign(ast_value_node *lhs, ast_value_node *rhs);
 
     ~ast_assign() override;
 
@@ -21,7 +21,7 @@ protected:
     void codegen() override;
 
 private:
-    ast_lhs *lhs;
+    ast_value_node *lhs;
     ast_value_node *rhs;
 };
 

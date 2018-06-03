@@ -1,24 +1,18 @@
 #ifndef MPC_AST_CMP_H
 #define MPC_AST_CMP_H
 
-#include "ast/ast_node.h"
+#include "ast/val/ast_rval.h"
 
-class ast_cmp : public ast_value_node {
+class ast_cmp : public ast_rval {
 public:
     ast_cmp(ast_value_node *child_l, ast_value_node *child_r);
 
     ~ast_cmp() override;
 
-    const sem_type &get_type() const override;
-
-    const sem_value &get_value() const override;
-
-    bool analyse() override;
+    bool analyse(bool as_rval) override;
 
 protected:
     ast_value_node *child_l, *child_r;
-    sem_type s_type;
-    sem_value s_value;
 
     bool semantics_child() override;
 

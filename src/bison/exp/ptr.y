@@ -1,22 +1,24 @@
-ast_at* at_node;
-ast_deref* deref_node;
-
 #union
 
-%type <at_node> at
-%type <deref_node> deref
+%type <value_node> at deref_array_idx
 
 %%
 
 at:
-    SYM_AT id {
+    deref_array_idx {
+        $$ = $1;
+    }
+    | SYM_AT deref_array_idx {
         $$ = new ast_at($2);
         YY_SET_LOCATION($$);
     }
 ;
 
-deref:
-    exp_base SYM_CARET {
+deref_array_idx:
+    exp_base {
+        $$ = $1;
+    }
+    | deref_array_idx SYM_CARET {
         $$ = new ast_deref($1);
         YY_SET_LOCATION($$);
     }

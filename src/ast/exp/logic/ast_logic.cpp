@@ -3,24 +3,18 @@
 #include "gen/exp/gen_logic.h"
 #include "ast/exp/logic/ast_logic.h"
 
-ast_logic::ast_logic(
-        ast_value_node *child_l, ast_value_node *child_r
-) : child_l(child_l), child_r(child_r), s_type(built_in_type::BOOL_VAL), s_value({false}) {}
+ast_logic::ast_logic(ast_value_node *child_l, ast_value_node *child_r) : child_l(child_l), child_r(child_r) {
+    s_type = built_in_type::BOOL_VAL;
+}
 
 ast_logic::~ast_logic() {
     delete child_l;
     delete child_r;
 }
 
-const sem_type &ast_logic::get_type() const {
-    return s_type;
-}
+bool ast_logic::analyse(bool as_rval) {
+    MUST_BE_RVAL;
 
-const sem_value &ast_logic::get_value() const {
-    return s_value;
-}
-
-bool ast_logic::analyse() {
     // And/Or operators are short circuit evaluated
     if (!semantics_l()) {
         return false;

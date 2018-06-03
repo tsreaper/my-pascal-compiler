@@ -1,4 +1,5 @@
 #include "sem/sem.h"
+#include "sem/type/sem_range_type.h"
 #include "sem/val/sem_id.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/type/sem_type.h"
@@ -46,9 +47,11 @@ void sem::set_id_type(const std::string &id, const sem_type &type) {
         throw sem_exception("semantics error, rhs is not a type");
     }
     if (type.tg == type_group::SUBRANGE) {
-        throw sem_exception("semantics error, mpc does not support subrange type variables");
+        const sem_range_type r_t = sem::get_range_type_by_idx(type.id);
+        sem_env.get_type_env().set_type(id, {false, r_t.type.tg, r_t.type.id, r_t.type.ptr});
+    } else {
+        sem_env.get_type_env().set_type(id, {false, type.tg, type.id, type.ptr});
     }
-    sem_env.get_type_env().set_type(id, {false, type.tg, type.id, type.ptr});
 }
 
 void sem::define_type(const std::string &id, const sem_type &type) {

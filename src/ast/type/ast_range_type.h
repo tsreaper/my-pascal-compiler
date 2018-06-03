@@ -10,8 +10,6 @@ public:
 
     ~ast_range_type() override;
 
-    const sem_type &get_type() const override;
-
     void explain_impl(std::string &res, int indent) const override;
 
 protected:
@@ -22,7 +20,6 @@ protected:
 private:
     ast_value_node *low, *high;
     int range_id = -1;
-    sem_type s_type;
 };
 
 #endif //MPC_AST_RANGE_TYPE_H

@@ -3,18 +3,10 @@
 #include "gen/gen.h"
 #include "ast/exp/ptr/ast_deref.h"
 
-ast_deref::ast_deref(ast_value_node *ptr) : ptr(ptr), s_type({false}), s_value({false}) {}
+ast_deref::ast_deref(ast_value_node *ptr) : ptr(ptr) {}
 
 ast_deref::~ast_deref() {
     delete ptr;
-}
-
-const sem_type &ast_deref::get_type() const {
-    return s_type;
-}
-
-const sem_value &ast_deref::get_value() const {
-    return s_value;
 }
 
 llvm::Value *ast_deref::get_llvm_mem() const {

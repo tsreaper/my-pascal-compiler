@@ -3,8 +3,10 @@
 
 #include <string>
 
-#include "ast/ast_interface.h"
+#include <llvm/IR/Value.h>
+
 #include "sem/type/sem_type.h"
+#include "sem/val/sem_value.h"
 
 #define PRINT_ERROR_MSG(e) fprintf(stderr, "%s (at %d:%d)\n", (e).what(), lineno, colno)
 
@@ -32,8 +34,31 @@ protected:
     void explain_indent(std::string &res, int indent) const;
 };
 
-class ast_type_node : public ast_node, public ast_has_type {};
+class ast_type_node : public ast_node {
+public:
+    virtual const sem_type &get_type() const;
 
-class ast_value_node : public ast_type_node, public ast_has_value {};
+protected:
+    sem_type s_type = {false};
+};
+
+class ast_value_node : public ast_type_node {
+public:
+    virtual const sem_value &get_value() const;
+
+    llvm::Value *get_llvm_value() const;
+
+    virtual llvm::Value *get_llvm_mem() const;
+
+    bool analyse() override;
+
+    virtual bool analyse(bool as_rval);
+
+protected:
+    sem_value s_value = {false};
+
+    llvm::Value *llvm_value = nullptr;
+    llvm::Value *llvm_mem = nullptr;
+};
 
 #endif //MPC_AST_NODE_H

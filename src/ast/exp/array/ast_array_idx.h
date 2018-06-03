@@ -3,21 +3,14 @@
 
 #include <vector>
 
-#include "ast/val/ast_lhs.h"
+#include "ast/ast_node.h"
+#include "ast/exp/ast_exp_seq.h"
 
-class ast_array_idx : public ast_lhs {
+class ast_array_idx : public ast_value_node {
 public:
-    explicit ast_array_idx(ast_lhs *arr);
+    ast_array_idx(ast_value_node *arr, ast_exp_seq *idx_seq);
 
     ~ast_array_idx() override;
-
-    const sem_type &get_type() const override;
-
-    const sem_value &get_value() const override;
-
-    llvm::Value * get_llvm_mem() const override;
-
-    void append_idx(ast_value_node *idx);
 
     void explain_impl(std::string &res, int indent) const override;
 
@@ -29,12 +22,8 @@ protected:
     void codegen() override;
 
 private:
-    ast_lhs *arr;
-    std::vector<ast_value_node *> idx_vec;
-    sem_type s_type;
-    sem_value s_value;
-
-    llvm::Value *llvm_mem = nullptr;
+    ast_value_node *arr;
+    ast_exp_seq *idx_seq;
 };
 
 #endif //MPC_AST_ARRAY_IDX_H

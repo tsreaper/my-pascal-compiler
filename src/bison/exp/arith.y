@@ -41,13 +41,13 @@ arith_mul_div:
 ;
 
 arith_pos_neg:
-    exp_base {
+    at {
         $$ = $1;
     }
-    | SYM_ADD exp_base {
+    | SYM_ADD at {
         $$ = $2;
     }
-    | SYM_SUB exp_base {
+    | SYM_SUB at {
         $$ = new ast_arith_sub(new ast_int_val(0), $2);
         YY_SET_LOCATION($$);
     }
