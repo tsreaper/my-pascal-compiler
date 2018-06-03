@@ -94,9 +94,6 @@ void ast_repeat::codegen_body() {
 }
 
 void ast_repeat::codegen_cond() {
-    llvm::Value *llvm_cond = ir_builder.CreateICmpEQ(
-            cond->get_llvm_value(), gen::get_llvm_bool(sem_value{true, {.boo = true}})
-    );
-    ir_builder.CreateCondBr(llvm_cond, cont_bb, body_bb);
+    ir_builder.CreateCondBr(cond->get_llvm_value(), cont_bb, body_bb);
     ir_builder.SetInsertPoint(cont_bb);
 }

@@ -91,10 +91,7 @@ void ast_while::codegen_before() {
 }
 
 void ast_while::codegen_cond() {
-    llvm::Value *llvm_cond = ir_builder.CreateICmpEQ(
-            cond->get_llvm_value(), gen::get_llvm_bool(sem_value{true, {.boo = true}})
-    );
-    ir_builder.CreateCondBr(llvm_cond, body_bb, cont_bb);
+    ir_builder.CreateCondBr(cond->get_llvm_value(), body_bb, cont_bb);
     ir_builder.SetInsertPoint(body_bb);
 }
 

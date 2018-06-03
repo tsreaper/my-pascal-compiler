@@ -12,9 +12,13 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 
 protected:
-    void do_logic() override;
+    void codegen_l() override;
 
-    void codegen() override;
+    void codegen_r() override;
+
+private:
+    llvm::Value *llvm_tmp;
+    llvm::BasicBlock *r_bb, *cont_bb;
 };
 
 #endif //MPC_AST_LOGIC_AND_H

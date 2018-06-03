@@ -21,29 +21,20 @@ const sem_value &ast_logic::get_value() const {
 }
 
 bool ast_logic::analyse() {
-    if (semantics_child() && semantics_self()) {
-        if (child_l->get_value().known && child_r->get_value().known) {
-            do_logic();
+    // And/Or operators are short circuit evaluated
+    if (!semantics_l()) {
+        return false;
+    }
+    codegen_l();
+
+    if (!s_value.known) {
+        if (!semantics_r()) {
+            return false;
         }
-        codegen();
-        return true;
-    } else {
-        return false;
+        codegen_r();
     }
-}
 
-bool ast_logic::semantics_child() {
-    return child_l->analyse() && child_r->analyse();
-}
-
-bool ast_logic::semantics_self() {
-    try {
-        sem::assert_can_do_logic(child_l->get_type(), child_r->get_type());
-        return true;
-    } catch (const sem_exception &e) {
-        PRINT_ERROR_MSG(e);
-        return false;
-    }
+    return true;
 }
 
 void ast_logic::logic_explain_impl(const std::string &op_name, std::string &res, int indent) const {
@@ -53,4 +44,34 @@ void ast_logic::logic_explain_impl(const std::string &op_name, std::string &res,
     child_r->explain_impl(res, indent + 1);
     explain_indent(res, indent);
     res += ")\n";
+}
+
+bool ast_logic::semantics_l() {
+    if (!child_l->analyse()) {
+        return false;
+    }
+    try {
+        if (child_l->get_type() != built_in_type::BOOL_TYPE) {
+            throw sem_exception("semantics error, left operand must be a boolean value");
+        }
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
+        return false;
+    }
+}
+
+bool ast_logic::semantics_r() {
+    if (!child_r->analyse()) {
+        return false;
+    }
+    try {
+        if (child_r->get_type() != built_in_type::BOOL_TYPE) {
+            throw sem_exception("semantics error, right operand must be a boolean value");
+        }
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
+        return false;
+    }
 }

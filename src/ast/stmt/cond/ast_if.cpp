@@ -74,16 +74,12 @@ bool ast_if::semantics_else() {
 }
 
 void ast_if::codegen_cond() {
-    llvm::Value *llvm_cond = ir_builder.CreateICmpEQ(
-            cond->get_llvm_value(), gen::get_llvm_bool(sem_value{true, {.boo = true}}), "if_cond"
-    );
-
     llvm::Function *func = ir_builder.GetInsertBlock()->getParent();
     then_bb = llvm::BasicBlock::Create(llvm_context, "if_then", func);
     else_bb = llvm::BasicBlock::Create(llvm_context, "if_else", func);
     cont_bb = llvm::BasicBlock::Create(llvm_context, "if_cont", func);
 
-    ir_builder.CreateCondBr(llvm_cond, then_bb, else_bb);
+    ir_builder.CreateCondBr(cond->get_llvm_value(), then_bb, else_bb);
     ir_builder.SetInsertPoint(then_bb);
 }
 

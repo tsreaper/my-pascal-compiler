@@ -5,16 +5,13 @@
 
 ast_logic_xor::ast_logic_xor(ast_value_node *child_l, ast_value_node *child_r) : ast_logic(child_l, child_r) {}
 
-void ast_logic_xor::do_logic() {
-    s_value = sem::do_logic_xor(child_l->get_value(), child_r->get_value());
-}
+void ast_logic_xor::codegen_l() {}
 
-void ast_logic_xor::codegen() {
+void ast_logic_xor::codegen_r() {
     if (s_value.known) {
         llvm_value = gen::get_llvm_const(s_type, s_value);
     } else {
-        llvm_value = gen::gen_logic_xor(child_l->get_llvm_value(), child_r->get_llvm_value()
-        );
+        llvm_value = gen::gen_logic_xor(child_l->get_llvm_value(), child_r->get_llvm_value());
     }
 }
 

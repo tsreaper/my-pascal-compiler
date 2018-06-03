@@ -20,11 +20,13 @@ protected:
     sem_type s_type;
     sem_value s_value;
 
-    bool semantics_child() override;
+    bool semantics_l();
 
-    bool semantics_self() override;
+    bool semantics_r();
 
-    virtual void do_logic() = 0;
+    virtual void codegen_l() = 0;
+
+    virtual void codegen_r() = 0;
 
     void logic_explain_impl(const std::string &op_name, std::string &res, int indent) const;
 };

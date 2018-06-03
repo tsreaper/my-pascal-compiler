@@ -12,9 +12,9 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 
 protected:
-    void do_logic() override;
+    void codegen_l() override;
 
-    void codegen() override;
+    void codegen_r() override;
 };
 
 #endif //MPC_AST_LOGIC_XOR_H
