@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id.h"
 
 struct sem_enum_type {
     int size;

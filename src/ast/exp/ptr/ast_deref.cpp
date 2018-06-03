@@ -1,4 +1,4 @@
-#include "sem/val/sem_id.h"
+#include "sem/id/sem_id.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "ast/exp/ptr/ast_deref.h"

@@ -4,15 +4,13 @@
 #include <vector>
 
 #include "ast/ast_node.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id_seq_with_type.h"
 
 class ast_var_dec : public ast_node {
 public:
-    explicit ast_var_dec(ast_type_node *type);
+    explicit ast_var_dec(ast_id_seq_with_type *seq);
 
     ~ast_var_dec() override;
-
-    void add_id(ast_id *id);
 
     void explain_impl(std::string &res, int indent) const override;
 
@@ -24,8 +22,7 @@ protected:
     void codegen() override;
 
 private:
-    ast_type_node *type;
-    std::vector<ast_id *> id_vec;
+    ast_id_seq_with_type *seq;
 };
 
 class ast_var_dec_seq : public ast_node {

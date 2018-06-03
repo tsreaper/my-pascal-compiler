@@ -2,7 +2,7 @@
 #define MPC_AST_CALL_H
 
 #include "ast/val/ast_rval.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id.h"
 #include "ast/exp/ast_exp_seq.h"
 #include "sem/func/sem_func.h"
 

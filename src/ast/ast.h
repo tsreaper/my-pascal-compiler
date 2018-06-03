@@ -10,6 +10,9 @@
 #include "ast/func/ast_call.h"
 #include "ast/func/ast_exit.h"
 #include "ast/label/ast_label.h"
+#include "ast/id/ast_id.h"
+#include "ast/id/ast_id_seq.h"
+#include "ast/id/ast_id_seq_with_type.h"
 #include "ast/program/ast_program.h"
 #include "ast/program/ast_block.h"
 #include "ast/stmt/ast_stmt.h"
@@ -18,7 +21,6 @@
 #include "ast/type/ast_all_types.h"
 #include "ast/val/ast_const.h"
 #include "ast/val/ast_var.h"
-#include "ast/val/ast_id.h"
 #include "ast/val/literal/ast_all_literals.h"
 
 extern ast_node *ast_root;

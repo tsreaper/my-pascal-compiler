@@ -9,8 +9,7 @@
 static llvm::Value *scanf_func = nullptr;
 
 llvm::Value *register_scanf() {
-    std::vector<llvm::Type *> scanf_arg_types;
-    scanf_arg_types.push_back(llvm::Type::getInt8PtrTy(llvm_context));
+    std::vector<llvm::Type *> scanf_arg_types = {llvm::Type::getInt8PtrTy(llvm_context)};
 
     llvm::FunctionType *scanf_type = llvm::FunctionType::get(
             llvm::Type::getInt32Ty(llvm_context), scanf_arg_types, true

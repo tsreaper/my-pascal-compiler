@@ -39,9 +39,13 @@ const func_sign &ast_func_head::get_func_sign() const {
     return sign;
 }
 
-void ast_func_head::add_param(ast_id *param_name, ast_type_node *param_type) {
-    param_name_vec.emplace_back(param_name);
-    param_type_vec.emplace_back(param_type);
+void ast_func_head::add_param(ast_id_seq_with_type *param) {
+    for (auto &child : param->get_id_vec()) {
+        param_name_vec.emplace_back(child);
+    }
+    for (int i = 0; i < param->get_id_vec().size(); i++) {
+        param_type_vec.emplace_back(param->get_type_node());
+    }
 }
 
 void ast_func_head::set_ret_type_node(ast_type_node *type) {

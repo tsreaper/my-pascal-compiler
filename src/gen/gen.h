@@ -6,7 +6,7 @@
 
 #include "sem/func/sem_func.h"
 #include "gen/label/gen_label.h"
-#include "gen/val/gen_id.h"
+#include "gen/id/gen_id.h"
 #include "gen/func/gen_func.h"
 #include "gen/stmt/gen_loop.h"
 

@@ -1,6 +1,6 @@
 #include "sem/sem.h"
 #include "sem/type/sem_range_type.h"
-#include "sem/val/sem_id.h"
+#include "sem/id/sem_id.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/type/sem_type.h"
 

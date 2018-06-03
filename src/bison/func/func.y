@@ -65,14 +65,14 @@ func_head:
 ;
 
 proc_func_head_has_param:
-    id SYM_LPAREN id SYM_COLON type {
+    id SYM_LPAREN id_seq_with_type {
         $$ = new ast_func_head($1);
-        $$->add_param($3, $5);
+        $$->add_param($3);
         YY_SET_LOCATION($$);
     }
-    | proc_func_head_has_param SYM_SEMICOLON id SYM_COLON type {
+    | proc_func_head_has_param SYM_SEMICOLON id_seq_with_type {
         $$ = $1;
-        $$->add_param($3, $5);
+        $$->add_param($3);
         YY_SET_LOCATION($$);
     }
 ;

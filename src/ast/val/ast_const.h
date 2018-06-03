@@ -5,7 +5,7 @@
 #include <llvm/IR/Value.h>
 
 #include "ast/ast_node.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id.h"
 
 class ast_const_def : public ast_node {
 public:

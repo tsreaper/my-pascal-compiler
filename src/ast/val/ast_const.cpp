@@ -2,7 +2,7 @@
 
 #include "sem/exception/sem_exception.h"
 #include "sem/val/sem_const.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id.h"
 #include "ast/val/ast_const.h"
 
 ast_const_def::ast_const_def(ast_id *id, ast_value_node *value) : id(id), value(value) {}

@@ -1,6 +1,6 @@
 #include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
-#include "sem_id.h"
+#include "sem/id/sem_id.h"
 
 const sem_type &sem::get_id_type(const std::string &id) {
     return sem_env.get_type_env().get_type(id);

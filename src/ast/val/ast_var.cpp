@@ -1,34 +1,22 @@
 #include "sem/type/sem_type.h"
 #include "sem/exception/sem_exception.h"
-#include "gen/val/gen_id.h"
+#include "gen/id/gen_id.h"
 #include "ast/val/ast_var.h"
 
-ast_var_dec::ast_var_dec(ast_type_node *type) : type(type) {}
+ast_var_dec::ast_var_dec(ast_id_seq_with_type *seq) : seq(seq) {}
 
 ast_var_dec::~ast_var_dec() {
-    for (auto &child : id_vec) {
-        delete child;
-    }
-    delete type;
-}
-
-void ast_var_dec::add_id(ast_id *id) {
-    id_vec.emplace_back(id);
+    delete seq;
 }
 
 bool ast_var_dec::semantics_child() {
-    for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        if (!(*it)->analyse(false)) {
-            return false;
-        }
-    }
-    return type->analyse();
+    return seq->analyse();
 }
 
 bool ast_var_dec::semantics_self() {
-    for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
+    for (auto child : seq->get_id_vec()) {
         try {
-            sem::set_id_type((*it)->get_id(), type->get_type());
+            sem::set_id_type(child->get_id(), seq->get_type());
         } catch (const sem_exception &e) {
             PRINT_ERROR_MSG(e);
             return false;
@@ -38,23 +26,15 @@ bool ast_var_dec::semantics_self() {
 }
 
 void ast_var_dec::codegen() {
-    for (auto &child : id_vec) {
-        gen::declare_id(child->get_id(), type->get_type());
+    for (auto &child : seq->get_id_vec()) {
+        gen::declare_id(child->get_id(), seq->get_type());
     }
 }
 
 void ast_var_dec::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "variable_declaration(\n";
-
-    for (auto it = id_vec.rbegin(); it != id_vec.rend(); it++) {
-        (*it)->explain_impl(res, indent + 1);
-    }
-
-    explain_indent(res, indent + 1);
-    res += "--- type ---\n";
-    type->explain_impl(res, indent + 1);
-
+    seq->explain_impl(res, indent + 1);
     explain_indent(res, indent);
     res += ")\n";
 }

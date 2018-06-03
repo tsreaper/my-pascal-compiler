@@ -3,7 +3,7 @@
 
 #include "ast/ast_node.h"
 #include "ast/stmt/ast_stmt.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id.h"
 
 class ast_assign : public ast_node {
 public:

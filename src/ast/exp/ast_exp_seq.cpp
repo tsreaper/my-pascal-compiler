@@ -14,12 +14,6 @@ const std::vector<ast_value_node *> &ast_exp_seq::get_exp_vec() const {
     return exp_vec;
 }
 
-void ast_exp_seq::explain_impl(std::string &res, int indent) const {
-    for (auto &child : exp_vec) {
-        child->explain_impl(res, indent);
-    }
-}
-
 bool ast_exp_seq::semantics_child() {
     for (auto &child : exp_vec) {
         if (!child->analyse()) {
@@ -27,4 +21,10 @@ bool ast_exp_seq::semantics_child() {
         }
     }
     return true;
+}
+
+void ast_exp_seq::explain_impl(std::string &res, int indent) const {
+    for (auto &child : exp_vec) {
+        child->explain_impl(res, indent);
+    }
 }

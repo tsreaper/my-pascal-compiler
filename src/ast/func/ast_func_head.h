@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "ast/ast_node.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id_seq_with_type.h"
 #include "sem/func/sem_func.h"
 
 class ast_func_head : public ast_node {
@@ -25,7 +25,7 @@ public:
 
     const func_sign &get_func_sign() const;
 
-    void add_param(ast_id *param_name, ast_type_node *param_type);
+    void add_param(ast_id_seq_with_type *param);
 
     void set_ret_type_node(ast_type_node *type);
 

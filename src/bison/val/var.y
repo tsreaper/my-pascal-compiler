@@ -29,14 +29,8 @@ var_dec_body:
 ;
 
 var_dec:
-    id SYM_COLON type {
-        $$ = new ast_var_dec($3);
-        $$->add_id($1);
-        YY_SET_LOCATION($$);
-    }
-    | id SYM_COMMA var_dec {
-        $$ = $3;
-        $$->add_id($1);
+    id_seq_with_type {
+        $$ = new ast_var_dec($1);
         YY_SET_LOCATION($$);
     }
 ;

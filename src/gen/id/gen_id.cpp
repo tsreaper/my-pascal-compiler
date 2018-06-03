@@ -1,11 +1,11 @@
 #include <stdexcept>
 
-#include "sem/val/sem_id.h"
+#include "sem/id/sem_id.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/type/gen_type.h"
 #include "gen/val/gen_literal.h"
-#include "gen/val/gen_id.h"
+#include "gen/id/gen_id.h"
 
 void gen_id_context::push() {
     layers.emplace_back();

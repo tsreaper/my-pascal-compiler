@@ -1,8 +1,8 @@
-#include "sem/val/sem_id.h"
+#include "sem/id/sem_id.h"
 #include "gen/gen.h"
-#include "gen/val/gen_id.h"
+#include "gen/id/gen_id.h"
 #include "gen/val/gen_literal.h"
-#include "ast/val/ast_id.h"
+#include "ast/id/ast_id.h"
 
 ast_id::ast_id(const char *id) : id(id) {
     for (char &c : this->id) {
