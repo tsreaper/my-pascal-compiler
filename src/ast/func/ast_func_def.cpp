@@ -63,10 +63,10 @@ bool ast_func_def::semantics_child() {
 bool ast_func_def::semantics_self() {
     int param_num = head->get_param_num();
     std::vector<ast_id *> names = head->get_param_name_node();
-    std::vector<ast_type_node *> types = head->get_param_type_node();
+    std::vector<sem_type> types = head->get_param_type_node();
     try {
         for (int i = 0; i < param_num; i++) {
-            sem::set_id_type(names[i]->get_id(), types[i]->get_type());
+            sem::set_id_type(names[i]->get_id(), types[i]);
         }
         if (head->get_ret_type() != built_in_type::VOID_TYPE) {
             // In pascal, function return val is stored in a variable with the same name as the function name
@@ -101,12 +101,12 @@ void ast_func_def::codegen_phase1() {
 void ast_func_def::codegen_phase2() {
     int param_num = head->get_param_num();
     std::vector<ast_id *> names = head->get_param_name_node();
-    std::vector<ast_type_node *> types = head->get_param_type_node();
+    std::vector<sem_type> types = head->get_param_type_node();
 
     llvm::Function *func = gen::get_func(head->get_func_sign());
     auto arg_it = func->arg_begin();
     for (int i = 0; i < param_num; i++) {
-        gen::declare_id(names[i]->get_id(), types[i]->get_type());
+        gen::declare_id(names[i]->get_id(), types[i]);
 
         arg_it->setName(names[i]->get_id());
         ir_builder.CreateStore(arg_it, gen::get_mem(names[i]->get_id()));

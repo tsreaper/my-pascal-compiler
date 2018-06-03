@@ -1,3 +1,4 @@
+#include "sem/exception/sem_exception.h"
 #include "ast/id/ast_id_seq_with_type.h"
 
 ast_id_seq_with_type::ast_id_seq_with_type(ast_id_seq *seq, ast_type_node *type) : seq(seq), type(type) {}
@@ -15,16 +16,18 @@ const sem_type &ast_id_seq_with_type::get_type() const {
     return type->get_type();
 }
 
-ast_id_seq *ast_id_seq_with_type::get_seq_node() const {
-    return seq;
-}
-
-ast_type_node *ast_id_seq_with_type::get_type_node() const {
-    return type;
-}
-
 bool ast_id_seq_with_type::semantics_child() {
     return seq->analyse() && type->analyse();
+}
+
+bool ast_id_seq_with_type::semantics_self() {
+    try {
+        sem::assert_is_type(type->get_type());
+        return true;
+    } catch (const sem_exception &e) {
+        PRINT_ERROR_MSG(e);
+        return false;
+    }
 }
 
 void ast_id_seq_with_type::explain_impl(std::string &res, int indent) const {

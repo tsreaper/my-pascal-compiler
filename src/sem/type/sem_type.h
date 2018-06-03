@@ -6,7 +6,7 @@
 #include <map>
 
 enum class type_group {
-    BUILT_IN, ENUM, SUBRANGE, ARRAY
+    BUILT_IN, ENUM, SUBRANGE, ARRAY, RECORD
 };
 
 namespace built_in_type {

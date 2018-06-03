@@ -37,7 +37,7 @@ llvm::Value *gen::gen_sys_write(const std::vector<ast_value_node *> &args, bool 
         } else if (t == built_in_type::CHAR_TYPE) {
             format += "%c";
         } else {
-            throw std::invalid_argument("[gen::gen_write] Unsupported type");
+            throw std::invalid_argument("[gen::gen_sys_write] Unsupported type");
         }
         printf_args.emplace_back(arg->get_llvm_value());
     }

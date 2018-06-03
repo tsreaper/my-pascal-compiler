@@ -42,9 +42,6 @@ type:
     array_ele_type {
         $$ = $1;
     }
-    | range_type {
-        $$ = $1;
-    }
     | array_type {
         $$ = $1;
     }
@@ -61,7 +58,13 @@ array_ele_type:
     | enum_type {
         $$ = $1;
     }
+    | range_type {
+        $$ = $1;
+    }
     | ptr_type {
+        $$ = $1;
+    }
+    | record_type {
         $$ = $1;
     }
 ;

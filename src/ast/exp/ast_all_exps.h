@@ -25,4 +25,6 @@
 
 #include "ast/exp/array/ast_array_idx.h"
 
+#include "ast/exp/record/ast_field.h"
+
 #endif //MPC_AST_ALL_EXPS_H

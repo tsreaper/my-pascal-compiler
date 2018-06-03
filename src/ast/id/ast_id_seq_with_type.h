@@ -14,14 +14,12 @@ public:
 
     const sem_type &get_type() const;
 
-    ast_id_seq *get_seq_node() const;
-
-    ast_type_node *get_type_node() const;
-
     void explain_impl(std::string &res, int indent) const override;
 
 protected:
     bool semantics_child() override;
+
+    bool semantics_self() override;
 
 private:
     ast_id_seq *seq;

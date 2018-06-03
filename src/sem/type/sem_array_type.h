@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "ast/type/ast_range_type.h"
 #include "sem/type/sem_type.h"
 
 struct sem_array_type {
@@ -14,6 +15,8 @@ struct sem_array_type {
 };
 
 namespace sem {
+    sem_array_type make_array_type(const std::vector<ast_range_type *> &range_vec, ast_type_node *ele_type);
+
     int get_or_define_array_type(const sem_array_type &type);
 
     const sem_array_type &get_array_type_by_idx(int idx);

@@ -2,6 +2,7 @@
 
 #include "sem/type/sem_range_type.h"
 #include "sem/type/sem_array_type.h"
+#include "sem/type/sem_record_type.h"
 #include "gen/gen.h"
 #include "gen/type/gen_type.h"
 
@@ -19,6 +20,8 @@ llvm::Type *gen::get_llvm_type(const sem_type &type) {
             return get_llvm_int_type();
         case type_group::ARRAY:
             return get_llvm_array_type(type);
+        case type_group::RECORD:
+            return get_llvm_record_type(type);
         default:
             throw std::invalid_argument("[gen::get_llvm_type] Invalid type group");
     }
@@ -55,6 +58,16 @@ llvm::Type *gen::get_llvm_array_type(const sem_type &type) {
         }
     }
     return array_type;
+}
+
+llvm::Type *gen::get_llvm_record_type(const sem_type &type) {
+    const sem_record_type &s_type = sem::get_record_type_by_idx(type.id);
+
+    std::vector<llvm::Type *> llvm_type_vec;
+    for (auto &t : s_type.type_vec) {
+        llvm_type_vec.emplace_back(get_llvm_type(t));
+    }
+    return llvm::StructType::get(llvm_context, llvm_type_vec);
 }
 
 llvm::Type *gen::get_llvm_int_type() {

@@ -8,6 +8,7 @@ void sem_context::push() {
     type_env.push();
     const_env.push();
     enum_env.push();
+    record_env.push();
     func_env.push();
 }
 
@@ -16,6 +17,7 @@ void sem_context::pop() {
     type_env.pop();
     const_env.pop();
     enum_env.pop();
+    record_env.pop();
     func_env.pop();
 }
 
@@ -33,6 +35,10 @@ sem_const_context &sem_context::get_const_env() {
 
 sem_enum_context &sem_context::get_enum_env() {
     return enum_env;
+}
+
+sem_record_context &sem_context::get_record_env() {
+    return record_env;
 }
 
 sem_func_context &sem_context::get_func_env() {

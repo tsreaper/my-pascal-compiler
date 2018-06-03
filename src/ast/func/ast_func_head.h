@@ -19,7 +19,7 @@ public:
 
     const std::vector<ast_id *> &get_param_name_node() const;
 
-    const std::vector<ast_type_node *> &get_param_type_node() const;
+    const std::vector<sem_type> &get_param_type_node() const;
 
     const sem_type &get_ret_type() const;
 
@@ -39,10 +39,12 @@ protected:
 private:
     ast_id *id;
     ast_type_node *type;
-    std::vector<ast_id *> param_name_vec;
-    std::vector<ast_type_node *> param_type_vec;
+    std::vector<ast_id_seq_with_type *> param_seq_vec;
     func_sign sign;
     sem_type ret_type;
+
+    std::vector<ast_id *> param_name_vec;
+    std::vector<sem_type> param_type_vec;
 };
 
 #endif //MPC_AST_FUNC_HEAD_H

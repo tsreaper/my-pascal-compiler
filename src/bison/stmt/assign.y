@@ -7,7 +7,7 @@ ast_assign* assign_node;
 %%
 
 assign:
-    deref_array_idx SYM_ASSIGN exp {
+    deref_array_idx_field SYM_ASSIGN exp {
         $$ = new ast_assign($1, $3);
         YY_SET_LOCATION($$);
     }

@@ -16,11 +16,11 @@ ast_break* break_node;
 %%
 
 for:
-    PAS_FOR deref_array_idx SYM_ASSIGN exp PAS_TO exp PAS_DO stmt {
+    PAS_FOR deref_array_idx_field SYM_ASSIGN exp PAS_TO exp PAS_DO stmt {
         $$ = new ast_for($2, $4, $6, $8, false);
         YY_SET_LOCATION($$);
     }
-    | PAS_FOR deref_array_idx SYM_ASSIGN exp PAS_DOWNTO exp PAS_DO stmt {
+    | PAS_FOR deref_array_idx_field SYM_ASSIGN exp PAS_DOWNTO exp PAS_DO stmt {
         $$ = new ast_for($2, $4, $6, $8, true);
         YY_SET_LOCATION($$);
     }
