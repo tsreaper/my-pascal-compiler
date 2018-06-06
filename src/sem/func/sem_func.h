@@ -13,7 +13,11 @@ struct func_sign {
     bool operator==(const func_sign &rhs) const;
 
     bool operator!=(const func_sign &rhs) const;
+
+    bool can_be_called(const func_sign &call_inst_sign) const;
 };
+
+typedef std::pair<func_sign, sem_type> func_sign_ret;
 
 class sem_func_context {
 public:
@@ -21,14 +25,15 @@ public:
 
     void pop();
 
-    const sem_type &get_ret_type(const func_sign &sign) const;
+    const func_sign_ret &get_func_sign_ret(const func_sign &sign) const;
+
+    const func_sign_ret &get_call_func_sign_ret(const func_sign &call_sign) const;
 
     void set_ret_type(const func_sign &sign, const sem_type &ret_type);
 
     void set_defined(const func_sign &sign);
 
 private:
-    typedef std::pair<func_sign, sem_type> func_sign_ret;
     std::vector<std::vector<func_sign_ret>> type_layers;
 
     typedef std::pair<func_sign, bool> func_sign_defined;

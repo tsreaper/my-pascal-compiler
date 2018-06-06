@@ -1,5 +1,5 @@
 #include "gen/gen.h"
-#include "gen/func/gen_func.h"
+#include "gen/func/gen_exit.h"
 #include "ast/func/ast_exit.h"
 
 void ast_exit::explain_impl(std::string &res, int indent) const {

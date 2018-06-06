@@ -17,7 +17,7 @@ public:
 private:
     ast_id *id;
     ast_exp_seq *param;
-    func_sign sign;
+    func_sign_ret exact_fsr;
 
     bool semantics_child() override;
 

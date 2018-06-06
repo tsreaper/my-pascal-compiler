@@ -44,7 +44,7 @@ llvm::Type *gen::get_builtin_type(const sem_type &type) {
     }
 }
 
-llvm::Type *gen::get_llvm_array_type(const sem_type &type) {
+llvm::ArrayType *gen::get_llvm_array_type(const sem_type &type) {
     const sem_array_type &s_type = sem::get_array_type_by_idx(type.id);
 
     llvm::ArrayType *array_type = nullptr;
@@ -60,7 +60,7 @@ llvm::Type *gen::get_llvm_array_type(const sem_type &type) {
     return array_type;
 }
 
-llvm::Type *gen::get_llvm_record_type(const sem_type &type) {
+llvm::StructType *gen::get_llvm_record_type(const sem_type &type) {
     const sem_record_type &s_type = sem::get_record_type_by_idx(type.id);
 
     std::vector<llvm::Type *> llvm_type_vec;

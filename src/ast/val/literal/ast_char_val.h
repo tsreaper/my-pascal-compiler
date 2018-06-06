@@ -9,10 +9,11 @@ public:
 
     void explain_impl(std::string &res, int indent) const override;
 
+protected:
+    void codegen() override;
+
 private:
     char value;
-
-    void codegen() override;
 };
 
 #endif //MPC_AST_CHAR_VAL_H

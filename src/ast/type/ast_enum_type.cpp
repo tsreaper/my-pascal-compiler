@@ -2,18 +2,14 @@
 #include "sem/type/sem_enum_type.h"
 #include "ast/type/ast_enum_type.h"
 
-ast_enum_type::~ast_enum_type() {
-    for (auto &id : id_vec) {
-        delete id;
-    }
-}
+ast_enum_type::ast_enum_type(ast_id_seq *seq) : seq(seq) {}
 
-void ast_enum_type::add_id(ast_id *id) {
-    id_vec.emplace_back(id);
+ast_enum_type::~ast_enum_type() {
+    delete seq;
 }
 
 bool ast_enum_type::semantics_child() {
-    for (auto &child : id_vec) {
+    for (auto &child : seq->get_id_vec()) {
         if (!child->analyse(false)) {
             return false;
         }
@@ -23,7 +19,7 @@ bool ast_enum_type::semantics_child() {
 
 bool ast_enum_type::semantics_self() {
     try {
-        enum_id = sem::define_enum_type(id_vec);
+        enum_id = sem::define_enum_type(seq->get_id_vec());
         s_type = {true, type_group::ENUM, enum_id};
         return true;
     } catch (const sem_exception &e) {
@@ -35,11 +31,7 @@ bool ast_enum_type::semantics_self() {
 void ast_enum_type::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "enum_type(\n";
-
-    for (auto &child : id_vec) {
-        child->explain_impl(res, indent + 1);
-    }
-
+    seq->explain_impl(res, indent + 1);
     explain_indent(res, indent);
     res += ")\n";
 }

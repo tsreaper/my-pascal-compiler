@@ -28,6 +28,12 @@ bool ast_array_type::semantics_child() {
 
 bool ast_array_type::semantics_self() {
     try {
+        for (auto &child : range_vec) {
+            const sem_range_type &r_t = sem::get_range_type_by_idx(child->get_type().id);
+            if (sem::get_range_length(r_t) <= 1) {
+                throw sem_exception("semantics error, length of array must be greater than 1");
+            }
+        }
         sem::assert_is_type(ele_type->get_type());
 
         sem_array_type array_type = sem::make_array_type(range_vec, ele_type);

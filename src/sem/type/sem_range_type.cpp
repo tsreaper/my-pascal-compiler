@@ -61,3 +61,10 @@ int sem::get_bias_in_range(const sem_range_type &type, const sem_value &value) {
         return value.value.num - type.low.value.num;
     }
 }
+
+sem_range_type sem::make_int_range_type(int low, int high) {
+    sem_range_type ret = {built_in_type::INT_TYPE};
+    ret.low = sem_value{true, {.num = low}};
+    ret.high = sem_value{true, {.num = high}};
+    return ret;
+}

@@ -14,6 +14,10 @@ const std::vector<ast_value_node *> &ast_exp_seq::get_exp_vec() const {
     return exp_vec;
 }
 
+int ast_exp_seq::get_size() const {
+    return (int) exp_vec.size();
+}
+
 bool ast_exp_seq::semantics_child() {
     for (auto &child : exp_vec) {
         if (!child->analyse()) {

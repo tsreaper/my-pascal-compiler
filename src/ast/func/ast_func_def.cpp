@@ -2,6 +2,7 @@
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/func/gen_func.h"
+#include "gen/func/gen_exit.h"
 #include "ast/func/ast_func_def.h"
 
 ast_func_def::ast_func_def(ast_func_head *head, ast_block *block) : head(head), block(block) {}

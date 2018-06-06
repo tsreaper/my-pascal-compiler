@@ -13,6 +13,8 @@ public:
 
     const std::vector<ast_value_node *> &get_exp_vec() const;
 
+    int get_size() const;
+
     void explain_impl(std::string &res, int indent) const override;
 
 protected:

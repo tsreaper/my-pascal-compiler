@@ -9,6 +9,8 @@
 namespace sem {
     void assert_can_assign(ast_value_node *lhs, const sem_type &type);
 
+    bool can_assign(const sem_type &type_l, const sem_type &type_r);
+
     void assert_is_variable(ast_value_node *val);
 }
 

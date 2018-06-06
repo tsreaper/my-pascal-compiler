@@ -1,5 +1,5 @@
 #include "sem/sem.h"
-#include "sem/func/sys/sem_sys_func.h"
+#include "sem/stmt/sem_assign.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/func/sem_func.h"
 
@@ -22,6 +22,21 @@ bool func_sign::operator!=(const func_sign &rhs) const {
     return !(*this == rhs);
 }
 
+bool func_sign::can_be_called(const func_sign &call_inst_sign) const {
+    if (id != call_inst_sign.id) {
+        return false;
+    }
+    if (param_type_vec.size() != call_inst_sign.param_type_vec.size()) {
+        return false;
+    }
+    for (int i = 0; i < param_type_vec.size(); i++) {
+        if (!sem::can_assign(param_type_vec[i], call_inst_sign.param_type_vec[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void sem_func_context::push() {
     type_layers.emplace_back();
     defined_layers.emplace_back();
@@ -41,15 +56,35 @@ void sem_func_context::pop() {
     } \
 }
 
-const sem_type &sem_func_context::get_ret_type(const func_sign &sign) const {
+const func_sign_ret &sem_func_context::get_func_sign_ret(const func_sign &sign) const {
     for (auto it = type_layers.rbegin(); it != type_layers.rend(); it++) {
         int pos = -1;
         FIND_SIGNATURE(sign, *it, pos);
         if (pos >= 0) {
-            return (*it)[pos].second;
+            return (*it)[pos];
         }
     }
     throw sem_exception("semantics error, undeclared procedure/function " + sign.id);
+}
+
+#define FIND_CALL_SIGNATURE(sign, layer, res) { \
+    for (int i = 0; i < (layer).size(); i++) { \
+        if ((layer)[i].first.can_be_called(sign)) { \
+            (res) = i; \
+            break; \
+        } \
+    } \
+}
+
+const func_sign_ret &sem_func_context::get_call_func_sign_ret(const func_sign &call_sign) const {
+    for (auto it = type_layers.rbegin(); it != type_layers.rend(); it++) {
+        int pos = -1;
+        FIND_CALL_SIGNATURE(call_sign, *it, pos);
+        if (pos >= 0) {
+            return (*it)[pos];
+        }
+    }
+    throw sem_exception("semantics error, undeclared procedure/function " + call_sign.id);
 }
 
 void sem_func_context::set_ret_type(const func_sign &sign, const sem_type &ret_type) {
@@ -81,7 +116,7 @@ void sem::define_func(const func_sign &sign, const sem_type &ret_type) {
         declare_func(sign, ret_type);
     } catch (const sem_exception &e) {}
 
-    if (sem_env.get_func_env().get_ret_type(sign) != ret_type) {
+    if (sem_env.get_func_env().get_func_sign_ret(sign).second != ret_type) {
         throw sem_exception("semantics error, duplicated procedure/function " + sign.id);
     }
 
@@ -89,9 +124,5 @@ void sem::define_func(const func_sign &sign, const sem_type &ret_type) {
 }
 
 const sem_type &sem::get_ret_type(const func_sign &sign) {
-    try {
-        return sem_env.get_func_env().get_ret_type(sign);
-    } catch (const sem_exception &e) {
-        return get_sys_func_ret_type(sign);
-    }
+    return sem_env.get_func_env().get_func_sign_ret(sign).second;
 }

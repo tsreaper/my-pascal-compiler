@@ -2,6 +2,8 @@
 #define MPC_GEN_TYPE_H
 
 #include <llvm/IR/Value.h>
+#include <llvm/IR/Type.h>
+#include <llvm/IR/DerivedTypes.h>
 
 #include "sem/type/sem_type.h"
 
@@ -10,9 +12,9 @@ namespace gen {
 
     llvm::Type *get_builtin_type(const sem_type &type);
 
-    llvm::Type *get_llvm_array_type(const sem_type &type);
+    llvm::ArrayType *get_llvm_array_type(const sem_type &type);
 
-    llvm::Type *get_llvm_record_type(const sem_type &type);
+    llvm::StructType *get_llvm_record_type(const sem_type &type);
 
     llvm::Type *get_llvm_int_type();
 

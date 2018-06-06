@@ -1,4 +1,5 @@
 #include "sem/exp/sem_arith.h"
+#include "sem/stmt/sem_assign.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/type/sem_range_type.h"
 #include "sem/type/sem_array_type.h"
@@ -37,6 +38,26 @@ sem_array_type sem::make_array_type(const std::vector<ast_range_type *> &range_v
     return {s_ele_type, (int) v.size(), v};
 }
 
+sem_array_type sem::make_array_type_from_exp_seq(ast_exp_seq *seq) {
+    const sem_type &ch_t = (*seq->get_exp_vec().begin())->get_type();
+    int range_id = get_or_define_range_type(make_int_range_type(0, seq->get_size() - 1));
+    sem_array_type ret = {{false}, 0, {range_id}};
+
+    if (ch_t.tg == type_group::ARRAY) {
+        const sem_array_type &e_t = sem::get_array_type_by_idx(ch_t.id);
+        ret.ele_type = e_t.ele_type;
+        ret.size = e_t.size + 1;
+        ret.range_vec.insert(
+                ret.range_vec.end(), e_t.range_vec.begin(), e_t.range_vec.end()
+        );
+    } else {
+        ret.ele_type = ch_t;
+        ret.size = 1;
+    }
+
+    return ret;
+}
+
 int sem::get_or_define_array_type(const sem_array_type &type) {
     for (int i = 0; i < array_type_vec.size(); i++) {
         if (type == array_type_vec[i]) {
@@ -57,4 +78,21 @@ void sem::assert_is_array_value(const sem_type &type) {
     if (type.is_type || type.tg != type_group::ARRAY || type.ptr > 0) {
         throw sem_exception("semantics error, must be an array value");
     }
+}
+
+bool sem::array_can_assign(const sem_type &type_l, const sem_type &type_r) {
+    const sem_array_type &a_l = get_array_type_by_idx(type_l.id);
+    const sem_array_type &a_r = get_array_type_by_idx(type_r.id);
+
+    if (a_l.size != a_r.size) {
+        return false;
+    }
+    for (int i = 0; i < a_l.size; i++) {
+        const sem_range_type &r_l = get_range_type_by_idx(a_l.range_vec[i]);
+        const sem_range_type &r_r = get_range_type_by_idx(a_r.range_vec[i]);
+        if (get_range_length(r_l) != get_range_length(r_r)) {
+            return false;
+        }
+    }
+    return can_assign(a_l.ele_type, a_r.ele_type);
 }

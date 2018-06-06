@@ -4,7 +4,7 @@
 #include "gen/gen.h"
 #include "gen/val/gen_literal.h"
 #include "gen/program/gen_program.h"
-#include "gen/func/gen_func.h"
+#include "gen/func/gen_exit.h"
 #include "ast/program/ast_program.h"
 
 ast_program_head::ast_program_head(const std::string &name) : name(name) {}

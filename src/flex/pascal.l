@@ -82,10 +82,10 @@ SYM_GE ">="
 SYM_ASSIGN ":="
 SYM_RANGE ".."
 
-TYPE_INT integer
+TYPE_INT integer|longint|int
 TYPE_REAL real
-TYPE_CHAR character
-TYPE_BOOL boolean
+TYPE_CHAR character|char
+TYPE_BOOL boolean|bool
 
 BOOL_TRUE true
 BOOL_FALSE false

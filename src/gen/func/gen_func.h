@@ -34,11 +34,7 @@ namespace gen {
 
     llvm::Function *get_func(const func_sign &sign);
 
-    llvm::Value *get_func_call(const func_sign &sign, const std::vector<ast_value_node *> &args);
-
     const func_sign &get_current_func_sign();
-
-    void gen_exit();
 }
 
 #endif //MPC_GEN_FUNC_H

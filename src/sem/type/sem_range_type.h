@@ -12,6 +12,8 @@ struct sem_range_type {
 };
 
 namespace sem {
+    sem_range_type make_int_range_type(int low, int high);
+
     int get_or_define_range_type(const sem_range_type &type);
 
     const sem_range_type &get_range_type_by_idx(int idx);
