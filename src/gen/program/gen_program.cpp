@@ -1,5 +1,5 @@
 #include "gen/gen.h"
-#include "gen/type/gen_type.h"
+#include "gen/type/gen_builtin_type.h"
 #include "gen/program/gen_program.h"
 
 void gen::define_main() {

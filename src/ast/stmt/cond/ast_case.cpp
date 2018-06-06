@@ -131,9 +131,7 @@ void ast_case::codegen_before() {
 void ast_case::codegen_seq(ast_exp_seq *seq, llvm::BasicBlock *body_block, llvm::BasicBlock *nxt_block) {
     llvm::Value *llvm_cond = nullptr;
     for (auto &child : seq->get_exp_vec()) {
-        llvm::Value *v = gen::gen_cmp_eq(
-                lhs->get_type(), child->get_type(), lhs->get_llvm_value(), child->get_llvm_value()
-        );
+        llvm::Value *v = gen::gen_cmp_eq(lhs->get_type(), lhs->get_llvm_value(), child->get_llvm_value());
         if (llvm_cond == nullptr) {
             llvm_cond = v;
         } else {

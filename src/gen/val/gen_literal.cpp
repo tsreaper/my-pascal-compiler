@@ -1,6 +1,6 @@
 #include <stdexcept>
 
-#include "gen/type/gen_type.h"
+#include "gen/type/gen_builtin_type.h"
 #include "gen/val/gen_literal.h"
 
 llvm::Constant *gen::get_llvm_const(const sem_type &type, const sem_value &value) {

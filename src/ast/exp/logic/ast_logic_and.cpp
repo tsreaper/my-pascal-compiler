@@ -1,6 +1,6 @@
 #include "sem/exp/sem_logic.h"
 #include "gen/gen.h"
-#include "gen/type/gen_type.h"
+#include "gen/type/gen_builtin_type.h"
 #include "gen/val/gen_literal.h"
 #include "gen/exp/gen_logic.h"
 #include "ast/exp/logic/ast_logic_and.h"

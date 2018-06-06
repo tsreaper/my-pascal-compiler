@@ -2,7 +2,7 @@
 
 #include "sem/type/sem_array_type.h"
 #include "sem/exception/sem_exception.h"
-#include "gen/type/gen_type.h"
+#include "gen/type/gen_array_type.h"
 #include "ast/val/literal/ast_array_val.h"
 
 ast_array_val::ast_array_val(ast_exp_seq *value) : value(value) {

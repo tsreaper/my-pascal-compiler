@@ -1,7 +1,7 @@
 #include <llvm/IR/Type.h>
 
 #include "gen/gen.h"
-#include "gen/type/gen_type.h"
+#include "gen/type/gen_builtin_type.h"
 #include "gen/func/sys/gen_sys_abs.h"
 
 static llvm::Function *abs_int_func = nullptr, *abs_real_func = nullptr;

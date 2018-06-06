@@ -3,6 +3,7 @@
 #include "sem/stmt/sem_loop.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
+#include "gen/type/gen_convert.h"
 #include "ast/stmt/ast_assign.h"
 
 ast_assign::ast_assign(ast_value_node *lhs, ast_value_node *rhs) : lhs(lhs), rhs(rhs) {}
@@ -27,7 +28,10 @@ bool ast_assign::semantics_self() {
 }
 
 void ast_assign::codegen() {
-    ir_builder.CreateStore(rhs->get_llvm_value(), lhs->get_llvm_mem());
+    ir_builder.CreateStore(
+            gen::llvm_type_convert(rhs->get_type(), lhs->get_type(), rhs->get_llvm_value()),
+            lhs->get_llvm_mem()
+    );
 }
 
 void ast_assign::explain_impl(std::string &res, int indent) const {

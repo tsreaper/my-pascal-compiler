@@ -40,7 +40,7 @@ bool ast_array_idx::semantics_self() {
                 );
             }
             llvm::Value *bias = gen::gen_arith_sub(
-                    built_in_type::INT_TYPE, built_in_type::INT_TYPE,
+                    built_in_type::INT_TYPE,
                     idx_vec[i]->get_llvm_value(), gen::get_llvm_const(r_t.type, r_t.low)
             );
             v.emplace_back(bias);

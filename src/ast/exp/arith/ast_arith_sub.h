@@ -1,9 +1,9 @@
 #ifndef MPC_AST_ARITH_SUB_H
 #define MPC_AST_ARITH_SUB_H
 
-#include "ast/exp/arith/ast_arith.h"
+#include "ast/exp/ast_binop.h"
 
-class ast_arith_sub : public ast_arith {
+class ast_arith_sub : public ast_binop {
 public:
     ast_arith_sub(ast_value_node *child_l, ast_value_node *child_r);
 
@@ -12,7 +12,7 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 
 protected:
-    void do_arith() override;
+    bool semantics_op() override;
 
     void codegen() override;
 };

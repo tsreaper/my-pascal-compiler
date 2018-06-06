@@ -12,9 +12,7 @@ public:
     void explain_impl(std::string &res, int indent) const override;
 
 protected:
-    bool semantics_self() override;
-
-    void do_cmp() override;
+    bool semantics_op() override;
 
     void codegen() override;
 };
