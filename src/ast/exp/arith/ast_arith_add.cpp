@@ -3,6 +3,7 @@
 #include "sem/exception/sem_exception.h"
 #include "gen/val/gen_literal.h"
 #include "gen/type/gen_convert.h"
+#include "gen/type/gen_str_type.h"
 #include "gen/exp/gen_arith.h"
 #include "ast/exp/arith/ast_arith_add.h"
 
@@ -28,7 +29,11 @@ void ast_arith_add::codegen() {
     if (s_value.known) {
         llvm_value = gen::get_llvm_const(s_type, s_value);
     } else {
-        llvm_value = gen::gen_arith_add(GEN_PARAMS);
+        if (conv_type_l.tg == type_group::STR) {
+            llvm_value = gen::gen_str_add(child_l, child_r);
+        } else {
+            llvm_value = gen::gen_arith_add(GEN_PARAMS);
+        }
     }
 }
 

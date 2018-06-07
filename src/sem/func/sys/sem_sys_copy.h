@@ -6,7 +6,7 @@
 namespace sem {
     const func_sign &get_sys_copy_sign();
 
-    sem_type get_sys_copy_ret(const func_sign &sign);
+    const sem_type &get_sys_copy_ret(const func_sign &sign);
 }
 
 #endif //MPC_SEM_SYS_COPY_H

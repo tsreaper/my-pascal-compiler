@@ -12,7 +12,7 @@ llvm::Value *gen::get_sys_func_call(const func_sign &sign, const std::vector<ast
             {sem::get_sys_copy_sign(), gen_sys_copy},
     };
 
-    // Matching write/writeln/read.
+    // Matching var arg functions
     if (sign.id == "write") {
         return gen_sys_write(args, false);
     } else if (sign.id == "writeln") {
@@ -21,9 +21,11 @@ llvm::Value *gen::get_sys_func_call(const func_sign &sign, const std::vector<ast
         return gen_sys_read(args, false);
     } else if (sign.id == "readln") {
         return gen_sys_read(args, true);
+    } else if (sign.id == "concat") {
+        return gen_sys_concat(args);
     }
 
-    // Matching normal system functions.
+    // Matching normal system functions
     for (auto &f : sys_func) {
         if (f.first == sign) {
             return f.second(args);

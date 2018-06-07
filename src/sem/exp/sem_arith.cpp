@@ -1,7 +1,7 @@
 #include <vector>
 #include <stdexcept>
-#include <sem/val/sem_value.h>
 
+#include "sem/type/sem_str_type.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/exp/sem_arith.h"
 
@@ -29,6 +29,11 @@
 }
 
 const sem_type &sem::assert_can_do_add(const sem_type &type_l, const sem_type &type_r) {
+    // String concatenation?
+    if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
+        return get_str_val_by_len(type_l.id + type_r.id);
+    }
+
     ASSERT_SAME_TYPE;
     ARITH_TYPE_TABLE;
     CHECK_IN_TABLE;

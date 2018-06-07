@@ -16,6 +16,13 @@ void sem::binop_type_compare(
         return;
     }
 
+    // Two string type?
+    if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
+        res_l = type_l;
+        res_r = type_r;
+        return;
+    }
+
     static std::vector<std::pair<std::pair<sem_type, sem_type>, sem_type>> table = {
             {{built_in_type::REAL_VAL, built_in_type::INT_VAL}, built_in_type::REAL_VAL},
             {{built_in_type::INT_VAL, built_in_type::REAL_VAL}, built_in_type::REAL_VAL}

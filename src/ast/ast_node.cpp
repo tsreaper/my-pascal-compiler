@@ -51,7 +51,14 @@ llvm::Value *ast_value_node::get_llvm_value() const {
 }
 
 llvm::Value *ast_value_node::get_llvm_mem() const {
-    return llvm_mem;
+    if (llvm_mem != nullptr) {
+        return llvm_mem;
+    } else if (auto *llvm_inst = llvm::dyn_cast<llvm::LoadInst>(llvm_value)) {
+        // We give memory support if the value is in memory
+        return llvm_inst->getPointerOperand();
+    } else {
+        return nullptr;
+    }
 }
 
 bool ast_value_node::analyse() {

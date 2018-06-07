@@ -3,6 +3,7 @@
 #include "gen/val/gen_literal.h"
 #include "gen/type/gen_convert.h"
 #include "gen/exp/gen_cmp.h"
+#include "gen/type/gen_str_type.h"
 #include "ast/exp/cmp/ast_cmp_gt.h"
 
 ast_cmp_gt::ast_cmp_gt(ast_value_node *child_l, ast_value_node *child_r) : ast_cmp(child_l, child_r) {}
@@ -24,7 +25,11 @@ void ast_cmp_gt::codegen() {
     if (s_value.known) {
         llvm_value = gen::get_llvm_const(s_type, s_value);
     } else {
-        llvm_value = gen::gen_cmp_gt(GEN_PARAMS);
+        if (conv_type_l.tg == type_group::STR) {
+            llvm_value = gen::gen_str_gt(child_l, child_r);
+        } else {
+            llvm_value = gen::gen_cmp_gt(GEN_PARAMS);
+        }
     }
 }
 

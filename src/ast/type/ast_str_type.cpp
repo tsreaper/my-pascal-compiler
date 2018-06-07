@@ -1,3 +1,4 @@
+#include "sem/type/sem_str_type.h"
 #include "sem/exception/sem_exception.h"
 #include "ast/type/ast_str_type.h"
 
@@ -24,7 +25,7 @@ bool ast_str_type::semantics_self() {
         if (len <= 0) {
             throw sem_exception("semantics error, length of string must be positive");
         }
-        s_type = {true, type_group::STR, len};
+        s_type = sem::get_str_type_by_len(len);
         return true;
     } catch (const sem_exception &e) {
         PRINT_ERROR_MSG(e);

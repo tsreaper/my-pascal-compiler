@@ -48,3 +48,7 @@ llvm::Constant *gen::get_llvm_char(char value) {
 llvm::Constant *gen::get_llvm_bool(const sem_value &value) {
     return llvm::ConstantInt::get(get_llvm_bool_type(), (uint64_t) value.value.boo, true);
 }
+
+llvm::Constant *gen::get_llvm_bool(bool value) {
+    return llvm::ConstantInt::get(get_llvm_bool_type(), (uint64_t) value, true);
+}

@@ -20,6 +20,8 @@ namespace gen {
     llvm::Constant *get_llvm_char(char value);
 
     llvm::Constant *get_llvm_bool(const sem_value &value);
+
+    llvm::Constant *get_llvm_bool(bool value);
 }
 
 #endif //MPC_GEN_LITERAL_H

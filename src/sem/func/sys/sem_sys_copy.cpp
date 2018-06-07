@@ -1,3 +1,4 @@
+#include "sem/type/sem_str_type.h"
 #include "sem/func/sys/sem_sys_copy.h"
 
 const func_sign &sem::get_sys_copy_sign() {
@@ -8,6 +9,6 @@ const func_sign &sem::get_sys_copy_sign() {
     return copy_sign;
 }
 
-sem_type sem::get_sys_copy_ret(const func_sign &sign) {
-    return {true, type_group::STR, sign.param_type_vec[0].id};
+const sem_type &sem::get_sys_copy_ret(const func_sign &sign) {
+    return get_str_type_by_len(sign.param_type_vec[0].id);
 }

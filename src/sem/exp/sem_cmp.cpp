@@ -19,6 +19,12 @@
 
 const sem_type &sem::assert_can_equal(const sem_type &type_l, const sem_type &type_r) {
     ASSERT_NOT_TYPE;
+
+    // Two string type?
+    if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
+        return built_in_type::BOOL_VAL;
+    }
+
     if (type_l != type_r) {
         throw sem_exception("semantics error, cannot check the equality of the values");
     }
@@ -41,6 +47,11 @@ const sem_type &sem::assert_can_compare(const sem_type &type_l, const sem_type &
     ASSERT_NOT_TYPE;
     if (type_l != type_r) {
         throw sem_exception("semantics error, cannot check the equality of the values");
+    }
+
+    // Two string type?
+    if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
+        return built_in_type::BOOL_VAL;
     }
 
     if (type_l.tg == type_group::ENUM) {
