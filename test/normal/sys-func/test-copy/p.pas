@@ -19,5 +19,7 @@ begin
         writeln(t);
     end
 
+    writeln(copy(copy(copy(s, 2, 7), 2, 5), 2, 5));
+
     writeln(copy(s, 1, 1000000));
 end.

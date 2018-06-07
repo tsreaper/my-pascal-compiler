@@ -1,12 +1,14 @@
+#include <functional>
+
 #include "sem/exception/sem_exception.h"
 #include "sem/func/sys/sem_all_sys_funcs.h"
 #include "sem/func/sys/sem_sys_func.h"
 
-const func_sign_ret &sem::get_sys_call_func_sign_ret(const func_sign &sign) {
-    static std::vector<func_sign_ret> sys_func = {
-            {get_sys_abs_int_sign(), built_in_type::INT_TYPE},
-            {get_sys_abs_real_sign(), built_in_type::REAL_TYPE},
-            {get_sys_copy_sign(), non_built_in_type::STR_TYPE},
+func_sign_ret sem::get_sys_call_func_sign_ret(const func_sign &sign) {
+    static std::vector<std::pair<func_sign, std::function<sem_type (const func_sign &)>>> sys_func = {
+            {get_sys_abs_int_sign(), get_sys_abs_int_ret},
+            {get_sys_abs_real_sign(), get_sys_abs_real_ret},
+            {get_sys_copy_sign(), get_sys_copy_ret},
     };
 
     // Matching write/writeln/read.
@@ -31,7 +33,7 @@ const func_sign_ret &sem::get_sys_call_func_sign_ret(const func_sign &sign) {
     // Matching normal system function.
     for (auto &f : sys_func) {
         if (f.first.can_be_called(sign)) {
-            return f;
+            return {f.first, f.second(sign)};
         }
     }
 

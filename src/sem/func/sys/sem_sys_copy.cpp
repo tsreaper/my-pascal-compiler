@@ -7,3 +7,7 @@ const func_sign &sem::get_sys_copy_sign() {
     };
     return copy_sign;
 }
+
+sem_type sem::get_sys_copy_ret(const func_sign &sign) {
+    return {true, type_group::STR, sign.param_type_vec[0].id};
+}

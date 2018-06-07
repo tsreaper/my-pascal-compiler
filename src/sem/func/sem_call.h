@@ -5,7 +5,7 @@
 #include "sem/func/sem_func.h"
 
 namespace sem {
-    const func_sign_ret &get_call_func_sign_ret(const func_sign &call_sign);
+    func_sign_ret get_call_func_sign_ret(const func_sign &call_sign);
 }
 
 #endif //MPC_SEM_CALL_H

@@ -31,7 +31,9 @@ llvm::Value *gen::gen_sys_copy(const std::vector<ast_value_node *> &args) {
     );
 }
 
-llvm::Value *gen::gen_sys_copy_impl(llvm::Value *src_mem, llvm::Value *idx, llvm::Value *cnt, int dest_len) {
+llvm::Value *gen::gen_sys_copy_impl(
+        llvm::Value *src_mem, llvm::Value *idx, llvm::Value *cnt, int dest_len, bool ret_mem
+) {
     if (strncpy_func == nullptr) {
         strncpy_func = register_strncpy();
     }
@@ -58,5 +60,5 @@ llvm::Value *gen::gen_sys_copy_impl(llvm::Value *src_mem, llvm::Value *idx, llvm
             ir_builder.CreateGEP(dest, {get_llvm_int(0), copy_len}, "copy_dest_last_char")
     );
 
-    return ir_builder.CreateLoad(dest, "copy_res");
+    return ret_mem ? dest : ir_builder.CreateLoad(dest, "copy_res");
 }
