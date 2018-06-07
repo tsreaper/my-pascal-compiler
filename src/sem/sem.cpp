@@ -3,22 +3,28 @@
 
 sem_context sem_env;
 
-void sem_context::push() {
+void sem_context::push(const func_sign &current_sign) {
+    depth++;
     label_env.push();
     type_env.push();
     const_env.push();
     enum_env.push();
     record_env.push();
-    func_env.push();
+    func_env.push(current_sign);
 }
 
 void sem_context::pop() {
+    depth--;
     label_env.pop();
     type_env.pop();
     const_env.pop();
     enum_env.pop();
     record_env.pop();
     func_env.pop();
+}
+
+bool sem_context::is_global() const {
+    return depth == 1;
 }
 
 sem_label_context &sem_context::get_label_env() {

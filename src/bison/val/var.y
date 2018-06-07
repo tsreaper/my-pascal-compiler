@@ -33,4 +33,8 @@ var_dec:
         $$ = new ast_var_dec($1);
         YY_SET_LOCATION($$);
     }
+    | id_seq_with_type SYM_EQ exp_or_array {
+        $$ = new ast_var_dec($1, $3);
+        YY_SET_LOCATION($$);
+    }
 ;

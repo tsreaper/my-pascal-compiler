@@ -21,9 +21,11 @@ typedef std::pair<func_sign, sem_type> func_sign_ret;
 
 class sem_func_context {
 public:
-    void push();
+    void push(const func_sign &current_sign);
 
     void pop();
+
+    const func_sign &get_current_func_sign() const;
 
     const func_sign_ret &get_func_sign_ret(const func_sign &sign) const;
 
@@ -38,6 +40,8 @@ private:
 
     typedef std::pair<func_sign, bool> func_sign_defined;
     std::vector<std::vector<func_sign_defined>> defined_layers;
+
+    std::vector<func_sign> current_func_sign;
 };
 
 namespace sem {
@@ -46,6 +50,8 @@ namespace sem {
     void define_func(const func_sign &sign, const sem_type &ret_type);
 
     const sem_type &get_ret_type(const func_sign &sign);
+
+    const func_sign &get_current_func_sign();
 }
 
 #endif //MPC_SEM_FUNC_H

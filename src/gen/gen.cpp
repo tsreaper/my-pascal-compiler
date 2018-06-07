@@ -9,22 +9,16 @@ llvm::IRBuilder<> ir_builder(llvm_context);
 
 gen_context gen_env;
 
-void gen_context::push(const func_sign &current_sign) {
-    depth++;
+void gen_context::push() {
     label_env.push();
     id_env.push();
-    func_env.push(current_sign);
+    func_env.push();
 }
 
 void gen_context::pop() {
-    depth--;
     label_env.pop();
     id_env.pop();
     func_env.pop();
-}
-
-bool gen_context::is_global() {
-    return depth == 1;
 }
 
 gen_label_context &gen_context::get_label_env() {

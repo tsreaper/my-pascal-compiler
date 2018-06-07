@@ -32,8 +32,8 @@ ast_program::~ast_program() {
 }
 
 bool ast_program::analyse() {
-    sem_env.push();
-    gen_env.push(func_sign{"main"});
+    sem_env.push(func_sign{"main"});
+    gen_env.push();
 
     codegen_phase1();
 

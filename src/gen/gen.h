@@ -12,11 +12,9 @@
 
 class gen_context {
 public:
-    void push(const func_sign &current_sign);
+    void push();
 
     void pop();
-
-    bool is_global();
 
     gen_label_context &get_label_env();
 
@@ -27,8 +25,6 @@ public:
     gen_loop_context &get_loop_env();
 
 private:
-    int depth = 0;
-
     gen_label_context label_env;
     gen_id_context id_env;
     gen_func_context func_env;

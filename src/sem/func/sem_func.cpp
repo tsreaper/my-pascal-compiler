@@ -37,14 +37,20 @@ bool func_sign::can_be_called(const func_sign &call_inst_sign) const {
     return true;
 }
 
-void sem_func_context::push() {
+void sem_func_context::push(const func_sign &current_sign) {
     type_layers.emplace_back();
     defined_layers.emplace_back();
+    current_func_sign.emplace_back(current_sign);
 }
 
 void sem_func_context::pop() {
     type_layers.pop_back();
     defined_layers.pop_back();
+    current_func_sign.pop_back();
+}
+
+const func_sign &sem_func_context::get_current_func_sign() const {
+    return *current_func_sign.rbegin();
 }
 
 #define FIND_SIGNATURE(sign, layer, res) { \
@@ -125,4 +131,8 @@ void sem::define_func(const func_sign &sign, const sem_type &ret_type) {
 
 const sem_type &sem::get_ret_type(const func_sign &sign) {
     return sem_env.get_func_env().get_func_sign_ret(sign).second;
+}
+
+const func_sign &sem::get_current_func_sign() {
+    return sem_env.get_func_env().get_current_func_sign();
 }

@@ -28,8 +28,8 @@ bool ast_func_def::analyse() {
     }
 
     codegen_phase1();
-    sem_env.push();
-    gen_env.push(head->get_func_sign());
+    sem_env.push(head->get_func_sign());
+    gen_env.push();
 
     if (!semantics_self()) {
         ENV_POP;

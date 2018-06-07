@@ -14,9 +14,11 @@
 
 class sem_context {
 public:
-    void push();
+    void push(const func_sign &current_sign);
 
     void pop();
+
+    bool is_global() const;
 
     sem_label_context &get_label_env();
 
@@ -33,6 +35,8 @@ public:
     sem_loop_context &get_loop_env();
 
 private:
+    int depth = 0;
+
     sem_label_context label_env;
     sem_type_context type_env;
     sem_const_context const_env;

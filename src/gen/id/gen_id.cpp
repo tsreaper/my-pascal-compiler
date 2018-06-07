@@ -1,5 +1,6 @@
 #include <stdexcept>
 
+#include "sem/sem.h"
 #include "sem/id/sem_id.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
@@ -31,7 +32,7 @@ void gen_id_context::set_mem(const std::string &id, llvm::Value *mem) {
 void gen::declare_id(const std::string &id, const sem_type &type) {
     llvm::Value *mem = nullptr;
     llvm::Type *llvm_type = get_llvm_type(type);
-    if (gen_env.is_global()) {
+    if (sem_env.is_global()) {
         mem = new llvm::GlobalVariable(
                 llvm_module, llvm_type, false, llvm::GlobalValue::InternalLinkage,
                 llvm::ConstantAggregateZero::get(llvm_type), id
