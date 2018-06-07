@@ -39,22 +39,22 @@ llvm::Value *gen::gen_arith_mod(llvm::Value *value_l, llvm::Value *value_r) {
 
 llvm::Value *gen::gen_arith_add_one(const sem_type &type, llvm::Value *value) {
     if (type == built_in_type::INT_TYPE) {
-        return ir_builder.CreateAdd(value, get_llvm_int(sem_value{true, {.num = 1}}));
+        return ir_builder.CreateAdd(value, get_llvm_int(1));
     } else if (type == built_in_type::CHAR_TYPE) {
-        return ir_builder.CreateAdd(value, get_llvm_char(sem_value{true, {.chr = 1}}));
+        return ir_builder.CreateAdd(value, get_llvm_char(1));
     } else if (type.tg == type_group::ENUM) {
-        return ir_builder.CreateAdd(value, get_llvm_int(sem_value{true, {.num = 1}}));
+        return ir_builder.CreateAdd(value, get_llvm_int(1));
     }
     throw std::invalid_argument("[gen::gen_arith_add_one] Invalid operand type");
 }
 
 llvm::Value *gen::gen_arith_sub_one(const sem_type &type, llvm::Value *value) {
     if (type == built_in_type::INT_TYPE) {
-        return ir_builder.CreateSub(value, get_llvm_int(sem_value{true, {.num = 1}}));
+        return ir_builder.CreateSub(value, get_llvm_int(1));
     } else if (type == built_in_type::CHAR_TYPE) {
-        return ir_builder.CreateSub(value, get_llvm_char(sem_value{true, {.chr = 1}}));
+        return ir_builder.CreateSub(value, get_llvm_char(1));
     } else if (type.tg == type_group::ENUM) {
-        return ir_builder.CreateSub(value, get_llvm_int(sem_value{true, {.num = 1}}));
+        return ir_builder.CreateSub(value, get_llvm_int(1));
     }
     throw std::invalid_argument("[gen::gen_arith_add_one] Invalid operand type");
 }

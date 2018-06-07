@@ -4,5 +4,6 @@
 #include "sem/func/sys/sem_sys_read.h"
 #include "sem/func/sys/sem_sys_write.h"
 #include "sem/func/sys/sem_sys_abs.h"
+#include "sem/func/sys/sem_sys_copy.h"
 
 #endif //MPC_SEM_ALL_SYS_FUNCS_H

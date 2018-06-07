@@ -64,6 +64,9 @@ array_ele_type:
     | ptr_type {
         $$ = $1;
     }
+    | str_type {
+        $$ = $1;
+    }
     | record_type {
         $$ = $1;
     }

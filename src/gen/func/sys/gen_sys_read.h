@@ -6,9 +6,7 @@
 #include "ast/ast_node.h"
 
 namespace gen {
-    llvm::Value *gen_sys_read(const std::vector<ast_value_node *> &args);
-
-    // void gen_readln(ast_id *arg);
+    llvm::Value *gen_sys_read(const std::vector<ast_value_node *> &args, bool new_line);
 }
 
 #endif //MPC_GEN_SYS_READ_H

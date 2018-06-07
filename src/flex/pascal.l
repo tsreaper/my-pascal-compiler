@@ -86,6 +86,7 @@ TYPE_INT integer|longint|int
 TYPE_REAL real
 TYPE_CHAR character|char
 TYPE_BOOL boolean|bool
+TYPE_STRING string
 
 BOOL_TRUE true
 BOOL_FALSE false
@@ -305,6 +306,9 @@ COMMENT "{"[^\}]*"}"
 }
 {TYPE_BOOL} {
     return TYPE_BOOL;
+}
+{TYPE_STRING} {
+    return TYPE_STRING;
 }
 
 {BOOL_TRUE} {

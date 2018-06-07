@@ -21,6 +21,11 @@ bool sem::can_assign(const sem_type &type_l, const sem_type &type_r) {
         return true;
     }
 
+    // Strings?
+    if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
+        return true;
+    }
+
     // Arrays with same dimensions and element types?
     if (type_l.tg == type_group::ARRAY && type_r.tg == type_group::ARRAY) {
         return array_can_assign(type_l, type_r);

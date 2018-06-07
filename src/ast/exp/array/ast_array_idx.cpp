@@ -1,5 +1,6 @@
 #include "sem/type/sem_range_type.h"
 #include "sem/type/sem_array_type.h"
+#include "sem/type/sem_str_type.h"
 #include "sem/exception/sem_exception.h"
 #include "gen/gen.h"
 #include "gen/val/gen_literal.h"
@@ -21,16 +22,30 @@ bool ast_array_idx::semantics_self() {
     try {
         const std::vector<ast_value_node *> &idx_vec = idx_seq->get_exp_vec();
         const sem_type &t = arr->get_type();
-        sem::assert_is_array_value(t);
 
-        const sem_array_type &a_t = sem::get_array_type_by_idx(t.id);
+        // Note: index operator can also visit a string
+        try {
+            sem::assert_is_array_value(t);
+        } catch (const sem_exception &) {
+            try {
+                sem::assert_is_str_value(t);
+            } catch (const sem_exception &) {
+                throw sem_exception("semantics error, must be an array value or a string value");
+            }
+        }
+
+        const sem_array_type &a_t = (
+                t.tg == type_group::ARRAY ?
+                sem::get_array_type_by_idx(t.id) :
+                sem::get_str_array_type(t)
+        );
         if (a_t.size < idx_vec.size()) {
             throw sem_exception("semantics error, array dimension is not enough");
         }
 
         // Calculate bias of each dimension
         std::vector<llvm::Value *> v;
-        v.emplace_back(gen::get_llvm_int(sem_value{true, {.num = 0}}));
+        v.emplace_back(gen::get_llvm_int(0));
 
         for (int i = 0; i < idx_vec.size(); i++) {
             const sem_range_type &r_t = sem::get_range_type_by_idx(a_t.range_vec[i]);

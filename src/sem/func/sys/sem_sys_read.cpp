@@ -7,7 +7,8 @@ void sem::assert_sys_read_args_type(const func_sign &sign) {
         if (
                 child != built_in_type::INT_TYPE &&
                 child != built_in_type::REAL_TYPE &&
-                child != built_in_type::CHAR_TYPE
+                child != built_in_type::CHAR_TYPE &&
+                child.tg != type_group::STR
                 ) {
             throw sem_exception(
                     "semantics error, parameters of read function must be integer, real or character value"

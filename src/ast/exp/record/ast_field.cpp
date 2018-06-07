@@ -27,10 +27,7 @@ bool ast_field::semantics_self() {
 
         s_type = old_rec_t.type_vec[bias];
 
-        std::vector<llvm::Value *> gep_vec = {
-                gen::get_llvm_int(sem_value{true, {.num = 0}}),
-                gen::get_llvm_int(sem_value{true, {.num = bias}})
-        };
+        std::vector<llvm::Value *> gep_vec = {gen::get_llvm_int(0), gen::get_llvm_int(bias)};
         llvm_mem = ir_builder.CreateGEP(record->get_llvm_mem(), gep_vec, "record_field");
         return true;
     } catch (const sem_exception &e) {

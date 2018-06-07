@@ -49,6 +49,10 @@ bool ast_call::semantics_self() {
 
 void ast_call::codegen() {
     llvm_value = gen::get_func_call(exact_fsr.first, param->get_exp_vec());
+    if (auto *llvm_inst = llvm::dyn_cast<llvm::LoadInst>(llvm_value)) {
+        // We give memory support if the call result is in memory
+        llvm_mem = llvm_inst->getPointerOperand();
+    }
 }
 
 void ast_call::explain_impl(std::string &res, int indent) const {

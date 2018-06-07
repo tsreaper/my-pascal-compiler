@@ -3,7 +3,7 @@
 #include "gen/gen.h"
 #include "gen/type/gen_builtin_type.h"
 
-llvm::Type *gen::get_builtin_type(const sem_type &type) {
+llvm::Type *gen::get_llvm_builtin_type(const sem_type &type) {
     switch (type.id) {
         case built_in_type::INT:
             return get_llvm_int_type();

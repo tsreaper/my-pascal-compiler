@@ -27,9 +27,7 @@ std::vector<llvm::Value *> gen::get_converted_llvm_args(
 ) {
     std::vector<llvm::Value *> ret;
     for (int i = 0; i < node_vec.size(); i++) {
-        ret.emplace_back(llvm_type_convert(
-                node_vec[i]->get_type(), dest_type_vec[i], node_vec[i]->get_llvm_value()
-        ));
+        ret.emplace_back(llvm_type_convert(dest_type_vec[i], node_vec[i]));
     }
     return ret;
 }

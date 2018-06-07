@@ -6,7 +6,7 @@
 #include "sem/type/sem_type.h"
 
 namespace gen {
-    llvm::Type *get_builtin_type(const sem_type &type);
+    llvm::Type *get_llvm_builtin_type(const sem_type &type);
 
     llvm::Type *get_llvm_int_type();
 

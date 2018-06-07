@@ -40,7 +40,7 @@ sem_array_type sem::make_array_type(const std::vector<ast_range_type *> &range_v
 
 sem_array_type sem::make_array_type_from_exp_seq(ast_exp_seq *seq) {
     const sem_type &ch_t = (*seq->get_exp_vec().begin())->get_type();
-    int range_id = get_or_define_range_type(make_int_range_type(0, seq->get_size() - 1));
+    int range_id = get_or_define_range_type(make_int_range_type(1, seq->get_size()));
     sem_array_type ret = {{false}, 0, {range_id}};
 
     if (ch_t.tg == type_group::ARRAY) {

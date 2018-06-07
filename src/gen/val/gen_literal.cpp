@@ -29,12 +29,20 @@ llvm::Constant *gen::get_llvm_int(const sem_value &value) {
     return llvm::ConstantInt::get(get_llvm_int_type(), (uint64_t) value.value.num, true);
 }
 
+llvm::Constant *gen::get_llvm_int(int value) {
+    return llvm::ConstantInt::get(get_llvm_int_type(), (uint64_t) value, true);
+}
+
 llvm::Constant *gen::get_llvm_real(const sem_value &value) {
     return llvm::ConstantFP::get(get_llvm_real_type(), value.value.real);
 }
 
 llvm::Constant *gen::get_llvm_char(const sem_value &value) {
     return llvm::ConstantInt::get(get_llvm_char_type(), (uint64_t) value.value.chr, true);
+}
+
+llvm::Constant *gen::get_llvm_char(char value) {
+    return llvm::ConstantInt::get(get_llvm_char_type(), (uint64_t) value, true);
 }
 
 llvm::Constant *gen::get_llvm_bool(const sem_value &value) {

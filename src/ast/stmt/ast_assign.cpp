@@ -28,10 +28,7 @@ bool ast_assign::semantics_self() {
 }
 
 void ast_assign::codegen() {
-    ir_builder.CreateStore(
-            gen::llvm_type_convert(rhs->get_type(), lhs->get_type(), rhs->get_llvm_value()),
-            lhs->get_llvm_mem()
-    );
+    ir_builder.CreateStore(gen::llvm_type_convert(lhs->get_type(), rhs), lhs->get_llvm_mem());
 }
 
 void ast_assign::explain_impl(std::string &res, int indent) const {

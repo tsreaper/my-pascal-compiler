@@ -1,12 +1,13 @@
 #ifndef MPC_SEM_TYPE_H
 #define MPC_SEM_TYPE_H
 
+#include <climits>
 #include <string>
 #include <vector>
 #include <map>
 
 enum class type_group {
-    BUILT_IN, ENUM, SUBRANGE, ARRAY, RECORD
+    BUILT_IN, ENUM, SUBRANGE, ARRAY, STR, RECORD
 };
 
 namespace built_in_type {
@@ -15,7 +16,6 @@ namespace built_in_type {
     const int REAL = 1;
     const int CHAR = 2;
     const int BOOL = 3;
-    const int STR = 4;
 }
 
 struct sem_type {
@@ -35,13 +35,17 @@ namespace built_in_type {
     const sem_type REAL_TYPE = {true, type_group::BUILT_IN, REAL};
     const sem_type CHAR_TYPE = {true, type_group::BUILT_IN, CHAR};
     const sem_type BOOL_TYPE = {true, type_group::BUILT_IN, BOOL};
-    const sem_type STR_TYPE = {true, type_group::BUILT_IN, STR};
 
     const sem_type INT_VAL = {false, type_group::BUILT_IN, INT};
     const sem_type REAL_VAL = {false, type_group::BUILT_IN, REAL};
     const sem_type CHAR_VAL = {false, type_group::BUILT_IN, CHAR};
     const sem_type BOOL_VAL = {false, type_group::BUILT_IN, BOOL};
-    const sem_type STR_VAL = {false, type_group::BUILT_IN, STR};
+}
+
+namespace non_built_in_type {
+    const sem_type STR_TYPE = {true, type_group::STR, INT_MAX};
+
+    const sem_type STR_VAL = {false, type_group::STR, INT_MAX};
 }
 
 class sem_type_context {

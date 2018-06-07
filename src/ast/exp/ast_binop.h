@@ -23,8 +23,8 @@ protected:
 };
 
 #define GEN_PARAMS_NO_TYPE \
-    gen::llvm_type_convert(child_l->get_type(), conv_type_l, child_l->get_llvm_value()), \
-    gen::llvm_type_convert(child_r->get_type(), conv_type_r, child_r->get_llvm_value())
+    gen::llvm_type_convert(conv_type_l, child_l), \
+    gen::llvm_type_convert(conv_type_r, child_r)
 
 #define GEN_PARAMS \
     conv_type_l, \

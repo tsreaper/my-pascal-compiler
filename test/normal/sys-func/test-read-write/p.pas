@@ -8,4 +8,8 @@ begin
     writeln(i);
     writeln(j);
     writeln(k);
+    readln(i, j, k);
+    write(i, j, ' ', k);
+    read(i, j);
+    writeln(' ', i, j);
 end.
