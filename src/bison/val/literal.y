@@ -31,6 +31,10 @@ literal:
         $$ = new ast_bool_val(false);
         YY_SET_LOCATION($$);
     }
+    | STR {
+        $$ = new ast_str_val($1);
+        YY_SET_LOCATION($$);
+    }
 ;
 
 int:

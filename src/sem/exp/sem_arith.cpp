@@ -85,14 +85,14 @@ const sem_type &sem::assert_can_do_mod(const sem_type &type_l, const sem_type &t
     } else if (type_l == built_in_type::REAL_VAL) { \
         return sem_value{true, {.real = value_l.value.real op value_r.value.real}}; \
     } \
-    throw std::invalid_argument("[sem::DO_ARITH_OP] Invalid operand type"); \
+    return sem_value{false}; \
 }
 
 #define DO_INT_ONLY_OP(op) { \
     if (type_l == built_in_type::INT_VAL) { \
         return sem_value{true, {.num = value_l.value.num op value_r.value.num}}; \
     } \
-    throw std::invalid_argument("[sem::DO_INT_ONLY_OP] Invalid operand type"); \
+    return sem_value{false}; \
 }
 
 sem_value sem::do_arith_add(
@@ -125,7 +125,7 @@ sem_value sem::do_arith_div(
     } else if (type_l == built_in_type::REAL_VAL) {
         return sem_value{true, {.real = value_l.value.real / value_r.value.real}};
     }
-    throw std::invalid_argument("[sem::DO_ARITH_OP] Invalid operand type");
+    return sem_value{false};
 }
 
 sem_value sem::do_arith_div_floor(

@@ -8,6 +8,8 @@ class ast_array_val : public ast_literal {
 public:
     explicit ast_array_val(ast_exp_seq *value);
 
+    ~ast_array_val() override;
+
     void explain_impl(std::string &res, int indent) const override;
 
 protected:

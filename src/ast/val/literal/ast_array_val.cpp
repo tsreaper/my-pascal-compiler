@@ -10,6 +10,10 @@ ast_array_val::ast_array_val(ast_exp_seq *value) : value(value) {
     s_value = {true, {.num = -1}};
 }
 
+ast_array_val::~ast_array_val() {
+    delete value;
+}
+
 bool ast_array_val::semantics_child() {
     return value->analyse();
 }

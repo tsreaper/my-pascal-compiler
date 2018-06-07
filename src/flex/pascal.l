@@ -98,6 +98,7 @@ INT [0-9]+
 REAL ([0-9]+\.[0-9]+|[0-9]+e{SIGN}?[0-9]+)
 
 CHAR \'.\'
+ESC_CHAR \'#{INT}\'
 STR \'[^']*\'
 
 COMMENT "{"[^\}]*"}"
@@ -334,6 +335,10 @@ COMMENT "{"[^\}]*"}"
 
 {CHAR} {
     yylval.chr = yytext[1];
+    return CHAR;
+}
+{ESC_CHAR} {
+    yylval.chr = strtol(yytext + 2, NULL, 10);
     return CHAR;
 }
 {STR} {
