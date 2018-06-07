@@ -30,7 +30,7 @@ void ast_arith_add::codegen() {
         llvm_value = gen::get_llvm_const(s_type, s_value);
     } else {
         if (conv_type_l.tg == type_group::STR) {
-            llvm_value = gen::gen_str_add(child_l, child_r);
+            llvm_value = gen::gen_str_add(conv_type_l.id + conv_type_r.id, GEN_PARAMS_NO_TYPE);
         } else {
             llvm_value = gen::gen_arith_add(GEN_PARAMS);
         }

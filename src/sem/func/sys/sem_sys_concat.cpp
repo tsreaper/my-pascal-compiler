@@ -7,8 +7,11 @@ void sem::assert_sys_concat_args_type(const func_sign &sign) {
         throw sem_exception("semantics error, concat function should have at least 2 parameters");
     }
     for (auto &child : sign.param_type_vec) {
-        if (child.tg != type_group::STR) {
-            throw sem_exception("semantics error, parameters of concat function must be string values");
+        if (
+                child.tg != type_group::STR &&
+                child != built_in_type::CHAR_TYPE
+        ) {
+            throw sem_exception("semantics error, parameters of concat function must be string or char values");
         }
     }
 }

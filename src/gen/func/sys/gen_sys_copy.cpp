@@ -23,12 +23,16 @@ llvm::Function *register_strncpy() {
 }
 
 llvm::Value *gen::gen_sys_copy(const std::vector<ast_value_node *> &args) {
-    return gen_sys_copy_impl(
-            args[0]->get_llvm_mem(),
-            args[1]->get_llvm_value(),
-            args[2]->get_llvm_value(),
-            args[0]->get_type().id
-    );
+    if (args[0]->get_type() == built_in_type::CHAR_TYPE) {
+        return ir_builder.CreateLoad(gen_char_to_str_mem(args[0]->get_llvm_value()), "copy_res");
+    } else {
+        return gen_sys_copy_impl(
+                args[0]->get_llvm_mem(),
+                args[1]->get_llvm_value(),
+                args[2]->get_llvm_value(),
+                args[0]->get_type().id
+        );
+    }
 }
 
 llvm::Value *gen::gen_sys_copy_impl(llvm::Value *src_mem, llvm::Value *idx, llvm::Value *cnt, int dest_len) {

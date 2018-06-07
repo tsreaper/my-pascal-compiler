@@ -26,7 +26,7 @@ void ast_cmp_ge::codegen() {
         llvm_value = gen::get_llvm_const(s_type, s_value);
     } else {
         if (conv_type_l.tg == type_group::STR) {
-            llvm_value = gen::gen_str_ge(child_l, child_r);
+            llvm_value = gen::gen_str_ge(GEN_PARAMS_NO_TYPE);
         } else {
             llvm_value = gen::gen_cmp_ge(GEN_PARAMS);
         }

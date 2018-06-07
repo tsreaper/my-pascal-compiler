@@ -21,8 +21,13 @@ llvm::Value *gen::gen_sys_concat(const std::vector<ast_value_node *> &args) {
     std::vector<llvm::Value *> mem_vec;
     int dest_len = 0;
     for (auto &child : args) {
-        mem_vec.emplace_back(child->get_llvm_mem());
-        dest_len += child->get_type().id;
+        if (child->get_type() == built_in_type::CHAR_TYPE) {
+            mem_vec.emplace_back(gen_char_to_str_mem(child->get_llvm_value()));
+            dest_len += 1;
+        } else {
+            mem_vec.emplace_back(child->get_llvm_mem());
+            dest_len += child->get_type().id;
+        }
     }
     return gen_sys_concat_impl(mem_vec, dest_len);
 }

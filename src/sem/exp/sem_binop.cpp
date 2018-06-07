@@ -1,5 +1,6 @@
 #include <vector>
 
+#include "sem/type/sem_str_type.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/exp/sem_binop.h"
 
@@ -19,6 +20,18 @@ void sem::binop_type_compare(
     // Two string type?
     if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
         res_l = type_l;
+        res_r = type_r;
+        return;
+    }
+
+    // String and char?
+    if (type_l.tg == type_group::STR && type_r == built_in_type::CHAR_TYPE) {
+        res_l = type_l;
+        res_r = get_str_val_by_len(1);
+        return;
+    }
+    if (type_l == built_in_type::CHAR_TYPE && type_r.tg == type_group::STR) {
+        res_l = get_str_val_by_len(1);
         res_r = type_r;
         return;
     }

@@ -45,13 +45,14 @@ const sem_type &sem::assert_can_equal(const sem_type &type_l, const sem_type &ty
 
 const sem_type &sem::assert_can_compare(const sem_type &type_l, const sem_type &type_r) {
     ASSERT_NOT_TYPE;
-    if (type_l != type_r) {
-        throw sem_exception("semantics error, cannot check the equality of the values");
-    }
 
     // Two string type?
     if (type_l.tg == type_group::STR && type_r.tg == type_group::STR) {
         return built_in_type::BOOL_VAL;
+    }
+
+    if (type_l != type_r) {
+        throw sem_exception("semantics error, cannot compare the values");
     }
 
     if (type_l.tg == type_group::ENUM) {
@@ -64,7 +65,7 @@ const sem_type &sem::assert_can_compare(const sem_type &type_l, const sem_type &
             built_in_type::CHAR_VAL,
     };
     CHECK_IN_TABLE;
-    throw sem_exception("semantics error, cannot check the equality of the values");
+    throw sem_exception("semantics error, cannot compare the values");
 }
 
 #define ASSERT_SAME_TYPE { \
