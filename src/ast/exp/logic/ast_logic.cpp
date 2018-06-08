@@ -3,13 +3,8 @@
 #include "gen/exp/gen_logic.h"
 #include "ast/exp/logic/ast_logic.h"
 
-ast_logic::ast_logic(ast_value_node *child_l, ast_value_node *child_r) : child_l(child_l), child_r(child_r) {
+ast_logic::ast_logic(ast_value_node *child_l, ast_value_node *child_r) : ast_binop(child_l, child_r) {
     s_type = built_in_type::BOOL_VAL;
-}
-
-ast_logic::~ast_logic() {
-    delete child_l;
-    delete child_r;
 }
 
 bool ast_logic::analyse(bool as_rval) {
@@ -29,15 +24,6 @@ bool ast_logic::analyse(bool as_rval) {
     }
 
     return true;
-}
-
-void ast_logic::logic_explain_impl(const std::string &op_name, std::string &res, int indent) const {
-    explain_indent(res, indent);
-    res += op_name + "(\n";
-    child_l->explain_impl(res, indent + 1);
-    child_r->explain_impl(res, indent + 1);
-    explain_indent(res, indent);
-    res += ")\n";
 }
 
 bool ast_logic::semantics_l() {

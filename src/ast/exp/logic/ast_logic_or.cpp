@@ -45,5 +45,5 @@ void ast_logic_or::codegen_r() {
 }
 
 void ast_logic_or::explain_impl(std::string &res, int indent) const {
-    logic_explain_impl("or", res, indent);
+    binop_explain_impl("or", res, indent);
 }

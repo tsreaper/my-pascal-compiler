@@ -17,7 +17,7 @@ protected:
 
     bool semantics_self() override;
 
-    virtual bool semantics_op() = 0;
+    virtual bool semantics_op();
 
     void binop_explain_impl(const std::string &op_name, std::string &res, int indent) const;
 };

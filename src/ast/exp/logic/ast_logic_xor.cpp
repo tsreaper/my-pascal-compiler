@@ -17,5 +17,5 @@ void ast_logic_xor::codegen_r() {
 }
 
 void ast_logic_xor::explain_impl(std::string &res, int indent) const {
-    logic_explain_impl("xor", res, indent);
+    binop_explain_impl("xor", res, indent);
 }

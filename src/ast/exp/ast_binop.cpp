@@ -24,6 +24,10 @@ bool ast_binop::semantics_self() {
     return semantics_op();
 }
 
+bool ast_binop::semantics_op() {
+    return true;
+}
+
 void ast_binop::binop_explain_impl(const std::string &op_name, std::string &res, int indent) const {
     explain_indent(res, indent);
     res += op_name + "(\n";
