@@ -21,13 +21,3 @@ llvm::Value *gen::get_func_call(const func_sign &sign, const std::vector<ast_val
         return ir_builder.CreateCall(func, args_vec, "call_" + sign.id);
     }
 }
-
-std::vector<llvm::Value *> gen::get_converted_llvm_args(
-        const std::vector<sem_type> &dest_type_vec, const std::vector<ast_value_node *> &node_vec
-) {
-    std::vector<llvm::Value *> ret;
-    for (int i = 0; i < node_vec.size(); i++) {
-        ret.emplace_back(llvm_type_convert(dest_type_vec[i], node_vec[i]));
-    }
-    return ret;
-}

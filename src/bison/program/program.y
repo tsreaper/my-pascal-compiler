@@ -18,7 +18,10 @@ program:
 ;
 
 program_head:
-    PAS_PROGRAM ID SYM_SEMICOLON {
+    {
+        $$ = nullptr;
+    }
+    | PAS_PROGRAM ID SYM_SEMICOLON {
         $$ = new ast_program_head($2);
         YY_SET_LOCATION($$);
     }

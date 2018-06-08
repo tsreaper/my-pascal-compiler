@@ -26,3 +26,13 @@ llvm::Value *gen::llvm_type_convert(const sem_type &dest_t, ast_value_node *node
 
     return value;
 }
+
+std::vector<llvm::Value *> gen::get_converted_llvm_args(
+        const std::vector<sem_type> &dest_type_vec, const std::vector<ast_value_node *> &node_vec
+) {
+    std::vector<llvm::Value *> ret;
+    for (int i = 0; i < node_vec.size(); i++) {
+        ret.emplace_back(llvm_type_convert(dest_type_vec[i], node_vec[i]));
+    }
+    return ret;
+}

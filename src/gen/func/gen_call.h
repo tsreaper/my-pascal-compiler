@@ -8,10 +8,6 @@
 
 namespace gen {
     llvm::Value *get_func_call(const func_sign &call_sign, const std::vector<ast_value_node *> &args);
-
-    std::vector<llvm::Value *> get_converted_llvm_args(
-            const std::vector<sem_type> &dest_type_vec, const std::vector<ast_value_node *> &node_vec
-    );
 }
 
 #endif //MPC_GEN_CALL_H

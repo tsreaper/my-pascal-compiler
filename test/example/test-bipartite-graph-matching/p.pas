@@ -33,7 +33,7 @@ begin
   for i:=1 to n+m do point[i]:=-1;
   for i:=1 to n do
     begin
-      for j:=1 to n+m do cover[j]:=false;
+      fillchar(cover,sizeof(cover),false);
       cover[i]:=true;
       if dfs(i) then ans:=ans+1;
     end;

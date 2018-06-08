@@ -18,6 +18,7 @@
 #include "ast/stmt/ast_stmt.h"
 #include "ast/stmt/ast_all_stmts.h"
 #include "ast/type/ast_type.h"
+#include "ast/type/ast_size_of.h"
 #include "ast/type/ast_all_types.h"
 #include "ast/val/ast_const.h"
 #include "ast/val/ast_var.h"

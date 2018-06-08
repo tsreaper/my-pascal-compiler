@@ -11,13 +11,13 @@ void sem::assert_sys_read_args_type(const func_sign &sign, const std::vector<boo
                 child.tg != type_group::STR
         ) {
             throw sem_exception(
-                    "semantics error, parameters of read function must be integer, real or character value"
+                    "semantics error, parameters of read must be integer, real or character value"
             );
         }
     }
     for (auto &&child : rval_vec) {
         if (child) {
-            throw sem_exception("semantics error, parameters of read function must be left value");
+            throw sem_exception("semantics error, parameters of read must be left value");
         }
     }
 }

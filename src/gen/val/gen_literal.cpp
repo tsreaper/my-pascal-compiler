@@ -37,6 +37,10 @@ llvm::Constant *gen::get_llvm_real(const sem_value &value) {
     return llvm::ConstantFP::get(get_llvm_real_type(), value.value.real);
 }
 
+llvm::Constant *gen::get_llvm_real(double value) {
+    return llvm::ConstantFP::get(get_llvm_real_type(), value);
+}
+
 llvm::Constant *gen::get_llvm_char(const sem_value &value) {
     return llvm::ConstantInt::get(get_llvm_char_type(), (uint64_t) value.value.chr, true);
 }

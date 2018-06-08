@@ -89,6 +89,9 @@ exp_base:
     | proc_func_call {
         $$ = $1;
     }
+    | sizeof {
+        $$ = $1;
+    }
     | SYM_LPAREN exp SYM_RPAREN {
         $$ = $2;
     }

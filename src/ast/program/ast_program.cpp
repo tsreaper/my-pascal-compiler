@@ -48,14 +48,16 @@ bool ast_program::analyse() {
 }
 
 bool ast_program::semantics_child() {
-    return head->analyse() && block->analyse();
+    return (head == nullptr || head->analyse()) && block->analyse();
 }
 
 void ast_program::explain_impl(std::string &res, int indent) const {
     explain_indent(res, indent);
     res += "program(\n";
 
-    head->explain_impl(res, indent + 1);
+    if (head != nullptr) {
+        head->explain_impl(res, indent + 1);
+    }
     block->explain_impl(res, indent + 1);
 
     explain_indent(res, indent);

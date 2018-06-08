@@ -6,7 +6,7 @@ ast_type_def* type_def_node;
 %type <node> type_def_part
 %type <type_def_seq_node> type_def_body
 %type <type_def_node> type_def
-%type <type_node> type array_ele_type
+%type <type_node> type array_ele_type basic_type
 
 %%
 
@@ -48,14 +48,23 @@ type:
 ;
 
 array_ele_type:
-    ID {
+    basic_type {
+        $$ = $1;
+    }
+    | ID {
         $$ = new ast_id($1);
         YY_SET_LOCATION($$);
     }
-    | builtin_type {
+    | enum_type {
         $$ = $1;
     }
-    | enum_type {
+    | record_type {
+        $$ = $1;
+    }
+;
+
+basic_type:
+    builtin_type {
         $$ = $1;
     }
     | range_type {
@@ -65,9 +74,6 @@ array_ele_type:
         $$ = $1;
     }
     | str_type {
-        $$ = $1;
-    }
-    | record_type {
         $$ = $1;
     }
 ;

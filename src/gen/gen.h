@@ -33,6 +33,7 @@ private:
 
 extern llvm::LLVMContext llvm_context;
 extern llvm::Module llvm_module;
+extern llvm::DataLayout llvm_data;
 extern llvm::IRBuilder<> ir_builder;
 
 extern gen_context gen_env;

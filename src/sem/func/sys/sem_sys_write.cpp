@@ -11,7 +11,7 @@ void sem::assert_sys_write_args_type(const func_sign &sign) {
                 child.tg != type_group::STR
         ) {
             throw sem_exception(
-                    "semantics error, parameters of write function must be integer, real, character or string value"
+                    "semantics error, parameters of write must be integer, real, character or string value"
             );
         }
     }

@@ -5,6 +5,7 @@
 
 llvm::LLVMContext llvm_context;
 llvm::Module llvm_module("my_pascal_module", llvm_context);
+llvm::DataLayout llvm_data(&llvm_module);
 llvm::IRBuilder<> ir_builder(llvm_context);
 
 gen_context gen_env;

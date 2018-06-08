@@ -11,10 +11,16 @@ function abs(x: integer): integer;
             abs := x;
     end;
 
+function inc(a, b, c: integer): integer;
+    begin
+        inc := a + b + c;
+    end;
+
 begin
     read(a, b, c, d);
     writeln(abs(a));
     writeln(abs(b));
     writeln(abs(c));
     writeln(abs(d));
+    writeln(inc(a, b, a));
 end.

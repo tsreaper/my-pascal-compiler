@@ -50,6 +50,7 @@ PAS_PROGRAM program
 PAS_RECORD record
 PAS_REPEAT repeat
 PAS_SET set
+PAS_SIZEOF sizeof
 PAS_THEN then
 PAS_TO to
 PAS_TYPE type
@@ -82,7 +83,7 @@ SYM_GE ">="
 SYM_ASSIGN ":="
 SYM_RANGE ".."
 
-TYPE_INT integer|longint|int
+TYPE_INT integer|longint
 TYPE_REAL real
 TYPE_CHAR character|char
 TYPE_BOOL boolean|bool
@@ -203,6 +204,9 @@ COMMENT "{"[^\}]*"}"
 }
 {PAS_SET} {
     return PAS_SET;
+}
+{PAS_SIZEOF} {
+    return PAS_SIZEOF;
 }
 {PAS_THEN} {
     return PAS_THEN;

@@ -8,6 +8,8 @@
 namespace gen {
     llvm::PointerType *get_llvm_ptr_type(const sem_type &type);
 
+    llvm::PointerType *get_llvm_real_ptr_type();
+
     llvm::PointerType *get_llvm_char_ptr_type();
 }
 

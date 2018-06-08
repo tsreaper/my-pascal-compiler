@@ -5,7 +5,7 @@
 #include "gen/val/gen_literal.h"
 #include "gen/type/gen_all_types.h"
 #include "gen/func/sys/gen_sys_func.h"
-#include "gen/func/sys/gen_sys_min.h"
+#include "gen/func/sys/gen_sys_min_max.h"
 #include "gen/func/sys/gen_sys_copy.h"
 
 static llvm::Function *strncpy_func = nullptr;

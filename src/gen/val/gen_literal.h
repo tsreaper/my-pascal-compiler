@@ -15,6 +15,8 @@ namespace gen {
 
     llvm::Constant *get_llvm_real(const sem_value &value);
 
+    llvm::Constant *get_llvm_real(double value);
+
     llvm::Constant *get_llvm_char(const sem_value &value);
 
     llvm::Constant *get_llvm_char(char value);
