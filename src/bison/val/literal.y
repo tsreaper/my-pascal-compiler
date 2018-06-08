@@ -6,18 +6,18 @@ ast_array_val* array_node;
 #union
 
 %type <literal_node> literal
-%type <int_node> int
-%type <real_node> real
 %type <array_node> array
 
 %%
 
 literal:
-    int {
-        $$ = $1;
+    INT {
+        $$ = new ast_int_val($1);
+        YY_SET_LOCATION($$);
     }
-    | real {
-        $$ = $1;
+    | REAL {
+        $$ = new ast_real_val($1);
+        YY_SET_LOCATION($$);
     }
     | CHAR {
         $$ = new ast_char_val($1);
@@ -33,36 +33,6 @@ literal:
     }
     | STR {
         $$ = new ast_str_val($1);
-        YY_SET_LOCATION($$);
-    }
-;
-
-int:
-    INT {
-        $$ = new ast_int_val($1);
-        YY_SET_LOCATION($$);
-    }
-    | SYM_ADD INT {
-        $$ = new ast_int_val($1);
-        YY_SET_LOCATION($$);
-    }
-    | SYM_SUB INT {
-        $$ = new ast_int_val(-$1);
-        YY_SET_LOCATION($$);
-    }
-;
-
-real:
-    REAL {
-        $$ = new ast_real_val($1);
-        YY_SET_LOCATION($$);
-    }
-    | SYM_ADD REAL {
-        $$ = new ast_real_val($1);
-        YY_SET_LOCATION($$);
-    }
-    | SYM_SUB REAL {
-        $$ = new ast_real_val(-$1);
         YY_SET_LOCATION($$);
     }
 ;
