@@ -1,6 +1,10 @@
 #include "sem/exception/sem_exception.h"
 #include "ast/val/ast_rval.h"
 
+bool ast_rval::is_rval() const {
+    return true;
+}
+
 bool ast_rval::analyse(bool as_rval) {
     MUST_BE_RVAL;
 

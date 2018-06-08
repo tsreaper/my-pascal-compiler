@@ -5,6 +5,8 @@
 
 class ast_rval : public ast_value_node {
 public:
+    bool is_rval() const override;
+
     bool analyse(bool as_rval) override;
 };
 

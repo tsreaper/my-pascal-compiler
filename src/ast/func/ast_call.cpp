@@ -37,7 +37,12 @@ bool ast_call::semantics_self() {
             sign.param_type_vec.emplace_back(child->get_type());
         }
 
-        exact_fsr = sem::get_call_func_sign_ret(sign);
+        std::vector<bool> rval_vec;
+        for (auto &child : param->get_exp_vec()) {
+            rval_vec.emplace_back(child->is_rval() || child->get_value().known);
+        }
+
+        exact_fsr = sem::get_call_func_sign_ret(sign, rval_vec);
         s_type = exact_fsr.second;
         s_type.is_type = false;
         return true;

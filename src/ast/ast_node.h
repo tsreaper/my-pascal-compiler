@@ -50,6 +50,8 @@ public:
 
     virtual llvm::Value *get_llvm_mem() const;
 
+    virtual bool is_rval() const;
+
     bool analyse() override;
 
     virtual bool analyse(bool as_rval);

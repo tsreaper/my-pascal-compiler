@@ -19,7 +19,12 @@ ast_var_dec::~ast_var_dec() {
 bool ast_var_dec::analyse() {
     if (semantics_child() && semantics_self()) {
         codegen();
-        return assign_node == nullptr || assign_node->analyse();
+        if (assign_node != nullptr) {
+            assign_node->set_location(lineno, colno);
+            return assign_node->analyse();
+        } else {
+            return true;
+        }
     } else {
         return false;
     }

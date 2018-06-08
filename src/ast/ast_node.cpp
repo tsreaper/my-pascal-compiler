@@ -61,6 +61,10 @@ llvm::Value *ast_value_node::get_llvm_mem() const {
     }
 }
 
+bool ast_value_node::is_rval() const {
+    return false;
+}
+
 bool ast_value_node::analyse() {
     return analyse(true);
 }
