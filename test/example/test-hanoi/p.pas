@@ -5,15 +5,13 @@ begin
   if (N = 1) then
   begin
     write(a);
-    write('-');
-    write('>');
+    write('->');
     writeln(b);
     exit;
   end;
   move(a,c,b,N-1);
   write(a);
-  write('-');
-  write('>');
+  write('->');
   writeln(b);
   move(c,b,a,N-1);
 end;
