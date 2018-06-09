@@ -9,7 +9,7 @@ sizeof:
         $$ = new ast_size_of($3);
         YY_SET_LOCATION($$);
     }
-    | PAS_SIZEOF SYM_LPAREN basic_type SYM_RPAREN {
+    | PAS_SIZEOF SYM_LPAREN type SYM_RPAREN {
         $$ = new ast_size_of($3);
         YY_SET_LOCATION($$);
     }

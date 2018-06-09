@@ -1,5 +1,6 @@
 %locations
 %define parse.error verbose
+%define lr.type canonical-lr
 
 %code requires {
 #include "ast/ast.h"
