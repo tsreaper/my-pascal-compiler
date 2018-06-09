@@ -1,5 +1,3 @@
-#include <set>
-
 #include "sem/type/sem_record_type.h"
 #include "sem/exception/sem_exception.h"
 #include "ast/type/ast_record_type.h"
@@ -33,15 +31,6 @@ bool ast_record_type::semantics_self() {
             for (int i = 0; i < seq->get_id_vec().size(); i++) {
                 type_vec.emplace_back(seq->get_type());
             }
-        }
-
-        std::set<std::string> id_set;
-        for (auto &child : id_vec) {
-            const std::string &id = child->get_id();
-            if (id_set.find(id) != id_set.end()) {
-                throw sem_exception("semantics error, duplicated member name " + id);
-            }
-            id_set.insert(id);
         }
 
         sem_record_type record_type = sem::make_record_type(id_vec, type_vec);

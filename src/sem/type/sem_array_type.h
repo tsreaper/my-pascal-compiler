@@ -9,7 +9,7 @@
 
 struct sem_array_type {
     sem_type ele_type;
-    int size;
+    int dim;
     std::vector<int> range_vec;
 
     bool operator==(const sem_array_type &rhs) const;

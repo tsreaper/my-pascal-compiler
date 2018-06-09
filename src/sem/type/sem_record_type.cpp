@@ -1,3 +1,5 @@
+#include <set>
+
 #include "sem/sem.h"
 #include "sem/exception/sem_exception.h"
 #include "sem/type/sem_record_type.h"
@@ -30,6 +32,17 @@ int sem_record_context::add_record_type(const sem_record_type &type) {
 }
 
 sem_record_type sem::make_record_type(const std::vector<ast_id *> &id_vec, const std::vector<sem_type> &type_vec) {
+    // Check duplicate member
+    std::set<std::string> id_set;
+    for (auto &child : id_vec) {
+        const std::string &id = child->get_id();
+        if (id_set.find(id) != id_set.end()) {
+            throw sem_exception("semantics error, duplicated member name " + id);
+        }
+        id_set.insert(id);
+    }
+
+    // Make record type
     sem_record_type ret;
     ret.size = (int) id_vec.size();
     for (auto &child : id_vec) {

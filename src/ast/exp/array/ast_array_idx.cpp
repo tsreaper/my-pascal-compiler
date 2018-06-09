@@ -39,7 +39,7 @@ bool ast_array_idx::semantics_self() {
                 sem::get_array_type_by_idx(t.id) :
                 sem::get_str_array_type(t)
         );
-        if (a_t.size < idx_vec.size()) {
+        if (a_t.dim < idx_vec.size()) {
             throw sem_exception("semantics error, array dimension is not enough");
         }
 
@@ -62,15 +62,15 @@ bool ast_array_idx::semantics_self() {
         }
 
         // Determine semantics type
-        if (a_t.size == idx_vec.size()) {
+        if (a_t.dim == idx_vec.size()) {
             s_type = a_t.ele_type;
             s_type.is_type = false;
         } else {
             std::vector<int> na_t_v;
-            for (auto i = (int) idx_vec.size(); i < a_t.size; i++) {
+            for (auto i = (int) idx_vec.size(); i < a_t.dim; i++) {
                 na_t_v.emplace_back(a_t.range_vec[i]);
             }
-            sem_array_type na_t = {a_t.ele_type, a_t.size - (int) idx_vec.size(), na_t_v};
+            sem_array_type na_t = {a_t.ele_type, a_t.dim - (int) idx_vec.size(), na_t_v};
             s_type = {false, type_group::ARRAY, sem::get_or_define_array_type(na_t)};
         }
 

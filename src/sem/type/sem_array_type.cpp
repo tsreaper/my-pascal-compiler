@@ -10,7 +10,7 @@ bool sem_array_type::operator==(const sem_array_type &rhs) const {
     if (ele_type != rhs.ele_type) {
         return false;
     }
-    if (size != rhs.size) {
+    if (dim != rhs.dim) {
         return false;
     }
     for (int i = 0; i < range_vec.size(); i++) {
@@ -46,13 +46,13 @@ sem_array_type sem::make_array_type_from_exp_seq(ast_exp_seq *seq) {
     if (ch_t.tg == type_group::ARRAY) {
         const sem_array_type &e_t = sem::get_array_type_by_idx(ch_t.id);
         ret.ele_type = e_t.ele_type;
-        ret.size = e_t.size + 1;
+        ret.dim = e_t.dim + 1;
         ret.range_vec.insert(
                 ret.range_vec.end(), e_t.range_vec.begin(), e_t.range_vec.end()
         );
     } else {
         ret.ele_type = ch_t;
-        ret.size = 1;
+        ret.dim = 1;
     }
 
     return ret;
@@ -84,10 +84,10 @@ bool sem::array_can_assign(const sem_type &type_l, const sem_type &type_r) {
     const sem_array_type &a_l = get_array_type_by_idx(type_l.id);
     const sem_array_type &a_r = get_array_type_by_idx(type_r.id);
 
-    if (a_l.size != a_r.size) {
+    if (a_l.dim != a_r.dim) {
         return false;
     }
-    for (int i = 0; i < a_l.size; i++) {
+    for (int i = 0; i < a_l.dim; i++) {
         const sem_range_type &r_l = get_range_type_by_idx(a_l.range_vec[i]);
         const sem_range_type &r_r = get_range_type_by_idx(a_r.range_vec[i]);
         if (get_range_length(r_l) != get_range_length(r_r)) {
