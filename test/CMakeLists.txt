@@ -2,7 +2,7 @@ include_directories(.)
 
 add_custom_target(
         mpc-test
-        DEPENDS mpc-test-normal mpc-test-example mpc-test-error
+        DEPENDS mpc-test-normal mpc-test-example mpc-test-validation
 )
 
 add_custom_target(
@@ -18,7 +18,7 @@ add_custom_target(
 )
 
 add_custom_target(
-        mpc-test-error bash ${CMAKE_CURRENT_SOURCE_DIR}/test_ce.sh ${CMAKE_BINARY_DIR}/src/mpc error
+        mpc-test-validation bash ${CMAKE_CURRENT_SOURCE_DIR}/test_ce.sh ${CMAKE_BINARY_DIR}/src/mpc validation
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         DEPENDS mpc
 )

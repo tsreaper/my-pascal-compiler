@@ -77,7 +77,7 @@ add_custom_command(
 )
 
 execute_process(COMMAND llvm-config --libs OUTPUT_VARIABLE LLVM_LINK_LIBRARIES)
-string(STRIP ${LLVM_LINK_LIBRARIES} LLVM_LINK_LIBRARIES)
+string(STRIP "${LLVM_LINK_LIBRARIES}" LLVM_LINK_LIBRARIES)
 
 add_executable(
         mpc
@@ -85,4 +85,4 @@ add_executable(
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.l.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.cpp ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.hpp
 )
-set_target_properties(mpc PROPERTIES LINK_LIBRARIES ${LLVM_LINK_LIBRARIES})
+set_target_properties(mpc PROPERTIES LINK_LIBRARIES "${LLVM_LINK_LIBRARIES}")
