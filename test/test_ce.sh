@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+OS_Type=`uname`
+if [ $OS_Type -eq "Darwin" ]
+then
+    alias timeout=gtimeout
+fi
+
 mpc=$1
 dir=$2
 TIMEOUT=5
