@@ -102,6 +102,8 @@ Check `test/example` directory for more examples.
 
 ## Build from Source
 
+**Now both in-source and out-of-source compilation is allowed.**
+
 ### Dependencies
 
 * gcc >= 5.4
@@ -131,6 +133,21 @@ cmake --build <build-dir> --target mpc
     ```
     cmake --build <build-dir> --target mpc-test-example
     ```
+
+### Attention for MacOS Users
+1. Use `homebrew` to install `llvm`.
+``` shell
+brew install llvm
+```
+2. Follow hints in `brew info llvm`, implement
+``` shell
+echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bash_profile
+```
+3. Use `homebrew` to install `coreutils`
+``` shell
+brew install coreutils
+```
+Building Steps are totally same as above.
 
 ## Documentation
 

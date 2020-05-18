@@ -76,8 +76,12 @@ add_custom_command(
         DEPENDS ${CMAKE_CURRENT_LIST_DIR}/bison/head.y ${BISON_SOURCE} ${CMAKE_CURRENT_LIST_DIR}/bison/build.sh
 )
 
+if(APPLE)
+llvm_map_components_to_libnames(LLVM_LINK_LIBRARIES core)
+ELSE()
 execute_process(COMMAND llvm-config --libs OUTPUT_VARIABLE LLVM_LINK_LIBRARIES)
 string(STRIP "${LLVM_LINK_LIBRARIES}" LLVM_LINK_LIBRARIES)
+ENDIF()
 
 add_executable(
         mpc
@@ -85,4 +89,5 @@ add_executable(
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.l.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.cpp ${CMAKE_CURRENT_BINARY_DIR}/pascal.y.hpp
 )
+
 set_target_properties(mpc PROPERTIES LINK_LIBRARIES "${LLVM_LINK_LIBRARIES}")
